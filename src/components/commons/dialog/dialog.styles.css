@@ -1,0 +1,10 @@
+.dialog {
+  display: flex!important;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog .model-content {
+  width: 300px;
+  padding: 20px 0px;
+}

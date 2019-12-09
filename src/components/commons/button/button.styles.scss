@@ -1,0 +1,55 @@
+@import "src/globals/globals.styles.scss";
+
+$buttonBgPrimary: $bgColorGreen;
+$buttonBgDanger: $bgColorRed;
+$buttonBgSecondary: $bgColorGray;
+
+$buttonHoverBoxShadow: 0px 0px 3px 1px;
+$buttonHoverBoxShadowPrimary: $buttonHoverBoxShadow rgba(74, 161, 19, 0.5);
+$buttonHoverBoxShadowDanger: $buttonHoverBoxShadow rgba(239, 59, 59, 0.5);
+$buttonHoverBoxShadowSecondary: $buttonHoverBoxShadow rgba(179, 179, 179, 0.5);
+
+.hb-button {
+  height: 40px;
+  min-width: 100px;
+  font-size: 15px !important;
+  font-weight: 400;
+  color: #fff !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none !important;
+  box-sizing: border-box;
+  padding: 0px 10px !important;
+  border-radius: 10px !important;
+}
+
+.hb-button:hover {
+  outline: none !important;
+  border: none !important;
+}
+
+.hb-button-primary {
+  background-color: $buttonBgPrimary !important;
+}
+
+.hb-button-primary:hover {
+  box-shadow: $buttonHoverBoxShadowPrimary !important;
+}
+
+.hb-button-danger {
+  background: $buttonBgDanger !important;
+}
+
+.hb-button-danger:hover {
+  box-shadow: $buttonHoverBoxShadowDanger !important;
+}
+
+.hb-button-secondary {
+  background: $buttonBgSecondary !important;
+}
+
+.hb-button-secondary:hover {
+  box-shadow: $buttonHoverBoxShadowSecondary !important;
+}
