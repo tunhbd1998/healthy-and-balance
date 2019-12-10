@@ -193,15 +193,6 @@ export const posts = [
     createdDate: "2019-12-10",
   },
   {
-    id: 14,
-    title: "Post 14",
-    category: "categ02",
-    status: 0,
-    shortDescription: "Post 14 description",
-    content: "Post 14 content",
-    createdDate: "2019-12-10",
-  },
-  {
     id: 15,
     title: "Post 15",
     category: "categ03",

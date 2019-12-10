@@ -8,8 +8,9 @@ import Image from '../commons/image';
 import SearchInput from '../commons/search';
 import PagingControl from '../commons/paging-control';
 import MainLayout from '../layouts/main-layout';
-import { getDataFromLocalStorage } from '../../utils';
-import DialogPoster from '../commons/dialog-poster';
+import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../utils';
+import DialogPoster from './dialog-add-poster';
+import Dialog from '../commons/dialog';
 
 class DashboardComponent extends React.Component {
     constructor(props) {
@@ -23,6 +24,8 @@ class DashboardComponent extends React.Component {
             maxItems: 10,
             currentPage: 1,
             searchText: "",
+            removeId: "",
+            showDialogWarning: false,
         }
     }
 
@@ -66,18 +69,34 @@ class DashboardComponent extends React.Component {
     }
 
     onRemove(id) {
-        const { originPosts } = this.state;
-        let post = undefined;
+        this.setState({
+            removeId: id,
+            showDialogWarning: true,
+        });
+    }
+
+    onRemoveAccpet() {
+        const { originPosts, removeId } = this.state;
+        const posts = [];
         originPosts.forEach(v => {
-            if (v.id === id) {
-                post = v;
-                return;
+            if (v.id !== removeId) {
+                posts.push(v);
             }
         });
+        saveDataToLocalStorage("posts", JSON.stringify(posts));
+        this.setState({
+            removeId: -1,
+            showDialogWarning: false,
+            originPosts: posts,
+            posts: posts,
+        });
+    }
 
-        if (post !== undefined) {
-
-        }
+    onRemoveCancel() {
+        this.setState({
+            removeId: -1,
+            showDialogWarning: false,
+        });
     }
 
     onEdit(id) {
@@ -176,12 +195,44 @@ class DashboardComponent extends React.Component {
         });
     }
 
+    onButtonAddPoster() {
+        this.setState({
+            showDialogAddPoster: true,
+        })
+    }
+
+    onDialogAddClose() {
+        this.setState({
+            showDialogAddPoster: false,
+        });
+        this.loadData();
+    }
+
     render() {
-        const { posts, header, categories, status, maxItems, currentPage, searchText } = this.state;
+        const { posts, header, categories, status, maxItems, currentPage, searchText, showDialogAddPoster, showDialogWarning } = this.state;
+        const buttonDialogWarining = [
+            {
+                type: "danger",
+                label: "Không",
+                onClick: () => this.onRemoveCancel(),
+            },
+            {
+                type: "primary",
+                label: "Có",
+                onClick: () => this.onRemoveAccpet(),
+            }
+        ];
+        const contentDialogWarning = "Bạn có muốn xóa bài viết?";
+
         return (
             <MainLayout haveLeftSidebar={false} menuItems={[]}>
                 <>
-                    <DialogPoster show/>
+                    <DialogPoster show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
+                    <Dialog
+                        show={showDialogWarning}
+                        buttons={buttonDialogWarining}
+                        messageContent={contentDialogWarning}
+                        onClickCloseButton={() => this.onRemoveCancel()} />
                     <div className="dashboard">
                         <div>
                             <div className="title">
@@ -200,7 +251,7 @@ class DashboardComponent extends React.Component {
                                     <ComboBox items={categories} label={"Chuyên mục"} onChange={(e) => this.filterCategory(e)} />
                                 </div>
                                 <div>
-                                    <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} />
+                                    <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} onClick={() => this.onButtonAddPoster()} />
                                 </div>
                             </div>
                             <DataTableComponent

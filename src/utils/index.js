@@ -1,7 +1,6 @@
 import * as data from "../data";
 
 export const prepareDataForApp = () => {
-  console.log("data", data);
   saveDataToLocalStorage(
     "commonCategories",
     JSON.stringify(data.commonCategories)
