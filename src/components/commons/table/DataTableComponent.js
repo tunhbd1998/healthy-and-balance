@@ -36,10 +36,9 @@ class DataTableComponent extends React.Component {
     render() {
         const { header, posts, onRemove, onEdit, maxItems, currentPage } = this.props;
         let postsArr = [];
-        for (let i = (currentPage - 1) * maxItems; (i < currentPage * maxItems && i < (posts.length - 1)); i += 1) {
+        for (let i = (currentPage - 1) * maxItems; (i < currentPage * maxItems && i < posts.length); i += 1) {
             postsArr.push(posts[i]);
         }
-
         return (
             <>
                 <Table>

@@ -21,6 +21,7 @@ class DashboardComponent extends React.Component {
             status: [],
             maxItems: 10,
             currentPage: 1,
+            searchText: "",
         }
     }
 
@@ -133,8 +134,39 @@ class DashboardComponent extends React.Component {
         });
     }
 
+    onTextSearchChange(e) {
+        this.setState({
+            searchText: e.target.value,
+        });
+    }
+
+    onSearch(e) {
+        e.preventDefault();
+        const { originPosts, searchText } = this.state;
+
+        let posts = [];
+        if (searchText === "") {
+            this.setState({
+                searchText: "",
+                posts: originPosts,
+            });
+            return;
+        }
+
+        originPosts.map(v => {
+            if (v.title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
+                posts.push(v);
+            }
+        });
+
+        this.setState({
+            searchText: "",
+            posts,
+        });
+    }
+
     render() {
-        const { posts, header, categories, status, maxItems, currentPage } = this.state;
+        const { posts, header, categories, status, maxItems, currentPage, searchText } = this.state;
         console.log(this.state)
         return (
             <MainLayout haveLeftSidebar={false} menuItems={[]}>
@@ -145,7 +177,11 @@ class DashboardComponent extends React.Component {
                                 Quản lý bài viết
                             </div>
                             <div className="search-input">
-                                <SearchInput placeHolder="Tìm kiếm" />
+                                <SearchInput
+                                    placeHolder="Tìm kiếm"
+                                    onChange={(e) => this.onTextSearchChange(e)}
+                                    onSearch={(e) => this.onSearch(e)}
+                                    searchText={searchText} />
                             </div>
                             <div className="control-tool">
                                 <div className="group-one">
