@@ -9,8 +9,9 @@ import SearchInput from '../commons/search';
 import PagingControl from '../commons/paging-control';
 import MainLayout from '../layouts/main-layout';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../utils';
-import DialogPoster from './dialog-add-poster';
+import DialogAddPoster from './dialog-add-poster';
 import Dialog from '../commons/dialog';
+import DialogEditPoster from './dialog-edit-poster';
 
 class DashboardComponent extends React.Component {
     constructor(props) {
@@ -26,6 +27,8 @@ class DashboardComponent extends React.Component {
             searchText: "",
             removeId: "",
             showDialogWarning: false,
+            showDialogUpdate: false,
+            postUpdate: undefined,
         }
     }
 
@@ -100,7 +103,19 @@ class DashboardComponent extends React.Component {
     }
 
     onEdit(id) {
-        console.log("Edit ", id);
+        const { originPosts } = this.state;
+        let post = undefined;
+        originPosts.forEach(v => {
+            if (v.id === id) {
+                post = v;
+                return;
+            }
+        });
+
+        this.setState({
+            showDialogUpdate: true,
+            postUpdate: post,
+        });
     }
 
     nextPage() {
@@ -129,7 +144,6 @@ class DashboardComponent extends React.Component {
             posts = originPosts;
         } else {
             originPosts.forEach(v => {
-                console.log(v);
                 // eslint-disable-next-line eqeqeq
                 if (v.status == value) {
                     posts.push(v);
@@ -208,8 +222,28 @@ class DashboardComponent extends React.Component {
         this.loadData();
     }
 
+    onDialogUpdateClose() {
+        this.setState({
+            showDialogUpdate: false,
+        });
+        this.loadData();
+    }
+
     render() {
-        const { posts, header, categories, status, maxItems, currentPage, searchText, showDialogAddPoster, showDialogWarning } = this.state;
+        const {
+            posts,
+            header,
+            categories,
+            status,
+            maxItems,
+            currentPage,
+            searchText,
+            showDialogAddPoster,
+            showDialogWarning,
+            showDialogUpdate,
+            postUpdate
+        } = this.state;
+
         const buttonDialogWarining = [
             {
                 type: "danger",
@@ -227,7 +261,8 @@ class DashboardComponent extends React.Component {
         return (
             <MainLayout haveLeftSidebar={false} menuItems={[]}>
                 <>
-                    <DialogPoster show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
+                    <DialogAddPoster show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
+                    <DialogEditPoster post={postUpdate} show={showDialogUpdate} onCloseDialog={() => this.onDialogUpdateClose()} />
                     <Dialog
                         show={showDialogWarning}
                         buttons={buttonDialogWarining}

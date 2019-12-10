@@ -4,23 +4,16 @@ import Dialog from '../../commons/dialog';
 import Input from "../../commons/input";
 import ComboBox from "../../commons/combo-box";
 import { getDataFromLocalStorage, saveDataToLocalStorage } from "../../../utils";
-import "./dialog-add-poster.scss";
+import "./dialog-edit-poster.scss";
 
-export default class DialogAddPoster extends React.Component {
+export default class DialogEditPoster extends React.Component {
 
     constructor(props) {
         super(props);
+        const { post } = props;
         this.state = {
             categories: [],
-            post: {
-                id: -1,
-                title: "",
-                category: "",
-                status: 0,
-                shortDescription: "",
-                content: "",
-                createdDate: "",
-            }
+            post: post,
         }
     }
 
@@ -28,32 +21,27 @@ export default class DialogAddPoster extends React.Component {
         this.loadData();
     }
 
-    resetData() {
-        this.setState({
-            categories: [],
-            post: {
-                id: -1,
-                title: "",
-                category: "",
-                status: 0,
-                shortDescription: "",
-                content: "",
-                createdDate: "",
-            }
-        });
+    componentDidUpdate() {
+        const originPost = this.props.post;
+        const { post } = this.state;
+        const { show } = this.props;
+        if (post === undefined && originPost !== undefined && show) {
+            this.setState({
+                ...this.state,
+                post: {
+                    ...originPost,
+                    status: 0,
+                }
+            });
+        }
     }
 
     loadData() {
         const categories = JSON.parse(getDataFromLocalStorage("categories"));
-        const { post } = this.state;
         this.setState({
             categories: categories,
-            post: {
-                ...post,
-                category: categories[0].id,
-                createdDate: new Date().toISOString().split('T')[0]
-            }
-        })
+            post: undefined
+        });
     }
 
     onNameChange(e) {
@@ -96,22 +84,33 @@ export default class DialogAddPoster extends React.Component {
         })
     }
 
-    onAdd() {
+    onEdit() {
         const { onCloseDialog } = this.props;
         const { post } = this.state;
         const posts = JSON.parse(getDataFromLocalStorage("posts"));
-        post.id = posts[posts.length - 1].id + 1;
-        posts.push(post);
-        saveDataToLocalStorage("posts", JSON.stringify(posts));
+        const newPosts = [];
+        posts.map(v => {
+            if (v.id === post.id) {
+                newPosts.push(post);
+            } else {
+                newPosts.push(v);
+            }
+        });
+        saveDataToLocalStorage("posts", JSON.stringify(newPosts));
         onCloseDialog();
-        this.resetData();
         this.loadData();
     }
 
+
+
     render() {
         const { show, onCloseDialog } = this.props;
-        const { categories, post } = this.state;
-
+        const { categories } = this.state;
+        const { post } = this.state;
+        if (post === undefined) {
+            return <></>;
+        }
+        const {title, category, shortDescription, content} = post;
         let dialogContent, buttonsDialog = [
             {
                 type: "secondary",
@@ -120,27 +119,27 @@ export default class DialogAddPoster extends React.Component {
             },
             {
                 type: "primary",
-                label: "Thêm",
-                onClick: () => this.onAdd(),
+                label: "Cập nhật",
+                onClick: () => this.onEdit(),
             }];
         dialogContent = <>
             <div className="group-item">
                 Tên bài viết
-                <Input placeHover="Tên bài viết" onChange={(e) => this.onNameChange(e)} />
+                <Input placeHover="Tên bài viết" value={title} onChange={(e) => this.onNameChange(e)} />
             </div>
             <div className="group-item">
                 Chuyên mục
-                <ComboBox items={categories} onChange={(e) => this.onCategoryChange(e)} />
+                <ComboBox items={categories} selectValue={category} onChange={(e) => this.onCategoryChange(e)} />
             </div>
             <div className="group-item">
                 Miêu tả ngắn về bài viết
-                <Input placeHover="Mô tả bài viết" type="textarea" onChange={(e) => this.onshortDescriptionChange(e)} />
+                <Input placeHover="Mô tả bài viết" value={shortDescription} type="textarea" onChange={(e) => this.onshortDescriptionChange(e)} />
             </div>
             <div>
                 <div className="group-item">
                     Nội dung bài viết
                 </div>
-                <TextEdit value={post.content} onChange={(value) => this.onContentChange(value)} />
+                <TextEdit value={content} onChange={(value) => this.onContentChange(value)} />
             </div>
         </>
         return (
