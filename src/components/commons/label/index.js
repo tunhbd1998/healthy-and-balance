@@ -1,10 +1,10 @@
 import React from "react";
 import {Badge} from 'react-bootstrap';
-import './label.css';
+import './label.scss';
 
 export default function Label({ children, type }) {
   return (
-    <Badge variant={type} className="lb">
+    <Badge className={`lb lb-${type || "primary"}`}>
       {children}
     </Badge>
   );

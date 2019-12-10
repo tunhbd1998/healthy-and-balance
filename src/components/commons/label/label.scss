@@ -1,0 +1,31 @@
+@import "src/globals/globals.styles.scss";
+
+$buttonBgPrimary: $bgColorGreen;
+$buttonBgDanger: $bgColorRed;
+$buttonBgSecondary: $bgColorGray;
+$buttonBgWarning: $bgColorYellow;
+
+.lb {
+    width: 100px;
+    height: 25px;
+    color: white !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.lb-danger {
+    background-color: $buttonBgDanger;
+}
+
+.lb-primary {
+    background-color: $buttonBgPrimary;
+}
+
+.lb-second {
+    background-color: $buttonBgPrimary;
+}
+
+.lb-warning {
+    background-color: $buttonBgWarning;
+}

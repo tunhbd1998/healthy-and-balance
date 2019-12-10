@@ -1,0 +1,42 @@
+@import "src/globals/globals.styles.scss";
+
+.cb {
+    border: 1px solid black;
+    border-radius: 10px;
+    border-color: $textColorMain;
+    width: 220px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    color: $textColorMain;
+    font-weight: bold;
+    background-color: #ffffff;
+}
+
+.cb-min {
+    border: 1px solid black;
+    border-radius: 10px;
+    border-color: $textColorMain;
+    width: 120px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    color: $textColorMain;
+    font-weight: bold;
+}
+
+select {
+    border: none;
+    border-radius: 10px;
+    cursor:pointer;
+    color: $textColorMain;
+    font-weight: bold;
+}
+
+select:focus {
+    border: none !important;
+}

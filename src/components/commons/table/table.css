@@ -2,6 +2,10 @@
     vertical-align: middle;
 }
 
+table {
+    background-color: #ffffff;
+}
+
 .center-cell {
     display: flex;
     justify-content: center;

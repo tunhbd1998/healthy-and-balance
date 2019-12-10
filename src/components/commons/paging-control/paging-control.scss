@@ -1,0 +1,23 @@
+@import 'src/globals/globals.styles.scss';
+
+.pg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-pg {
+    width: 60px !important;
+    height: 40px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: $bgColorGreen !important;
+}
+
+.page-number {
+    font-size: 16px;
+    font-style: italic;
+    margin: 0 20px;
+    color: $textColorMain;
+}

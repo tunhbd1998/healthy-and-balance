@@ -1,0 +1,19 @@
+@import "src/globals/globals.styles.scss";
+
+.ip-se {
+    border-radius: 10px;
+    border: 1px  solid black;
+    border-color: $textColorMain;
+    width: 300px;
+    padding-left: 6px;
+    display: flex;
+    align-self: center;
+    background-color: #ffffff;
+}
+
+.ip-se input {
+    border: none;
+    width: 247px;
+    color: $textColor02;
+    font-weight: bold;
+}

@@ -1,0 +1,11 @@
+@import "src/globals/globals.styles.scss";
+
+.button-2 {
+    border: 1px solid black !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    color: $textColorMain !important;
+    border-color: $textColorMain !important;
+    display: flex !important;
+    align-items: center !important;
+}
