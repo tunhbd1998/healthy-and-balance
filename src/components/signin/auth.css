@@ -10,6 +10,7 @@ input {
 .form__auth{
     max-width:550px;
     position: relative;
+    background:#fff;
     top:40px;
     margin:auto;
     padding:20px 30px;

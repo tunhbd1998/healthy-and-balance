@@ -8,6 +8,7 @@ input,select {
 }
 
 .form__auth{
+    background:#fff;
     max-width:550px;
     position: relative;
     top:40px;

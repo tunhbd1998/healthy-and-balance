@@ -30,8 +30,8 @@ export default function App() {
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/" exact component={Home} />
         <Route path="/management" exact component={DashboardComponent} />
-        <Route path="/admin/sign-in" exact component={null} />
-        <Route path="/admin/sign-in" exact component={SignIn} />
+        {/* <Route path="/admin/sign-in" exact component={null} />
+        <Route path="/admin/sign-in" exact component={SignIn} /> */}
         <Route path="/admin/dashboard" exact component={null} />
       </Switch>
     </Router>
