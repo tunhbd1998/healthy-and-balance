@@ -3,9 +3,14 @@ import { Modal } from "react-bootstrap";
 import Button from "../button";
 import "./dialog.styles.css";
 
-export default function Dialog({ messageContent, buttons, show }) {
+export default function Dialog({ title, messageContent, buttons, show }) {
   return (
     <Modal className="dialog" show={show}>
+      {title ? (
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+      ) : null}
       <Modal.Body className="">{messageContent}</Modal.Body>
       <Modal.Footer>
         {buttons.map(button => {

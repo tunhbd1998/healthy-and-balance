@@ -1,0 +1,36 @@
+.hb-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.user-menu {
+  position: relative;
+
+  .items {
+    width: 265px;
+    background: #fff;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    &::before {
+      display: block;
+      right: 25px;
+      content: "";
+      height: 0;
+      top: -11px;
+      width: 0;
+      position: absolute;
+      border-left: 11px solid transparent;
+      border-right: 11px solid transparent;
+      border-bottom: 11px solid #fff;
+    }
+
+    .item {
+      width: 100%;
+    }
+  }
+}
