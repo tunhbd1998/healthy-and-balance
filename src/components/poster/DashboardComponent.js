@@ -37,6 +37,8 @@ class DashboardComponent extends React.Component {
     }
 
     loadData() {
+        const posts = JSON.parse(getDataFromLocalStorage("posts"));
+        
         let categories = [];
         categories.push({
             id: "all",
@@ -47,8 +49,8 @@ class DashboardComponent extends React.Component {
             categories.push(v);
         })
         this.setState({
-            originPosts: JSON.parse(getDataFromLocalStorage("posts")),
-            posts: JSON.parse(getDataFromLocalStorage("posts")),
+            originPosts: posts,
+            posts: posts,
             categories: categories,
             status: [
                 {
@@ -67,7 +69,7 @@ class DashboardComponent extends React.Component {
                     id: 1,
                     title: "Đã duyệt"
                 },
-            ]
+            ],
         })
     }
 
@@ -79,6 +81,8 @@ class DashboardComponent extends React.Component {
     }
 
     onRemoveAccpet() {
+        const { maxItems } = this.state;
+        let { currentPage } = this.state;
         const { originPosts, removeId } = this.state;
         const posts = [];
         originPosts.forEach(v => {
@@ -87,11 +91,15 @@ class DashboardComponent extends React.Component {
             }
         });
         saveDataToLocalStorage("posts", JSON.stringify(posts));
+        if ((currentPage - 1) * maxItems <= posts.length && currentPage !== 1) {
+            currentPage--;
+        }
         this.setState({
             removeId: -1,
             showDialogWarning: false,
             originPosts: posts,
             posts: posts,
+            currentPage: currentPage,
         });
     }
 
@@ -302,7 +310,7 @@ class DashboardComponent extends React.Component {
                             <PagingControl
                                 onNext={() => this.nextPage()}
                                 onPrev={() => this.prevPage()}
-                                maxPage={Math.floor(posts.length / maxItems) + 1}
+                                maxPage={Math.floor(posts.length / maxItems) === posts.length / maxItems ? Math.floor(posts.length / maxItems) : Math.floor(posts.length / maxItems) + 1}
                                 currentPage={currentPage} />
                         </div>
                     </div>
