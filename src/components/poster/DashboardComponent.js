@@ -16,7 +16,10 @@ class DashboardComponent extends React.Component {
         this.state = {
             posts: [],
             header: ["Tên bài viết", "Ngày tạo", "Chuyên mục", "Trạng thái", "Thao tác"],
-            categories: []
+            categories: [],
+            status: [],
+            maxItems: 10,
+            currentPage: 1,
         }
     }
 
@@ -30,6 +33,24 @@ class DashboardComponent extends React.Component {
         this.setState({
             posts: JSON.parse(getDataFromLocalStorage("posts")),
             categories: JSON.parse(getDataFromLocalStorage("categories")),
+            status: [
+                {
+                    id: 1,
+                    title: "Tất cả"
+                },
+                {
+                    id: 2,
+                    title: "Bị từ chối"
+                },
+                {
+                    id: 3,
+                    title: "Chờ duyệt"
+                },
+                {
+                    id: 4,
+                    title: "Đã duyệt"
+                },
+            ]
         })
     }
 
@@ -41,8 +62,25 @@ class DashboardComponent extends React.Component {
         console.log("Edit ", id);
     }
 
+    nextPage() {
+        const { state } = this;
+        this.setState({
+            currentPage: state.currentPage++,
+            ...state,
+        });
+    }
+
+    prevPage() {
+        const { state } = this;
+        this.setState({
+            currentPage: state.currentPage--,
+            ...state,
+        });
+    }
+
     render() {
-        const { posts, header, categories } = this.state;
+        const { posts, header, categories, status, maxItems, currentPage } = this.state;
+        console.log(this.state)
         return (
             <MainLayout haveLeftSidebar={false} menuItems={[]}>
                 <>
@@ -52,11 +90,11 @@ class DashboardComponent extends React.Component {
                                 Quản lý bài viết
                             </div>
                             <div className="search-input">
-                                <SearchInput placeHolder="Tìm kiếm"/>
+                                <SearchInput placeHolder="Tìm kiếm" />
                             </div>
                             <div className="control-tool">
                                 <div className="group-one">
-                                    <ComboBox items={categories} label={"Chuyên mục"} />
+                                    <ComboBox items={status} label={"Trạng thái"} />
                                     <ComboBox items={categories} label={"Chuyên mục"} />
                                 </div>
                                 <div>
@@ -64,6 +102,8 @@ class DashboardComponent extends React.Component {
                                 </div>
                             </div>
                             <DataTableComponent
+                                maxItems={maxItems}
+                                currentPage={currentPage}
                                 posts={posts}
                                 header={header}
                                 categories={categories}
@@ -71,7 +111,11 @@ class DashboardComponent extends React.Component {
                                 onEdit={(id) => this.onEdit(id)} />
                         </div>
                         <div className="footer">
-                            <PagingControl />
+                            <PagingControl
+                                onNext={() => this.nextPage()}
+                                onPrev={() => this.prevPage()}
+                                maxPage={Math.floor(posts.length / maxItems) + 1}
+                                currentPage={currentPage} />
                         </div>
                     </div>
                 </>

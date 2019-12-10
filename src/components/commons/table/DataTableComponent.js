@@ -21,8 +21,9 @@ import Image from '../image';
 // }
 class DataTableComponent extends React.Component {
     getCategory(id) {
-        const { categories} = this.props;
+        const { categories } = this.props;
         let category;
+        // eslint-disable-next-line array-callback-return
         categories.map((v) => {
             if (v.id === id) {
                 category = v.title;
@@ -33,7 +34,12 @@ class DataTableComponent extends React.Component {
     }
 
     render() {
-        const { header, posts, onRemove, onEdit } = this.props;
+        const { header, posts, onRemove, onEdit, maxItems, currentPage } = this.props;
+        let postsArr = [];
+        for (let i = (currentPage - 1) * maxItems; (i < currentPage * maxItems && i < (posts.length - 1)); i += 1) {
+            postsArr.push(posts[i]);
+        }
+
         return (
             <>
                 <Table>
@@ -48,7 +54,7 @@ class DataTableComponent extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            posts.map((v, idx) => (
+                            postsArr.map((v, idx) => (
                                 <tr key={idx}>
                                     <td><div className="center-cell">{v.title}</div></td>
                                     <td><div className="center-cell">{v.createdDate}</div></td>

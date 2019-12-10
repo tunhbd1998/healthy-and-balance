@@ -13,7 +13,7 @@ export default function ComboBox({ onChange, items, label }) {
                 onChange={onChange}>
                 {
                     items.map((v, idx) => (
-                        <option value={v.id} key={idx}>{v.title}</option>
+                        <option className={idx === 0 ? "select" : ""} value={v.id} key={idx}>{v.title}</option>
                     ))
                 }
             </select>

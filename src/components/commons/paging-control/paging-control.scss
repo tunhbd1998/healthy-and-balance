@@ -15,6 +15,11 @@
     background-color: $bgColorGreen !important;
 }
 
+.button-disable {
+    background-color: $bgColorGray !important;
+    cursor: not-allowed !important;
+}
+
 .page-number {
     font-size: 16px;
     font-style: italic;
