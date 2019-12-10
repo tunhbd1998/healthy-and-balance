@@ -15,6 +15,7 @@ class DashboardComponent extends React.Component {
         super(props);
         this.state = {
             posts: [],
+            originPosts: [],
             header: ["Tên bài viết", "Ngày tạo", "Chuyên mục", "Trạng thái", "Thao tác"],
             categories: [],
             status: [],
@@ -28,26 +29,34 @@ class DashboardComponent extends React.Component {
     }
 
     loadData() {
-        console.log(getDataFromLocalStorage("posts"));
-        console.log(getDataFromLocalStorage("categories"));
+        let categories = [];
+        categories.push({
+            id: "all",
+            title: "Tất cả",
+        })
+        // eslint-disable-next-line array-callback-return
+        JSON.parse(getDataFromLocalStorage("categories")).map(v => {
+            categories.push(v);
+        })
         this.setState({
+            originPosts: JSON.parse(getDataFromLocalStorage("posts")),
             posts: JSON.parse(getDataFromLocalStorage("posts")),
-            categories: JSON.parse(getDataFromLocalStorage("categories")),
+            categories: categories,
             status: [
                 {
-                    id: 1,
+                    id: 2,
                     title: "Tất cả"
                 },
                 {
-                    id: 2,
+                    id: -1,
                     title: "Bị từ chối"
                 },
                 {
-                    id: 3,
+                    id: 0,
                     title: "Chờ duyệt"
                 },
                 {
-                    id: 4,
+                    id: 1,
                     title: "Đã duyệt"
                 },
             ]
@@ -78,6 +87,52 @@ class DashboardComponent extends React.Component {
         });
     }
 
+    filterStatus(e) {
+        const { state } = this;
+        const { originPosts } = state;
+        const { value } = e.target;
+        let posts = [];
+        // eslint-disable-next-line eqeqeq
+        if (value == 2) {
+            posts = originPosts;
+        } else {
+            // eslint-disable-next-line array-callback-return
+            originPosts.map(v => {
+                console.log(v);
+                // eslint-disable-next-line eqeqeq
+                if (v.status == value) {
+                    posts.push(v);
+                }
+            });
+        }
+        this.setState({
+            ...state,
+            posts: posts,
+        });
+    }
+
+    filterCategory(e) {
+        const { state } = this;
+        const { originPosts } = state;
+        const { value } = e.target;
+        let posts = [];
+
+        if (value === "all") {
+            posts = originPosts;
+        } else {
+            // eslint-disable-next-line array-callback-return
+            originPosts.map(v => {
+                if (v.category === value) {
+                    posts.push(v);
+                }
+            });
+        }
+        this.setState({
+            ...state,
+            posts: posts,
+        });
+    }
+
     render() {
         const { posts, header, categories, status, maxItems, currentPage } = this.state;
         console.log(this.state)
@@ -94,8 +149,8 @@ class DashboardComponent extends React.Component {
                             </div>
                             <div className="control-tool">
                                 <div className="group-one">
-                                    <ComboBox items={status} label={"Trạng thái"} />
-                                    <ComboBox items={categories} label={"Chuyên mục"} />
+                                    <ComboBox items={status} label={"Trạng thái"} onChange={(e) => this.filterStatus(e)} />
+                                    <ComboBox items={categories} label={"Chuyên mục"} onChange={(e) => this.filterCategory(e)} />
                                 </div>
                                 <div>
                                     <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} />
