@@ -9,7 +9,7 @@ export default function SearchInput({ onChange, children, onSearch, placeHolder 
             <input
                 multiple
                 onChange={onChange}
-                placeHolder={placeHolder}>
+                placeholder={placeHolder}>
                 {children}
             </input>
             <Image src={ic_search} onClick={onSearch}/> 

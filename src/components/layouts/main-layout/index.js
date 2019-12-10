@@ -23,7 +23,7 @@ export default function MainLayout({ haveLeftSidebar, menuItems, children }) {
             <Container>{children}</Container>
           </Container>
         ) : (
-          <Container>{children}</Container>
+          <Container fluid style={{overflow: 'auto', height: '100%', width: '100%'}}>{children}</Container>
         )}
       </Row>
     </Container>

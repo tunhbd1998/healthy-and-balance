@@ -7,35 +7,30 @@ import ic_add from './ic_add.svg';
 import Image from '../commons/image';
 import SearchInput from '../commons/search';
 import PagingControl from '../commons/paging-control';
+import MainLayout from '../layouts/main-layout';
+import { getDataFromLocalStorage } from '../../utils';
 
 class DashboardComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            post: [{
-                id: 1,
-                name: "test 1",
-                createdate: "22/12/2019",
-                category: "Sức khỏe",
-                status: 0
-            },
-            {
-                id: 2,
-                name: "test 2",
-                createdate: "22/12/2019",
-                category: "Sức khỏe",
-                status: -1
-            },
-            {
-                id: 3,
-                name: "test 3",
-                createdate: "22/12/2019",
-                category: "Sức khỏe",
-                status: 1
-            }],
+            posts: [],
             header: ["Tên bài viết", "Ngày tạo", "Chuyên mục", "Trạng thái", "Thao tác"],
-            categories: ["Tất cả", "Sức khỏe", "Sống khỏe", "Theo mùa", "Khỏe đẹp"]
+            categories: []
         }
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    loadData() {
+        console.log(getDataFromLocalStorage("posts"));
+        console.log(getDataFromLocalStorage("categories"));
+        this.setState({
+            posts: JSON.parse(getDataFromLocalStorage("posts")),
+            categories: JSON.parse(getDataFromLocalStorage("categories")),
+        })
     }
 
     onRemove(id) {
@@ -47,37 +42,40 @@ class DashboardComponent extends React.Component {
     }
 
     render() {
-        const { post, header, categories } = this.state;
+        const { posts, header, categories } = this.state;
         return (
-            <>
-                <div className="dashboard">
-                    <div>
-                        <div className="title">
-                            Quản lý bài viết
-                    </div>
-                        <div className="search-input">
-                            <SearchInput />
-                        </div>
-                        <div className="control-tool">
-                            <div className="group-one">
-                                <ComboBox items={categories} label={"Chuyên mục"} />
-                                <ComboBox items={categories} label={"Chuyên mục"} />
+            <MainLayout haveLeftSidebar={false} menuItems={[]}>
+                <>
+                    <div className="dashboard">
+                        <div>
+                            <div className="title">
+                                Quản lý bài viết
                             </div>
-                            <div>
-                                <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} />
+                            <div className="search-input">
+                                <SearchInput placeHolder="Tìm kiếm"/>
                             </div>
+                            <div className="control-tool">
+                                <div className="group-one">
+                                    <ComboBox items={categories} label={"Chuyên mục"} />
+                                    <ComboBox items={categories} label={"Chuyên mục"} />
+                                </div>
+                                <div>
+                                    <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} />
+                                </div>
+                            </div>
+                            <DataTableComponent
+                                posts={posts}
+                                header={header}
+                                categories={categories}
+                                onRemove={(id) => this.onRemove(id)}
+                                onEdit={(id) => this.onEdit(id)} />
                         </div>
-                        <DataTableComponent
-                            data={post}
-                            header={header}
-                            onRemove={(id) => this.onRemove(id)}
-                            onEdit={(id) => this.onEdit(id)} />
+                        <div className="footer">
+                            <PagingControl />
+                        </div>
                     </div>
-                    <div className="footer">
-                        <PagingControl />
-                    </div>
-                </div>
-            </>
+                </>
+            </MainLayout>
         )
     }
 }

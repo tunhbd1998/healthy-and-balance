@@ -14,55 +14,69 @@ import Image from '../image';
 // props = {
 //     header: []string,
 //     data: danh sách bài viết mỗi bài viết gôm {
-//          id, name, createdate, category, status (status 1: đã suyệt, 0 chờ duyệt, -1 bị từ chối)
+//          id, title, createdDate, category, status (status 1: đã suyệt, 0 chờ duyệt, -1 bị từ chối)
 //      }
 //     onRemove: function(id Bài viết),
 //     onEdit: function(id Bài viết)
 // }
-function DataTableComponent(props) {
-    const { header, data, onRemove, onEdit } = props;
-    return (
-        <>
-            <Table>
-                <thead>
-                    <tr>
+class DataTableComponent extends React.Component {
+    getCategory(id) {
+        const { categories} = this.props;
+        let category;
+        categories.map((v) => {
+            if (v.id === id) {
+                category = v.title;
+                return category;
+            }
+        });
+        return category;
+    }
+
+    render() {
+        const { header, posts, onRemove, onEdit } = this.props;
+        return (
+            <>
+                <Table>
+                    <thead>
+                        <tr>
+                            {
+                                header.map((v, idx) => (
+                                    <th key={idx}><div className="center-cell">{v}</div></th>
+                                ))
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            header.map((v, idx) => (
-                                <th key={idx}><div className="center-cell">{v}</div></th>
+                            posts.map((v, idx) => (
+                                <tr key={idx}>
+                                    <td><div className="center-cell">{v.title}</div></td>
+                                    <td><div className="center-cell">{v.createdDate}</div></td>
+                                    <td><div className="center-cell">{this.getCategory(v.category)}</div></td>
+                                    <td><div className="center-cell">
+                                        {
+                                            v.status === -1 ?
+                                                (<Label type={"danger"} children={<><Image src={ic_cancel} disable />Bị từ chối</>} />)
+                                                : v.status === 0 ?
+                                                    (<Label type={"warning"} children={<><Image src={ic_wating} disable />Chờ duyệt</>} />)
+                                                    :
+                                                    <Label type={"primary"} children={<><Image src={ic_accept} disable />Đã duyệt</>} />
+                                        }
+                                    </div></td>
+                                    {
+                                        v.status === 1 ?
+                                            (<td><div className="center-cell"><Image src={ic_edit_disable} disable /><Image src={ic_trash_disable} disable /></div></td>)
+                                            :
+                                            (<td><div className="center-cell"><Image src={ic_edit} onClick={() => onEdit(v.id)} /><Image src={ic_trash} onClick={() => onRemove(v.id)} /></div></td>)
+                                    }
+                                </tr>
                             ))
                         }
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        data.map((v, idx) => (
-                            <tr key={idx}>
-                                <td><div className="center-cell">{v.name}</div></td>
-                                <td><div className="center-cell">{v.createdate}</div></td>
-                                <td><div className="center-cell">{v.category}</div></td>
-                                <td><div className="center-cell">
-                                    {
-                                        v.status === -1 ?
-                                            (<Label type={"danger"} children={<><Image src={ic_cancel} disable />Bị từ chối</>} />)
-                                            : v.status === 0 ?
-                                                (<Label type={"warning"} children={<><Image src={ic_wating} disable />Chờ duyệt</>} />)
-                                                :
-                                                <Label type={"primary"} children={<><Image src={ic_accept} disable />Đã duyệt</>} />
-                                    }
-                                </div></td>
-                                {
-                                    v.status === 1 ?
-                                        (<td><div className="center-cell"><Image src={ic_edit_disable} disable /><Image src={ic_trash_disable} disable /></div></td>)
-                                        :
-                                        (<td><div className="center-cell"><Image src={ic_edit} onClick={() => onEdit(v.id)} /><Image src={ic_trash} onClick={() => onRemove(v.id)} /></div></td>)
-                                }
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </Table>
-        </>
-    )
+                    </tbody>
+                </Table>
+            </>
+        )
+    }
 }
 
 export default DataTableComponent;

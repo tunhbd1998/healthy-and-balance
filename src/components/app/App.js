@@ -4,6 +4,7 @@ import "./App.css";
 // import DashboardComponent from "../poster/DashboardComponent";
 import { getDataFromLocalStorage, prepareDataForApp } from "../../utils";
 import Home from "../home";
+import DashboardComponent from "../poster/DashboardComponent";
 
 export default function App() {
   const [ready, setReady] = React.useState(false);
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/sign-in" exact component={null} />
         <Route path="/sign-up" exact component={null} />
         <Route path="/" exact component={Home} />
+        <Route path="/management" exact component={DashboardComponent} />
         <Route path="/admin/sign-in" exact component={null} />
         <Route path="/admin/dashboard" exact component={null} />
       </Switch>
