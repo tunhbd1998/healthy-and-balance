@@ -9,6 +9,7 @@ import SearchInput from '../commons/search';
 import PagingControl from '../commons/paging-control';
 import MainLayout from '../layouts/main-layout';
 import { getDataFromLocalStorage } from '../../utils';
+import DialogPoster from '../commons/dialog-poster';
 
 class DashboardComponent extends React.Component {
     constructor(props) {
@@ -65,7 +66,18 @@ class DashboardComponent extends React.Component {
     }
 
     onRemove(id) {
-        console.log("Remove ", id);
+        const { originPosts } = this.state;
+        let post = undefined;
+        originPosts.forEach(v => {
+            if (v.id === id) {
+                post = v;
+                return;
+            }
+        });
+
+        if (post !== undefined) {
+
+        }
     }
 
     onEdit(id) {
@@ -97,8 +109,7 @@ class DashboardComponent extends React.Component {
         if (value == 2) {
             posts = originPosts;
         } else {
-            // eslint-disable-next-line array-callback-return
-            originPosts.map(v => {
+            originPosts.forEach(v => {
                 console.log(v);
                 // eslint-disable-next-line eqeqeq
                 if (v.status == value) {
@@ -122,7 +133,7 @@ class DashboardComponent extends React.Component {
             posts = originPosts;
         } else {
             // eslint-disable-next-line array-callback-return
-            originPosts.map(v => {
+            originPosts.forEach(v => {
                 if (v.category === value) {
                     posts.push(v);
                 }
@@ -153,7 +164,7 @@ class DashboardComponent extends React.Component {
             return;
         }
 
-        originPosts.map(v => {
+        originPosts.forEach(v => {
             if (v.title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
                 posts.push(v);
             }
@@ -167,10 +178,10 @@ class DashboardComponent extends React.Component {
 
     render() {
         const { posts, header, categories, status, maxItems, currentPage, searchText } = this.state;
-        console.log(this.state)
         return (
             <MainLayout haveLeftSidebar={false} menuItems={[]}>
                 <>
+                    <DialogPoster show/>
                     <div className="dashboard">
                         <div>
                             <div className="title">
