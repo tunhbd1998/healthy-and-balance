@@ -12,10 +12,27 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    background-color: $bgColorWhite !important;
+}
+
+.button-pg icon {
+    color: $textColor01;
+}
+
+.button-pg:hover {
     background-color: $bgColorGreen !important;
 }
 
+.button-pg:hover icon {
+    color: $bgColorWhite;
+}
+
 .button-disable {
+    background-color: $bgColorGray !important;
+    cursor: not-allowed !important;
+}
+
+.button-disable:hover {
     background-color: $bgColorGray !important;
     cursor: not-allowed !important;
 }
