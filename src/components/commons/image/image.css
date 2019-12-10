@@ -1,0 +1,11 @@
+.img {
+    margin-right: 10px;
+}
+
+.img-disable {
+    margin-right: 10px;
+}
+
+.img:hover {
+    cursor: pointer;
+}

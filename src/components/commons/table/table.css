@@ -1,0 +1,8 @@
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.center-cell {
+    display: flex;
+    justify-content: center;
+}

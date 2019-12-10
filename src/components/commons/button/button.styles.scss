@@ -3,11 +3,13 @@
 $buttonBgPrimary: $bgColorGreen;
 $buttonBgDanger: $bgColorRed;
 $buttonBgSecondary: $bgColorGray;
+$buttonBgWarning: $bgColorYellow;
 
 $buttonHoverBoxShadow: 0px 0px 3px 1px;
 $buttonHoverBoxShadowPrimary: $buttonHoverBoxShadow rgba(74, 161, 19, 0.5);
 $buttonHoverBoxShadowDanger: $buttonHoverBoxShadow rgba(239, 59, 59, 0.5);
 $buttonHoverBoxShadowSecondary: $buttonHoverBoxShadow rgba(179, 179, 179, 0.5);
+$buttonHoverBoxShadowWarning: $buttonHoverBoxShadow rgba(168, 170, 56, 0.5);
 
 .hb-button {
   height: 40px;
@@ -52,4 +54,12 @@ $buttonHoverBoxShadowSecondary: $buttonHoverBoxShadow rgba(179, 179, 179, 0.5);
 
 .hb-button-secondary:hover {
   box-shadow: $buttonHoverBoxShadowSecondary !important;
+}
+
+.hb-button-warning {
+  background: $buttonBgWarning !important;
+}
+
+.hb-button-warning:hover {
+  box-shadow: $buttonHoverBoxShadowWarning !important;
 }
