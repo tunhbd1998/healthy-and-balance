@@ -12,3 +12,7 @@
     background-color: #ffffff;
     color: $textColor02;
 }
+.ip:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

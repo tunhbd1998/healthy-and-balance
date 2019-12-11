@@ -12,8 +12,14 @@
 }
 
 .ip-se input {
-    border: none;
+    border: none !important;
     width: 247px;
     color: $textColor02;
     font-weight: bold;
+}
+
+.ip-se input:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }

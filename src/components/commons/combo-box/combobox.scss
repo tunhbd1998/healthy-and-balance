@@ -5,7 +5,7 @@
     border-radius: 10px;
     border-color: $textColorMain;
     width: 220px;
-    height: 30px;
+    height: 30px !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,28 +15,39 @@
     background-color: #ffffff;
 }
 
+.cb select {
+    height: auto !important;
+    border: none !important;
+}
+
+.cb select:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .cb-min {
     border: 1px solid black;
     border-radius: 10px;
     border-color: $textColorMain;
     width: 120px;
-    height: 30px;
+    height: 30px !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
     color: $textColorMain;
     font-weight: bold;
+    background-color: #ffffff;
 }
 
-select {
-    border: none;
-    border-radius: 10px;
-    cursor:pointer;
-    color: $textColorMain;
-    font-weight: bold;
-}
-
-select:focus {
+.cb-min select {
+    height: auto !important;
     border: none !important;
+}
+
+.cb-min select:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
