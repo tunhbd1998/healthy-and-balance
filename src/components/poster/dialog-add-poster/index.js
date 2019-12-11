@@ -123,7 +123,7 @@ export default class DialogAddPoster extends React.Component {
                 label: "Thêm",
                 onClick: () => this.onAdd(),
             }];
-        dialogContent = <>
+        dialogContent = <div className="dap">
             <div className="group-item">
                 Tên bài viết
                 <Input placeHover="Tên bài viết" onChange={(e) => this.onNameChange(e)} />
@@ -142,7 +142,7 @@ export default class DialogAddPoster extends React.Component {
                 </div>
                 <TextEdit value={post.content} onChange={(value) => this.onContentChange(value)} />
             </div>
-        </>
+        </div>
         return (
             <Dialog
                 title="Thêm bài viết"

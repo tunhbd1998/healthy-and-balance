@@ -13,7 +13,7 @@ export default function Dialog({
   return (
     <Modal className="dialog" show={show} onHide={onClickCloseButton}>
       {title ? (
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="dialog-header">
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
       ) : null}

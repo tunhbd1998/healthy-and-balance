@@ -4,20 +4,26 @@
   display: flex!important;
   justify-content: center;
   align-items: center;
+
+  .modal-dialog {
+    max-width: none!important;
+    margin: 0!important;
+  }
 }
 
 .dialog .modal-header {
   display: flex!important;
   justify-content: center !important;
   align-items: center !important;
+
+  .modal-title {
+    color:  $textColorMain;
+    width: 100%;
+    text-align: center;
+  }
 }
 
-.dialog .modal-title {
-  align-self: center !important;
-  color:  $textColorMain;;
-}
-
-.dialog .model-content {
-  width: 300px;
-  padding: 20px 0px;
+.dialog .modal-content {
+  width: auto;
+  // padding: 20px 0px;
 }
