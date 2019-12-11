@@ -1,6 +1,14 @@
+.border__red { 
+    border-color: #ef3b3b !important;
+}
+.text__red {
+    color : #ef3b3b !important;
+}
+
+
 input:focus {
-    box-shadow:unset !important;
-    border:unset;
+    box-shadow: 0 0 0 1px rgba(37, 88, 82,0.75) !important;	;
+    border-color: #255852 !important;
 }
 input {
     border: 1px solid #E0E2E5 !important;

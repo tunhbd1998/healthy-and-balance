@@ -7,6 +7,7 @@ import Home from "../home";
 import DashboardComponent from "../poster/DashboardComponent";
 import SignIn from '../signin'
 import SignUp from '../signup'
+import ForgotPassword from '../forgot-password'
 
 export default function App() {
   const [ready, setReady] = React.useState(false);
@@ -28,6 +29,7 @@ export default function App() {
       <Switch>
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/sign-up" exact component={SignUp} />
+        <Route path="/forgot-password" exact component={ForgotPassword} />
         <Route path="/" exact component={Home} />
         <Route path="/management" exact component={DashboardComponent} />
         {/* <Route path="/admin/sign-in" exact component={null} />

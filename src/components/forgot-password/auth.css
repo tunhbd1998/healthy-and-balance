@@ -1,15 +1,3 @@
-.border__red { 
-    border-color: #ef3b3b !important;
-}
-.text__red {
-    color : #ef3b3b !important;
-}
-.alert__error{
-    color : #ef3b3b !important;
-    font-size: 12px;
-    font-style: italic;
-    font-weight:600;
-}
 select:focus,input:focus {
     box-shadow: 0 0 0 1px rgba(37, 88, 82,0.75) !important;	;
     border-color: #255852 important;
@@ -20,7 +8,6 @@ input,select {
 }
 
 .form__auth{
-    background:#fff;
     max-width:550px;
     position: relative;
     top:40px;
