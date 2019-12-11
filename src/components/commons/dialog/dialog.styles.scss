@@ -1,0 +1,29 @@
+@import "src/globals/globals.styles.scss";
+
+.dialog {
+  display: flex!important;
+  justify-content: center;
+  align-items: center;
+
+  .modal-dialog {
+    max-width: none!important;
+    margin: 0!important;
+  }
+}
+
+.dialog .modal-header {
+  display: flex!important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  .modal-title {
+    color:  $textColorMain;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.dialog .modal-content {
+  width: auto;
+  // padding: 20px 0px;
+}

@@ -1,20 +1,15 @@
 import React from 'react';
-import DataTableComponent from '../commons/table/DataTableComponent';
-import ComboBox from '../commons/combo-box';
-import Button2 from '../commons/button-style2';
-import './poster.scss';
-import ic_add from './ic_add.svg';
-import Image from '../commons/image';
-import SearchInput from '../commons/search';
-import PagingControl from '../commons/paging-control';
-import MainLayout from '../layouts/main-layout';
-import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../utils';
-import DialogAddPoster from './dialog-add-poster';
-import Dialog from '../commons/dialog';
-import DialogEditPoster from './dialog-edit-poster';
-import PostDetail from '../commons/post-detail';
+import DataTableComponent from '../../commons/table/DataTableComponent';
+import ComboBox from '../../commons/combo-box';
+import './poster-manage.scss';
+import SearchInput from '../../commons/search';
+import PagingControl from '../../commons/paging-control';
+import MainLayout from '../../layouts/main-layout';
+import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../../utils';
+import Dialog from '../../commons/dialog';
+import PostDetail from '../../commons/post-detail';
 
-class DashboardComponent extends React.Component {
+class PosterManageAdminComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,14 +18,15 @@ class DashboardComponent extends React.Component {
             header: ["Tên bài viết", "Ngày tạo", "Chuyên mục", "Trạng thái", "Thao tác"],
             categories: [],
             status: [],
+            sortConditions: [],
             maxItems: 10,
             currentPage: 1,
             searchText: "",
-            removeId: "",
-            showDialogWarning: false,
-            showDialogUpdate: false,
-            postUpdate: undefined,
+            idUpdate: "",
             postSelected: undefined,
+            idPostUpdate: undefined,
+            showDialogWarningAccpetPost: false,
+            showDialogWarningDenyPost: false,
         }
     }
 
@@ -72,62 +68,17 @@ class DashboardComponent extends React.Component {
                     title: "Đã duyệt"
                 },
             ],
+            sortConditions: [
+                {
+                    id: 1,
+                    title: "Thời gian tăng dần",
+                },
+                {
+                    id: 2,
+                    title: "Thời gian giảm dần",
+                }
+            ]
         })
-    }
-
-    onRemove(e, id) {
-        e.stopPropagation();
-        this.setState({
-            removeId: id,
-            showDialogWarning: true,
-        });
-    }
-
-    onRemoveAccpet() {
-        const { maxItems } = this.state;
-        let { currentPage } = this.state;
-        const { originPosts, removeId } = this.state;
-        const posts = [];
-        originPosts.forEach(v => {
-            if (v.id !== removeId) {
-                posts.push(v);
-            }
-        });
-        saveDataToLocalStorage("posts", JSON.stringify(posts));
-        if ((currentPage - 1) * maxItems <= posts.length && currentPage !== 1) {
-            currentPage--;
-        }
-        this.setState({
-            removeId: -1,
-            showDialogWarning: false,
-            originPosts: posts,
-            posts: posts,
-            currentPage: currentPage,
-        });
-    }
-
-    onRemoveCancel() {
-        this.setState({
-            removeId: -1,
-            showDialogWarning: false,
-        });
-    }
-
-    onEdit(e, id) {
-        e.stopPropagation();
-        const { originPosts } = this.state;
-        let post = undefined;
-        originPosts.forEach(v => {
-            if (v.id === id) {
-                post = v;
-                return;
-            }
-        });
-
-        this.setState({
-            showDialogUpdate: true,
-            postUpdate: post,
-        });
     }
 
     nextPage() {
@@ -190,6 +141,24 @@ class DashboardComponent extends React.Component {
         });
     }
 
+    sort(e) {
+        const { state } = this;
+        const { posts } = state;
+        const { value } = e.target;
+        let postsNew = posts.sort((a, b) => {
+            // eslint-disable-next-line eqeqeq
+            if (value == 1) { // tăng dần
+                return Date.parse(a.createdDate) - Date.parse(b.createdDate)
+            } else { // giảm dần
+                return Date.parse(b.createdDate) - Date.parse(a.createdDate)
+            }
+        });
+        this.setState({
+            ...state,
+            posts: postsNew,
+        });
+    }
+
     onTextSearchChange(e) {
         this.setState({
             searchText: e.target.value,
@@ -221,26 +190,6 @@ class DashboardComponent extends React.Component {
         });
     }
 
-    onButtonAddPoster() {
-        this.setState({
-            showDialogAddPoster: true,
-        })
-    }
-
-    onDialogAddClose() {
-        this.setState({
-            showDialogAddPoster: false,
-        });
-        this.loadData();
-    }
-
-    onDialogUpdateClose() {
-        this.setState({
-            showDialogUpdate: false,
-        });
-        this.loadData();
-    }
-
     onDetailPostClose() {
         this.setState({
             postSelected: undefined,
@@ -253,51 +202,160 @@ class DashboardComponent extends React.Component {
         })
     }
 
+    onAcceptPostRequest(e, idPost) {
+        e.stopPropagation();
+        this.setState({
+            showDialogWarningAccpetPost: true,
+            idPostUpdate: idPost,
+        })
+    }
+
+    onAcceptPost() {
+        const { idPostUpdate } = this.state;
+        const posts = JSON.parse(getDataFromLocalStorage("posts"));
+        const newPosts = [];
+        posts.forEach(v => {
+            if (v.id === idPostUpdate) {
+                newPosts.push({
+                    ...v,
+                    status: 1,
+                });
+            } else {
+                newPosts.push(v);
+            }
+        });
+        saveDataToLocalStorage("posts", JSON.stringify(newPosts));
+        this.loadData();
+        this.setState({
+            showDialogWarningAccpetPost: false,
+            idPostUpdate: -1,
+        })
+    }
+
+    onAcceptPostCancel() {
+        this.setState({
+            showDialogWarningAccpetPost: false,
+            idPostUpdate: -1,
+        })
+    }
+
+    onDenyPostRequest(e, idPost) {
+        e.stopPropagation();
+        this.setState({
+            showDialogWarningDenyPost: true,
+            idPostUpdate: idPost,
+        })
+    }
+
+    onDenyPost() {
+        const { idPostUpdate } = this.state;
+        const posts = JSON.parse(getDataFromLocalStorage("posts"));
+        const newPosts = [];
+        posts.forEach(v => {
+            if (v.id === idPostUpdate) {
+                newPosts.push({
+                    ...v,
+                    status: -1,
+                });
+            } else {
+                newPosts.push(v);
+            }
+        });
+        saveDataToLocalStorage("posts", JSON.stringify(newPosts));
+        this.loadData();
+        this.setState({
+            showDialogWarningDenyPost: false,
+            idPostUpdate: -1,
+        })
+    }
+
+    onDenyPostCancel() {
+        this.setState({
+            showDialogWarningDenyPost: false,
+            idPostUpdate: -1,
+        })
+    }
+
+
     render() {
         const {
             posts,
             header,
             categories,
+            sortConditions,
             status,
             maxItems,
             currentPage,
             searchText,
-            showDialogAddPoster,
-            showDialogWarning,
-            showDialogUpdate,
-            postUpdate,
+            showDialogWarningAccpetPost,
+            showDialogWarningDenyPost,
             postSelected
         } = this.state;
 
-        const buttonDialogWarining = [
+        const buttonDialogWariningAccpetPost = [
             {
                 type: "danger",
                 label: "Không",
-                onClick: () => this.onRemoveCancel(),
+                onClick: () => this.onAcceptPostCancel(),
             },
             {
                 type: "primary",
                 label: "Có",
-                onClick: () => this.onRemoveAccpet(),
+                onClick: () => this.onAcceptPost(),
             }
         ];
-        const contentDialogWarning = "Bạn có muốn xóa bài viết?";
+        const contentDialogWariningAccpetPost = "Bạn có muốn duyệt bài viết?";
 
+        const buttonDialogWariningDenyPost = [
+            {
+                type: "danger",
+                label: "Không",
+                onClick: () => this.onDenyPostCancel(),
+            },
+            {
+                type: "primary",
+                label: "Có",
+                onClick: () => this.onDenyPost(),
+            }
+        ];
+        const contentDialogWariningDenyPost = "Bạn có muốn từ chối bài viết?";
+
+
+        const menuItems = [
+            {
+                id: 1,
+                title: "Quản lý bài viết",
+                url: "/admin/dashboard",
+            },
+            {
+                id: 2,
+                title: "Quản lý người dùng",
+                url: "/admin/dashboard/users",
+            },
+            {
+                id: 3,
+                title: "Quản lý chuyên mục",
+                url: "/admin/dashboard/categories",
+            }
+        ];
         return (
-            <MainLayout haveLeftSidebar={false} menuItems={[]}>
+            <MainLayout haveLeftSidebar={true} menuItems={menuItems} onClickItem={() => { }}>
                 <>
-                    <DialogAddPoster show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
-                    <DialogEditPoster post={postUpdate} show={showDialogUpdate} onCloseDialog={() => this.onDialogUpdateClose()} />
-                    <Dialog
-                        show={showDialogWarning}
-                        buttons={buttonDialogWarining}
-                        messageContent={contentDialogWarning}
-                        onClickCloseButton={() => this.onRemoveCancel()} />
                     {
                         postSelected !== undefined ?
                             <PostDetail post={postSelected} onClose={() => this.onDetailPostClose()} />
                             : null
                     }
+                    <Dialog
+                        show={showDialogWarningAccpetPost}
+                        buttons={buttonDialogWariningAccpetPost}
+                        messageContent={contentDialogWariningAccpetPost}
+                        onClickCloseButton={() => this.onAcceptPostCancel()} />
+                    <Dialog
+                        show={showDialogWarningDenyPost}
+                        buttons={buttonDialogWariningDenyPost}
+                        messageContent={contentDialogWariningDenyPost}
+                        onClickCloseButton={() => this.onDenyPostCancel()} />
                     <div className="dashboard">
                         <div>
                             <div className="title">
@@ -314,9 +372,7 @@ class DashboardComponent extends React.Component {
                                 <div className="group-one">
                                     <ComboBox items={status} label={"Trạng thái"} onChange={(e) => this.filterStatus(e)} />
                                     <ComboBox items={categories} label={"Chuyên mục"} onChange={(e) => this.filterCategory(e)} />
-                                </div>
-                                <div>
-                                    <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} onClick={() => this.onButtonAddPoster()} />
+                                    <ComboBox items={sortConditions} label={"Sắp xếp"} onChange={(e) => this.sort(e)} />
                                 </div>
                             </div>
                             <DataTableComponent
@@ -325,9 +381,10 @@ class DashboardComponent extends React.Component {
                                 posts={posts}
                                 header={header}
                                 categories={categories}
-                                onRemove={(e, id) => this.onRemove(e, id)}
-                                onEdit={(e, id) => this.onEdit(e, id)}
-                                onItemClick={(post) => this.onItemTableClick(post)} />
+                                onAccept={(e, id) => this.onAcceptPostRequest(e, id)}
+                                onDeny={(e, id) => this.onDenyPostRequest(e, id)}
+                                onItemClick={(post) => this.onItemTableClick(post)}
+                                type="admin" />
                         </div>
                         <div className="footer">
                             <PagingControl
@@ -343,4 +400,4 @@ class DashboardComponent extends React.Component {
     }
 }
 
-export default DashboardComponent;
+export default PosterManageAdminComponent;

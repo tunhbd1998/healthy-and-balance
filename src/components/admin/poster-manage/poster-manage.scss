@@ -1,0 +1,42 @@
+@import "src/globals/globals.styles.scss";
+
+.dashboard {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dashboard .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: bold; 
+    color: $textColorMain;
+}
+
+.dashboard .footer {
+    justify-content: end;
+    margin-bottom: 20px;
+}
+
+.control-tool {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.control-tool .group-one {
+    display: flex;
+    justify-content: space-between;
+    min-width: 60%;
+}
+
+.search-input {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}

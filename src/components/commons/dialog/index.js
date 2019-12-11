@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../button";
-import "./dialog.styles.css";
+import "./dialog.styles.scss";
 
 export default function Dialog({
   title,
@@ -13,7 +13,7 @@ export default function Dialog({
   return (
     <Modal className="dialog" show={show} onHide={onClickCloseButton}>
       {title ? (
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="dialog-header">
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
       ) : null}
