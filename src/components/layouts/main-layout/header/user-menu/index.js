@@ -5,47 +5,47 @@ import { getDataFromLocalStorage } from "../../../../../utils";
 import { connect } from "react-redux";
 import { get } from "lodash";
 import "./user-menu.styles.scss";
+import Avatar from "../../../../commons/avatar";
+import { signOut } from "../../../../../store/actions";
+import { bindActionCreators } from "redux";
 
-function UserMenu({ user }) {
+function UserMenu({ user, actions }) {
   const defaultAvatar = "/media/images/users/placeholder.png";
-
-  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <Avatar />
-  ));
-
-  const Avatar = () => (
-    <img
-      className="hb-avatar"
-      src={user.avatar || defaultAvatar}
-      alt="avatar"
-    />
-  );
 
   return user ? (
     <div className="hb-user-menu">
       <Dropdown>
         <Dropdown.Toggle>
-          <Avatar />
+          <Avatar url={user.avatar || defaultAvatar} size="big" />
         </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item>
-            <Link className="user-menu--menu-item" to="/me">
-              Thông tin tài khoản
-            </Link>
-          </Dropdown.Item>
-          <Dropdown.Item>
-            <Link className="user-menu--menu-item" to="/me/manage-post">
-              Quản lý bài viết cá nhân
-            </Link>
-          </Dropdown.Item>
+        <Dropdown.Menu className="user-menu">
+          <div className="user-info">
+            <Avatar url={user.avatar || defaultAvatar} size="big" />
+            <div className="info">
+              <span>{user.displayName}</span>
+              <span>{user.email}</span>
+            </div>
+          </div>
+          <Link className="user-menu--menu-item" to="/me">
+            Thông tin tài khoản
+          </Link>
+          <Link className="user-menu--menu-item" to="/me/manage-post">
+            Quản lý bài viết cá nhân
+          </Link>
           {user.role === "admin" ? (
-            <Dropdown.Item>
-              <Link className="user-menu--menu-item" to="/admin/dashboard">
-                Quản lý bài viết cá nhân
-              </Link>
-            </Dropdown.Item>
+            <Link className="user-menu--menu-item" to="/admin/dashboard">
+              Quản lý hệ thống
+            </Link>
           ) : null}
-          <Dropdown.Item>Đăng xuất</Dropdown.Item>
+          <Link
+            to="#"
+            className="user-menu--menu-item"
+            onClick={() => {
+              actions.signOut();
+            }}
+          >
+            Đăng xuất
+          </Link>
         </Dropdown.Menu>
       </Dropdown>
     </div>
@@ -60,4 +60,8 @@ const mapStateToProps = state => ({
   user: get(state, "user"),
 });
 
-export default connect(mapStateToProps, null)(UserMenu);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ signOut }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

@@ -8,7 +8,7 @@ import { users } from "../../data";
 import { validateAll } from "indicative/validator";
 import { bindActionCreators } from "redux";
 import { setUser } from "../../store/actions";
-import { signIn } from "../../utils";
+import { signIn, getDataFromLocalStorage } from "../../utils";
 
 class SignIn extends Component {
   constructor(props) {
@@ -114,10 +114,14 @@ class SignIn extends Component {
     // const dataSignUp = localStorage.getItem('myDataSignIn')
     const { formatErrs } = this.state;
     const { statusFail } = this.state;
-    const { user } = this.props;
+    const { user, actions } = this.props;
 
     if (user) {
       return <Redirect to="/" />;
+    }
+
+    if (JSON.parse(getDataFromLocalStorage("user"))) {
+      actions.setUser(JSON.parse(getDataFromLocalStorage("user")));
     }
 
     return (

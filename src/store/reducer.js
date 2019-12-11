@@ -66,6 +66,12 @@ export const reducer = (state = initStates, { type, payload }) => {
         user: payload.user,
       };
     }
+    case actionTypes.SIGN_OUT: {
+      return {
+        ...state,
+        user: null,
+      };
+    }
     default:
       return { ...state };
   }

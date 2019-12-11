@@ -29,14 +29,10 @@ export default function App() {
         <Route path="/sign-in" exact component={SignIn} />
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/forgot-password" exact component={ForgotPassword} />
-        <Route path="/" component={Home} />
-        <Route
-          path="/me/management-post"
-          exact
-          component={DashboardComponent}
-        />
+        <Route path="/me/manage-post" exact component={DashboardComponent} />
         <Route path="/admin/sign-in" exact component={null} />
         <Route path="/admin/dashboard" exact component={null} />
+        <Route path="/" component={Home} />
       </Switch>
     </Router>
   ) : null;

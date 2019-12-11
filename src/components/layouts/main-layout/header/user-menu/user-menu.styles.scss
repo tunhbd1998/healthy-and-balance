@@ -1,3 +1,5 @@
+@import "src/globals/globals.styles.scss";
+
 .hb-avatar {
   width: 50px;
   height: 50px;
@@ -17,6 +19,57 @@
 
     &:after {
       display: none !important;
+    }
+  }
+
+  .user-menu {
+    width: 350px;
+    right: 20px !important;
+    top: 10px !important;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+    border: none !important;
+
+    &::before {
+      display: block;
+      right: 25px;
+      content: "";
+      height: 0;
+      top: -10px;
+      width: 0;
+      position: absolute;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #fff;
+    }
+
+    .user-info {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      margin: 10px 0px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+      }
+    }
+
+    .user-menu--menu-item {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 40px;
+      padding: 20px;
+      text-decoration: none;
+      color: $textColor03;
+      font-size: 15px;
+      font-weight: bold;
+
+      &:hover {
+        background: $bgColorGray;
+      }
     }
   }
 }

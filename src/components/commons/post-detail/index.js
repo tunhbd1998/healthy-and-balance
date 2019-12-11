@@ -19,8 +19,14 @@ import AuthorLabel from "../author-label";
 import { connect } from "react-redux";
 import { get } from "lodash";
 
-function PostDetail({ post, onClose, user }) {
+export default function PostDetail({ post, onClose }) {
   const [show, setShow] = React.useState(true);
+
+  if (!post) {
+    return null;
+  }
+
+  const user = getUserByUsername(post.author);
 
   return (
     <Modal show={show} className="hb-post-detail">
@@ -30,7 +36,7 @@ function PostDetail({ post, onClose, user }) {
             className="close-button"
             onClick={() => {
               setShow(false);
-              onClose();
+              onClose && onClose();
             }}
           >
             <FontAwesomeIcon icon={faTimes} />
@@ -74,9 +80,3 @@ function PostDetail({ post, onClose, user }) {
     </Modal>
   );
 }
-
-const mapStateToProps = state => ({
-  user: get(state, "user"),
-});
-
-export default connect(mapStateToProps, null)(PostDetail);

@@ -26,7 +26,6 @@ function LeftSidebar({
     setCollapse(!isCollapsed);
 
     setTimeout(() => {
-      // const sidebar = document.querySelector(".hb-left-sidebar");
       const containLeftSidebarContent = document.querySelector(
         ".contain-left-sidebar--content"
       );
@@ -82,7 +81,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      // setPageTitle: setPageTitle,
       setCurrentItem,
       fetchPostsByCategory,
     },

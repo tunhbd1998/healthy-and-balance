@@ -21,11 +21,26 @@ export const fetchPostsDone = posts => ({
   payload: { posts },
 });
 
-export const fetchPostsByCategory = categoryId => (dispatch, getState) => {
-  const { currentItem } = getState();
-  const posts = JSON.parse(getDataFromLocalStorage("posts")).filter(
-    post => post.category === currentItem.id
-  );
+export const fetchPostsByCategory = () => (dispatch, getState) => {
+  const { currentItem, user } = getState();
+  const sourcePosts = JSON.parse(getDataFromLocalStorage("posts"));
+  let posts = [];
+
+  if (currentItem.id === "new") {
+    posts = sourcePosts.sort(
+      (dateOne, dateTwo) => new Date(dateTwo) - new Date(dateOne)
+    );
+  } else if (currentItem.id === "following") {
+    posts = sourcePosts.filter(post =>
+      user.followingPosts.findIndex(pId => pId === post.id)
+    );
+  } else if (currentItem.id === "mark") {
+    posts = sourcePosts.filter(post =>
+      user.markedPosts.findIndex(pId => pId === post.id)
+    );
+  } else {
+    posts = sourcePosts.filter(post => post.category === currentItem.id);
+  }
 
   dispatch(fetchPostsDone(posts));
 };
@@ -57,4 +72,9 @@ export const hidePostDetail = () => ({
 export const setUser = user => ({
   type: actionTypes.SET_USER,
   payload: { user },
+});
+
+export const signOut = () => ({
+  type: actionTypes.SIGN_OUT,
+  payload: {},
 });
