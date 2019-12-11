@@ -320,8 +320,26 @@ class PosterManageAdminComponent extends React.Component {
         ];
         const contentDialogWariningDenyPost = "Bạn có muốn từ chối bài viết?";
 
+
+        const menuItems = [
+            {
+                id: 1,
+                title: "Quản lý bài viết",
+                url: "/admin/dashboard",
+            },
+            {
+                id: 2,
+                title: "Quản lý người dùng",
+                url: "/admin/dashboard/users",
+            },
+            {
+                id: 3,
+                title: "Quản lý chuyên mục",
+                url: "/admin/dashboard/categories",
+            }
+        ];
         return (
-            <MainLayout haveLeftSidebar={false} menuItems={[]}>
+            <MainLayout haveLeftSidebar={true} menuItems={menuItems} onClickItem={() => { }}>
                 <>
                     {
                         postSelected !== undefined ?

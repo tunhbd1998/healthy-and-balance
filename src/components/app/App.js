@@ -36,6 +36,8 @@ export default function App() {
           component={DashboardComponent}
         />
         <Route path="/admin/sign-in" exact component={null} />
+        <Route path="/admin/dashboard/users" exact component={null} />
+        <Route path="/admin/dashboard/categories" exact component={null} />
         <Route path="/admin/dashboard" exact component={PosterManageAdminComponent} />
         <Route path="/" component={Home} />
       </Switch>
