@@ -4,8 +4,27 @@
 .text__red {
     color : #ef3b3b !important;
 }
-
-
+.alert__error{
+    color : #ef3b3b !important;
+    font-size: 12px;
+    font-style: italic;
+    font-weight:600;
+}
+.statusFail img{
+    max-width:100%;
+    width:20px;
+    margin-right:10px;
+}
+.statusFail {
+    justify-content:center;
+    display:flex;
+    align-items: center;
+    font-size:12px;
+    font-style:italic;
+    padding-bottom:15px;
+    color: #ef3b3b;
+    font-weight:600;
+}
 input:focus {
     box-shadow: 0 0 0 1px rgba(37, 88, 82,0.75) !important;	;
     border-color: #255852 !important;

@@ -1,25 +1,124 @@
 import React, { Component } from 'react';
 import {Form, Button} from 'react-bootstrap'
 import './auth.css'
+import {get,pick,isEmpty,isEqual} from 'lodash'
+import {users} from '../../data'
+import { validateAll } from 'indicative/validator'
 class SignIn extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            username:'',
+            password:'',
+            formatErrs: {
+                username:'',
+                password:'', 
+            },
+            statusFail:''
+        }
+    }
+
+
+    handleChange = (e) => {
+        const {statusFail} = this.state
+        this.setState({
+            [e.target.name]: e.target.value ,
+            formatErrs:{
+                [e.target.name]: isEmpty(e.target.value) ? e.target.value:''
+            },
+            statusFail:''
+        })
+    }
+
+    
+    checkLogin(dataLogin){
+        // const dataSignUp = localStorage.getItem('myDataSignIn')
+        // const alreadySignUp = get(dataSignUp,['username','password'])
+        const normalUser = pick(users,['ngtu','nvphuoc','phhviet']);
+        const admin = get(users,['admin']);
+        const ngtuUser = get(normalUser,['ngtu']);
+        const nvphuocUser = get(normalUser,['nvphuoc']);
+        const phhvietUser = get(normalUser,['phhviet']);
+
+        const isAdmin = isEqual(dataLogin,pick(admin,['username','password']));
+        const isngtu = isEqual(dataLogin,pick(ngtuUser,['username','password']));
+        const isnvphuoc = isEqual(dataLogin,pick(nvphuocUser,['username','password']));
+        const isphhviet = isEqual(dataLogin,pick(phhvietUser,['username','password']));
+
+        if(isAdmin === true) 
+            return 'admin';
+        if(isngtu === true || isnvphuoc === true || isphhviet ===true) return 'user'
+        
+        return 'fail'
+    }
+    onSubmit = (e) => {
+        e.preventDefault();
+        const {formatErrs} = this.state
+        const message = {
+            required: 'Không được bỏ trống. Vui lòng nhập thông tin của bạn.',
+            
+        }
+        const data = this.state
+        const rules = { 
+            username : 'required|string',
+            password :'required|string',
+        }
+        validateAll( data,rules,message )
+        //if success redict to homepage
+        .then((data)=>{
+            const res = this.checkLogin(pick(data,['username','password']));
+            if(res == 'admin') { 
+                localStorage.setItem('role','admin')
+                return window.location.replace('/')
+            }
+            if(res == 'user') { 
+                localStorage.setItem('role','user')
+                return window.location.replace('/')
+            }
+            if(res == 'fail') { 
+                this.setState({
+                    statusFail:'Tài khoản hoặc mật khẩu không đúng. Mời kiểm tra lại !'
+                })
+                
+            }
+            
+        })
+        .catch(errs=>{
+            errs.forEach(element => {
+                formatErrs[element.field] = element.message
+            });
+            this.setState({errs: formatErrs})
+        })
+    }
     render() {
+        
+        // const dataSignUp = localStorage.getItem('myDataSignIn')
+        const {formatErrs} = this.state
+        const {statusFail} = this.state
         return (
             <div>
-                <Form className="form__auth">
+                <Form className="form__auth" onSubmit={this.onSubmit}>
                     <div className="header">
                         <div className='header__logo'><img src='/media/images/logo/logo.png'/></div>
                         <div className='header__title'>
                             <span>Sức Khỏe Blog</span>
                         </div>
                     </div>
+                    
                     <div className='form__content'>
+                    {isEmpty(statusFail)?'':<div className="statusFail">
+                    <img src='/media/images/logo/noti.png'/>
+                    {statusFail}
+                    </div>  }
                         <Form.Group controlId="formGroupEmail">
-                            <Form.Label>Tên đăng nhập</Form.Label>
-                            <Form.Control type="text" placeholder="Tên đăng nhập"/>
+                            <Form.Label className={isEmpty(statusFail) &&isEmpty(get(formatErrs,['username'])) ?'':'text__red'}>Tên đăng nhập</Form.Label>
+                            <Form.Control type="text" placeholder="Tên đăng nhập" name='username' onChange={this.handleChange} className={isEmpty(statusFail) &&isEmpty(get(formatErrs,['username'])) ?'':'border__red'}/>
+                            <div className='alert__error'>{isEmpty(get(formatErrs,['username'])) ? '' : get(formatErrs,['username'])}</div>
                         </Form.Group>
                         <Form.Group controlId="formGroupPassword">
-                            <Form.Label>Mật khẩu</Form.Label>
-                            <Form.Control type="password" placeholder="Mật khẩu"/>
+                            <Form.Label className={isEmpty(statusFail) &&isEmpty(get(formatErrs,['password'])) ?'':'text__red'}>Mật khẩu</Form.Label>
+                            <Form.Control type="password" placeholder="Mật khẩu" name='password' onChange={this.handleChange} className={isEmpty(statusFail) &&isEmpty(get(formatErrs,['password'])) ?'':'border__red'}/>
+                            <div className='alert__error'>{get(formatErrs,['password'])}</div>
                         </Form.Group>
                     </div>
                     <Button className='button__normal' type='submit'>Đăng nhập</Button>
@@ -27,7 +126,7 @@ class SignIn extends Component {
                         <span>OR</span>
                     </div>
                     <div>
-                        <Button className='btn__social google'>
+                        <Button className='btn__social google' onClick={()=>{window.location.replace('/')}}>
                             <div className="form__social"> 
                                 <img src='media/images/logo/google.png'/>
                                 Đăng nhập bằng tài khoản Google
@@ -35,7 +134,7 @@ class SignIn extends Component {
                         </Button>
                     </div>
                     <div>
-                        <Button className='btn__social facebook'>
+                        <Button className='btn__social facebook' onClick={()=>{window.location.replace('/')}}>
                             <div className="form__social"> 
                                 <img src='media/images/logo/facebook.png'/>
                                 Đăng nhập bằng tài khoản Facebook

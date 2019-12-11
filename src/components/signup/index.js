@@ -54,11 +54,15 @@ class SignIn extends Component {
             password :'required|string|min:6',
             email:'required|email',
             fullname:'required|string',
-            gender:'required|integer|range:0,1',
+            gender:'required|integer|range:0,2',
         }
         validateAll( data,rules,message )
         //if success redict to homepage
-        .then((data)=>{console.log(data)})
+        .then((data)=>{
+            console.log(data)
+            localStorage.setItem('myDataSignIn', JSON.stringify(data));
+            window.location.replace('/sign-in')
+        })
         .catch(errs=>{
             
             errs.forEach(element => {
@@ -82,6 +86,7 @@ class SignIn extends Component {
                             <span>Sức Khỏe Blog</span>
                         </div>
                     </div>
+                    
                     <div className='form__content'>
                         <Form.Group controlId="formGroupUsername">
                             <Form.Label className={isEmpty(get(formatErrs,['username'])) ?'':'text__red'}>Tên đăng nhập</Form.Label>
@@ -117,10 +122,10 @@ class SignIn extends Component {
                     <Button className='button__normal' type='submit'>Đăng kí</Button>
                     <div className='form__option' style={{margin:'15px 0'}}>
                         <span>Đăng nhập qua</span>
-                        <Button className='btn__social__sign_up google'>
+                        <Button className='btn__social__sign_up google' onClick={()=>{window.location.replace('/sign-in')}}>
                                 <img src='media/images/logo/google.png'/>
                         </Button>
-                        <Button className='btn__social__sign_up facebook'>
+                        <Button className='btn__social__sign_up facebook' onClick={()=>{window.location.replace('/sign-in')}}>
                                 <img src='media/images/logo/facebook.png'/>
                         </Button>
                     </div>
