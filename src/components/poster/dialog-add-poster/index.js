@@ -103,7 +103,8 @@ export default class DialogAddPoster extends React.Component {
     const { onCloseDialog } = this.props;
     const { post } = this.state;
     const posts = JSON.parse(getDataFromLocalStorage("posts"));
-    post.id = (get(posts, [(get(posts, "length") || 1) - 1, "id"]) || 1) + 1;
+    post.id = (get(posts, [(get(posts, "length") || 1) - 1, "id"]) || 0) + 1;
+    post.author = get(JSON.parse(getDataFromLocalStorage("user")), "username");
     posts.push(post);
     saveDataToLocalStorage("posts", JSON.stringify(posts));
     onCloseDialog();

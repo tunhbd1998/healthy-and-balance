@@ -22,5 +22,14 @@
       overflow: auto;
       margin: 0;
     }
+
+    .notification-container {
+      // width: 320px;
+      height: auto;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 20px;
+    }
   }
 }

@@ -9,6 +9,16 @@ const initStates = {
   searchContent: null,
   categories: null,
   post: null,
+  notifications: [
+    {
+      type: "success",
+      message: "thanh cong",
+    },
+    {
+      type: "failed",
+      message: "that bai",
+    },
+  ],
 };
 
 export const reducer = (state = initStates, { type, payload }) => {
@@ -70,6 +80,15 @@ export const reducer = (state = initStates, { type, payload }) => {
       return {
         ...state,
         user: null,
+      };
+    }
+    case actionTypes.ALERT_NOTIFICATION: {
+      return {
+        ...state,
+        notifications: [
+          ...state.notifications,
+          { type: payload.type, message: payload.message },
+        ],
       };
     }
     default:

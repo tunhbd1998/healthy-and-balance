@@ -8,7 +8,11 @@ import { users } from "../../data";
 import { validateAll } from "indicative/validator";
 import { bindActionCreators } from "redux";
 import { setUser } from "../../store/actions";
-import { signIn, getDataFromLocalStorage } from "../../utils";
+import {
+  signIn,
+  getDataFromLocalStorage,
+  saveDataToLocalStorage,
+} from "../../utils";
 
 class SignIn extends Component {
   constructor(props) {
@@ -78,6 +82,7 @@ class SignIn extends Component {
         const userRes = signIn(data.username, data.password);
 
         if (userRes) {
+          saveDataToLocalStorage("user", JSON.stringify(userRes));
           this.props.actions.setUser(userRes);
         } else {
           this.setState({

@@ -19,14 +19,14 @@ import AuthorLabel from "../author-label";
 import { connect } from "react-redux";
 import { get } from "lodash";
 
-export default function PostDetail({ post, onClose }) {
+function PostDetail({ post, onClose, user }) {
   const [show, setShow] = React.useState(true);
 
   if (!post) {
     return null;
   }
 
-  const user = getUserByUsername(post.author);
+  const author = getUserByUsername(post.author);
 
   return (
     <Modal show={show} className="hb-post-detail">
@@ -48,9 +48,12 @@ export default function PostDetail({ post, onClose }) {
                 {user ? (
                   <FontAwesomeIcon
                     className={`icon ${
-                      isPostInUserMarks(user.username, post.id) ? "active" : ""
+                      isPostInUserMarks(author.username, post.id)
+                        ? "active"
+                        : ""
                     }`}
                     icon={faBookmark}
+                    onClick={() => {}}
                   />
                 ) : null}
               </div>
@@ -58,11 +61,12 @@ export default function PostDetail({ post, onClose }) {
                 {user ? (
                   <FontAwesomeIcon
                     className={`icon ${
-                      isPostInUserFollowings(user.username, post.id)
+                      isPostInUserFollowings(author.username, post.id)
                         ? "active"
                         : ""
                     }`}
                     icon={faHeart}
+                    onClick={() => {}}
                   />
                 ) : null}
 
@@ -72,7 +76,12 @@ export default function PostDetail({ post, onClose }) {
             </div>
             <div className="detail-content">
               <div className="post-title">{post.title}</div>
-              <div className="post-content">{post.content}</div>
+              <div
+                className="post-content"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              >
+                {/* {post.content} */}
+              </div>
             </div>
           </div>
         </Modal.Body>
@@ -80,3 +89,9 @@ export default function PostDetail({ post, onClose }) {
     </Modal>
   );
 }
+
+const mapStateToProps = state => ({
+  user: get(state, "user"),
+});
+
+export default connect(mapStateToProps, null)(PostDetail);

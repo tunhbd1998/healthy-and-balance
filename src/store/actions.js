@@ -78,3 +78,8 @@ export const signOut = () => ({
   type: actionTypes.SIGN_OUT,
   payload: {},
 });
+
+export const alertNotification = (type, message) => ({
+  type: actionTypes.ALERT_NOTIFICATION,
+  payload: { type, message },
+});

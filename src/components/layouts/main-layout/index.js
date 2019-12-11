@@ -3,13 +3,25 @@ import { Container, Row } from "react-bootstrap";
 import LeftSidebar from "./left-sidebar";
 import Header from "./header";
 import "./main-layout.styles.scss";
+import { connect } from "react-redux";
+import Notification from "../../commons/notification";
+import { get } from "lodash";
+import { bindActionCreators } from "redux";
+import { alertNotification } from "../../../store/actions";
 
-export default function MainLayout({
+function MainLayout({
   haveLeftSidebar,
   menuItems,
   children,
   onClickItem,
+  notifications,
+  actions,
 }) {
+  // for (let i = 0; i < 2; i++) {
+  //   setTimeout(() => {
+  //     actions.alertNotification("success", "thanh cong");
+  //   }, 1000);
+  // }
   return (
     <Container fluid className="hb-main-layout">
       <Row className="header">
@@ -37,7 +49,26 @@ export default function MainLayout({
             {children}
           </Container>
         )}
+        <div className="notification-container">
+          {notifications.map(notify => (
+            <Notification
+              type={notify.type}
+              message={notify.message}
+              hideAfter={2000}
+            />
+          ))}
+        </div>
       </Row>
     </Container>
   );
 }
+
+const mapStateToProps = state => ({
+  notifications: get(state, "notifications"),
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ alertNotification }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

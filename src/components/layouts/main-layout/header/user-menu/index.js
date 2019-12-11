@@ -1,7 +1,10 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getDataFromLocalStorage } from "../../../../../utils";
+import {
+  getDataFromLocalStorage,
+  saveDataToLocalStorage,
+} from "../../../../../utils";
 import { connect } from "react-redux";
 import { get } from "lodash";
 import "./user-menu.styles.scss";
@@ -42,6 +45,7 @@ function UserMenu({ user, actions }) {
             className="user-menu--menu-item"
             onClick={() => {
               actions.signOut();
+              saveDataToLocalStorage("user", null);
             }}
           >
             Đăng xuất

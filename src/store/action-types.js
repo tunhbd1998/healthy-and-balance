@@ -10,3 +10,4 @@ export const SHOW_POST_DETAIL = "SHOW_POST_DETAIL";
 export const HIDE_POST_DETAIL = "HIDE_POST_DETAIL";
 export const SET_USER = "SET_USER";
 export const SIGN_OUT = "SIGN_OUT";
+export const ALERT_NOTIFICATION = "ALERT_NOTIFICATION";

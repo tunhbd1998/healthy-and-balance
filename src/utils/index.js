@@ -105,7 +105,7 @@ export const isPostInUserFollowings = (username, postId) => {
     return false;
   }
 
-  return user.fllowingPosts.findIndex(pId => pId === postId) > -1;
+  return user.followingPosts.findIndex(pId => pId === postId) > -1;
 };
 
 export const signIn = (username, password) => {
