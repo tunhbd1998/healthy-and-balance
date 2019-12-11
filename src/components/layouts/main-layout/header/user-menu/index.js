@@ -1,10 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {
-  getDataFromLocalStorage,
-  saveDataToLocalStorage,
-} from "../../../../../utils";
+import { saveDataToLocalStorage } from "../../../../../utils";
 import { connect } from "react-redux";
 import { get } from "lodash";
 import "./user-menu.styles.scss";

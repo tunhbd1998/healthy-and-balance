@@ -10,6 +10,7 @@ import {
   fetchPostsBySearchContent,
   showPostDetail,
 } from "../../../store/actions";
+import NotFound from "../../commons/not-found";
 
 function PostList({
   actions,
@@ -26,6 +27,9 @@ function PostList({
           : `Kết quả tìm kiếm: ${searchContent}`}
       </div>
       <div className="content">
+        {posts.length === 0 ? (
+          <NotFound message="Không tìm được bài viết nào" />
+        ) : null}
         {posts.map(post => (
           <PostItem
             key={post.id}

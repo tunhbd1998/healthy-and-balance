@@ -22,7 +22,15 @@ export default function PostItem({ post, onClick }) {
         />
         <div className="post-info">
           <div>
-            <span className="title">{post.title}</span>
+            <TextTruncate
+              className="title"
+              line={1.5}
+              element="span"
+              truncateText="…"
+              text={post.title}
+              // textTruncateChild={<a href="#">Read on</a>}
+            />
+            {/* <span className="title">{post.title}</span> */}
             {/* <span> */}
             <TextTruncate
               className="short-description"

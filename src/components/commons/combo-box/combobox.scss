@@ -1,53 +1,63 @@
 @import "src/globals/globals.styles.scss";
 
 .cb {
-    border: 1px solid black;
-    border-radius: 10px;
-    border-color: $textColorMain;
-    width: 220px;
-    height: 30px !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    color: $textColorMain;
-    font-weight: bold;
-    background-color: #ffffff;
+  border: 1px solid black;
+  border-radius: 10px;
+  border-color: $textColorMain;
+  min-width: 220px;
+  height: 30px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  color: $textColorMain;
+  font-weight: bold;
+  background-color: #ffffff;
+  margin: 0px 10px;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .cb select {
-    height: auto !important;
-    border: none !important;
+  height: auto !important;
+  border: none !important;
 }
 
 .cb select:focus {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .cb-min {
-    border: 1px solid black;
-    border-radius: 10px;
-    border-color: $textColorMain;
-    width: 120px;
-    height: 30px !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    color: $textColorMain;
-    font-weight: bold;
-    background-color: #ffffff;
+  border: 1px solid black;
+  border-radius: 10px;
+  border-color: $textColorMain;
+  width: 120px;
+  height: 30px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  color: $textColorMain;
+  font-weight: bold;
+  background-color: #ffffff;
 }
 
 .cb-min select {
-    height: auto !important;
-    border: none !important;
+  height: auto !important;
+  border: none !important;
 }
 
 .cb-min select:focus {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.select {
+  background: none;
+  color: $textColorMain;
 }

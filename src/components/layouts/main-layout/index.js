@@ -11,17 +11,13 @@ import { alertNotification } from "../../../store/actions";
 
 function MainLayout({
   haveLeftSidebar,
+  commonMenuItems,
   menuItems,
   children,
   onClickItem,
   notifications,
   actions,
 }) {
-  // for (let i = 0; i < 2; i++) {
-  //   setTimeout(() => {
-  //     actions.alertNotification("success", "thanh cong");
-  //   }, 1000);
-  // }
   return (
     <Container fluid className="hb-main-layout">
       <Row className="header">
@@ -30,7 +26,11 @@ function MainLayout({
       <Row className="body">
         {haveLeftSidebar ? (
           <>
-            <LeftSidebar menuItems={menuItems} onClickItem={onClickItem} />
+            <LeftSidebar
+              commonMenuItems={commonMenuItems}
+              menuItems={menuItems}
+              onClickItem={onClickItem}
+            />
             <Container className="contain-left-sidebar--content">
               {children}
             </Container>
@@ -50,13 +50,14 @@ function MainLayout({
           </Container>
         )}
         <div className="notification-container">
-          {notifications.map(notify => (
+          {/* {notifications.map((notify, index) => (
             <Notification
+              key={index}
               type={notify.type}
               message={notify.message}
               hideAfter={2000}
             />
-          ))}
+          ))} */}
         </div>
       </Row>
     </Container>

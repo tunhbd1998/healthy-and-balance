@@ -6,7 +6,11 @@ import ic_trash from './ic_trash.svg';
 import ic_trash_disable from './ic_trash_disable.svg';
 import ic_edit from './ic_edit.svg';
 import ic_cancel from './ic_cancel.svg';
+import ic_cancel_post from './ic_cancel_post.svg';
+import ic_cancel_post_disable from './ic_cancel_post_disable.svg';
 import ic_accept from './ic_accept.svg';
+import ic_accept_post from './ic_accpet_post.svg';
+import ic_accept_post_disable from './ic_accpet_post_disable.svg';
 import ic_wating from './ic_wating.svg';
 import ic_edit_disable from './ic_edit_disable.svg';
 import Image from '../image';
@@ -34,14 +38,14 @@ class DataTableComponent extends React.Component {
     }
 
     render() {
-        const { header, posts, onRemove, onEdit, maxItems, currentPage } = this.props;
+        const { header, posts, onRemove, onEdit, onAccept, onDeny, maxItems, currentPage, onItemClick, type } = this.props;
         let postsArr = [];
         for (let i = (currentPage - 1) * maxItems; (i < currentPage * maxItems && i < posts.length); i += 1) {
             postsArr.push(posts[i]);
         }
         return (
             <>
-                <Table>
+                <Table hover>
                     <thead>
                         <tr>
                             {
@@ -54,8 +58,8 @@ class DataTableComponent extends React.Component {
                     <tbody>
                         {
                             postsArr.map((v, idx) => (
-                                <tr key={idx}>
-                                    <td><div className="center-cell">{v.title}</div></td>
+                                <tr key={idx} onClick={() => onItemClick(v)} className={onItemClick !== undefined ? "cell-hover" : ""}>
+                                    <td><div className="">{v.title}</div></td>
                                     <td><div className="center-cell">{v.createdDate}</div></td>
                                     <td><div className="center-cell">{this.getCategory(v.category)}</div></td>
                                     <td><div className="center-cell">
@@ -69,10 +73,24 @@ class DataTableComponent extends React.Component {
                                         }
                                     </div></td>
                                     {
-                                        v.status === 1 ?
-                                            (<td><div className="center-cell"><Image src={ic_edit_disable} disable /><Image src={ic_trash_disable} disable /></div></td>)
+                                        type === "admin" ?
+                                            (<td>
+                                                {
+                                                    v.status === 0 ?
+                                                        (<div className="center-cell"><Image src={ic_accept_post} onClick={(e) => onAccept(e, v.id)} /><Image src={ic_cancel_post} onClick={(e) => onDeny(e, v.id)} /></div>)
+                                                        :
+                                                        (<div className="center-cell"><Image src={ic_accept_post_disable} disable /><Image src={ic_cancel_post_disable} disable /></div>)
+                                                }
+                                            </td>)
                                             :
-                                            (<td><div className="center-cell"><Image src={ic_edit} onClick={() => onEdit(v.id)} /><Image src={ic_trash} onClick={() => onRemove(v.id)} /></div></td>)
+                                            (<td>
+                                                {
+                                                    v.status === 1 ?
+                                                        (<div className="center-cell"><Image src={ic_edit_disable} disable /><Image src={ic_trash_disable} disable /></div>)
+                                                        :
+                                                        (<div className="center-cell"><Image src={ic_edit} onClick={(e) => onEdit(e, v.id)} /><Image src={ic_trash} onClick={(e) => onRemove(e, v.id)} /></div>)
+                                                }
+                                            </td>)
                                     }
                                 </tr>
                             ))

@@ -12,6 +12,7 @@ import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../utils';
 import DialogAddPoster from './dialog-add-poster';
 import Dialog from '../commons/dialog';
 import DialogEditPoster from './dialog-edit-poster';
+import PostDetail from '../commons/post-detail';
 
 class DashboardComponent extends React.Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class DashboardComponent extends React.Component {
             showDialogWarning: false,
             showDialogUpdate: false,
             postUpdate: undefined,
+            postSelected: undefined,
         }
     }
 
@@ -38,7 +40,7 @@ class DashboardComponent extends React.Component {
 
     loadData() {
         const posts = JSON.parse(getDataFromLocalStorage("posts"));
-        
+
         let categories = [];
         categories.push({
             id: "all",
@@ -73,7 +75,8 @@ class DashboardComponent extends React.Component {
         })
     }
 
-    onRemove(id) {
+    onRemove(e, id) {
+        e.stopPropagation();
         this.setState({
             removeId: id,
             showDialogWarning: true,
@@ -110,7 +113,8 @@ class DashboardComponent extends React.Component {
         });
     }
 
-    onEdit(id) {
+    onEdit(e, id) {
+        e.stopPropagation();
         const { originPosts } = this.state;
         let post = undefined;
         originPosts.forEach(v => {
@@ -237,6 +241,18 @@ class DashboardComponent extends React.Component {
         this.loadData();
     }
 
+    onDetailPostClose() {
+        this.setState({
+            postSelected: undefined,
+        })
+    }
+
+    onItemTableClick(post) {
+        this.setState({
+            postSelected: post,
+        })
+    }
+
     render() {
         const {
             posts,
@@ -249,7 +265,8 @@ class DashboardComponent extends React.Component {
             showDialogAddPoster,
             showDialogWarning,
             showDialogUpdate,
-            postUpdate
+            postUpdate,
+            postSelected
         } = this.state;
 
         const buttonDialogWarining = [
@@ -276,6 +293,11 @@ class DashboardComponent extends React.Component {
                         buttons={buttonDialogWarining}
                         messageContent={contentDialogWarning}
                         onClickCloseButton={() => this.onRemoveCancel()} />
+                    {
+                        postSelected !== undefined ?
+                            <PostDetail post={postSelected} onClose={() => this.onDetailPostClose()} />
+                            : null
+                    }
                     <div className="dashboard">
                         <div>
                             <div className="title">
@@ -303,8 +325,9 @@ class DashboardComponent extends React.Component {
                                 posts={posts}
                                 header={header}
                                 categories={categories}
-                                onRemove={(id) => this.onRemove(id)}
-                                onEdit={(id) => this.onEdit(id)} />
+                                onRemove={(e, id) => this.onRemove(e, id)}
+                                onEdit={(e, id) => this.onEdit(e, id)}
+                                onItemClick={(post) => this.onItemTableClick(post)} />
                         </div>
                         <div className="footer">
                             <PagingControl

@@ -7,7 +7,7 @@ import { get, pick, isEmpty, isEqual } from "lodash";
 import { users } from "../../data";
 import { validateAll } from "indicative/validator";
 import { bindActionCreators } from "redux";
-import { setUser } from "../../store/actions";
+import { setUser, fetchCategories } from "../../store/actions";
 import {
   signIn,
   getDataFromLocalStorage,
@@ -29,7 +29,7 @@ class SignIn extends Component {
   }
 
   handleChange = e => {
-    const { statusFail } = this.state;
+    // const { statusFail } = this.state;
     this.setState({
       [e.target.name]: e.target.value,
       formatErrs: {
@@ -84,6 +84,7 @@ class SignIn extends Component {
         if (userRes) {
           saveDataToLocalStorage("user", JSON.stringify(userRes));
           this.props.actions.setUser(userRes);
+          this.props.actions.fetchCategories();
         } else {
           this.setState({
             statusFail:
@@ -134,7 +135,7 @@ class SignIn extends Component {
         <Form className="form__auth" onSubmit={this.onSubmit}>
           <div className="header">
             <div className="header__logo">
-              <img src="/media/images/logo/logo.png" />
+              <img src="/media/images/logo/logo.png" alt="img" />
             </div>
             <div className="header__title">
               <span>Sức Khỏe Blog</span>
@@ -146,7 +147,7 @@ class SignIn extends Component {
               ""
             ) : (
               <div className="statusFail">
-                <img src="/media/images/logo/noti.png" />
+                <img src="/media/images/logo/noti.png" alt="img" />
                 {statusFail}
               </div>
             )}
@@ -217,7 +218,7 @@ class SignIn extends Component {
               }}
             >
               <div className="form__social">
-                <img src="media/images/logo/google.png" />
+                <img src="media/images/logo/google.png" alt="img" />
                 Đăng nhập bằng tài khoản Google
               </div>
             </Button>
@@ -230,7 +231,7 @@ class SignIn extends Component {
               }}
             >
               <div className="form__social">
-                <img src="media/images/logo/facebook.png" />
+                <img src="media/images/logo/facebook.png" alt="img" />
                 Đăng nhập bằng tài khoản Facebook
               </div>
             </Button>
@@ -255,6 +256,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       setUser: setUser,
+      fetchCategories,
     },
     dispatch
   ),

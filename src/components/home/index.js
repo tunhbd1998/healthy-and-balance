@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import { get } from "lodash";
 import { bindActionCreators } from "redux";
 import PostDetail from "../commons/post-detail";
+import SearchBox from "../commons/search-box";
 
 function Home({ actions, categories, currentItem, searchContent, post }) {
   const searchInput = React.useRef(null);
@@ -30,13 +31,15 @@ function Home({ actions, categories, currentItem, searchContent, post }) {
   return (
     <MainLayout
       haveLeftSidebar={true}
-      menuItems={categories || []}
+      commonMenuItems={(categories || []).filter(categ => categ.isCommon)}
+      menuItems={(categories || []).filter(categ => !categ.isCommon)}
       onClickItem={() => {
         actions.fetchPostsByCategory();
       }}
     >
       <Container fluid className="hb-home">
-        <Container fluid className="search-box-container">
+        <SearchBox />
+        {/* <Container fluid className="search-box-container">
           <div className="search-box">
             <input
               ref={searchInput}
@@ -50,7 +53,7 @@ function Home({ actions, categories, currentItem, searchContent, post }) {
             />
             <FontAwesomeIcon className="icon" icon={faSearch} />
           </div>
-        </Container>
+        </Container> */}
         <Router>
           <Switch>
             <Route push path="/" exact>

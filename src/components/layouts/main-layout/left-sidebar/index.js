@@ -14,6 +14,7 @@ import { bindActionCreators } from "redux";
 import { getCategoryById } from "../../../../utils";
 
 function LeftSidebar({
+  commonMenuItems,
   menuItems,
   currentItem,
   actions,
@@ -37,7 +38,11 @@ function LeftSidebar({
 
   if (!searchContent) {
     if (!currentItem && menuItems.length > 0) {
-      actions.setCurrentItem(getCategoryById(match.params.id) || menuItems[0]);
+      actions.setCurrentItem(
+        getCategoryById(match.params.id) ||
+          get(commonMenuItems, 0) ||
+          get(menuItems, 0)
+      );
       onClickItem();
     }
   }
@@ -52,6 +57,23 @@ function LeftSidebar({
         />
       </Button>
       <ul className="content">
+        {(commonMenuItems || []).map(item => (
+          <li key={item.id} className="menu-item-container">
+            <Link
+              className={`menu-item ${
+                item.id === get(currentItem, "id") ? "active" : ""
+              }`}
+              onClick={() => {
+                actions.setCurrentItem(item);
+                onClickItem();
+              }}
+              to={item.url}
+            >
+              {item.title}
+            </Link>
+          </li>
+        ))}
+        {(commonMenuItems || []).length > 0 ? <div className="line" /> : null}
         {(menuItems || []).map((item, index) => (
           <li key={item.id} className="menu-item-container">
             <Link

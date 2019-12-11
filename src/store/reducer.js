@@ -24,10 +24,18 @@ const initStates = {
 export const reducer = (state = initStates, { type, payload }) => {
   switch (type) {
     case actionTypes.FETCH_CATEGORIES: {
+      let commonCategories =
+        JSON.parse(getDataFromLocalStorage("commonCategories")) || [];
+      if (!state.user) {
+        commonCategories = commonCategories.filter(
+          categ => !categ.requireSignIn
+        );
+      }
+
       return {
         ...state,
         categories: [
-          ...JSON.parse(getDataFromLocalStorage("commonCategories")),
+          ...commonCategories,
           ...JSON.parse(getDataFromLocalStorage("categories")),
         ],
       };
@@ -86,7 +94,7 @@ export const reducer = (state = initStates, { type, payload }) => {
       return {
         ...state,
         notifications: [
-          ...state.notifications,
+          // ...state.notifications,
           { type: payload.type, message: payload.message },
         ],
       };

@@ -31,12 +31,12 @@ export const fetchPostsByCategory = () => (dispatch, getState) => {
       (dateOne, dateTwo) => new Date(dateTwo) - new Date(dateOne)
     );
   } else if (currentItem.id === "following") {
-    posts = sourcePosts.filter(post =>
-      user.followingPosts.findIndex(pId => pId === post.id)
+    posts = sourcePosts.filter(
+      post => user.followingPosts.findIndex(pId => pId === post.id) > -1
     );
   } else if (currentItem.id === "mark") {
-    posts = sourcePosts.filter(post =>
-      user.markedPosts.findIndex(pId => pId === post.id)
+    posts = sourcePosts.filter(
+      post => user.markedPosts.findIndex(pId => pId === post.id) > -1
     );
   } else {
     posts = sourcePosts.filter(post => post.category === currentItem.id);

@@ -49,9 +49,26 @@ export const users = {
   },
 };
 export const commonCategories = [
-  { id: "new", title: "Bài viết mới", url: "/category/new" },
-  { id: "following", title: "Đang theo dõi", url: "/category/following" },
-  { id: "marked", title: "Đã đánh dấu", url: "/category/marked" },
+  {
+    id: "new",
+    title: "Bài viết mới",
+    url: "/category/new",
+    isCommon: true,
+  },
+  {
+    id: "following",
+    title: "Đang theo dõi",
+    url: "/category/following",
+    isCommon: true,
+    requireSignIn: true,
+  },
+  {
+    id: "marked",
+    title: "Đã đánh dấu",
+    url: "/category/marked",
+    isCommon: true,
+    requireSignIn: true,
+  },
 ];
 export const categories = [
   { id: "categ01", title: "Sức khỏe", url: "/category/categ01" },
