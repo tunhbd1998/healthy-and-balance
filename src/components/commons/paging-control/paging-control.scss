@@ -15,7 +15,7 @@
     background-color: $bgColorWhite !important;
 }
 
-.button-pg icon {
+.button-pg i {
     color: $textColor01;
 }
 
@@ -23,17 +23,27 @@
     background-color: $bgColorGreen !important;
 }
 
-.button-pg:hover icon {
+.button-pg:hover i {
     color: $bgColorWhite;
 }
 
 .button-disable {
-    background-color: $bgColorGray !important;
+    border: none !important;
+    background-color: $textColor05 !important;
     cursor: not-allowed !important;
 }
 
+.button-disable i {
+    color: rgba(255, 255, 255, 1) ;
+}
+
 .button-disable:hover {
-    background-color: $bgColorGray !important;
+    background-color: $textColor05 !important;
+    cursor: not-allowed !important;
+}
+
+.button-pg:hover i {
+    color: rgba(255, 255, 255, 1)  ;
     cursor: not-allowed !important;
 }
 

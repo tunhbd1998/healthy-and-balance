@@ -1,7 +1,7 @@
 import React from "react";
 import './combobox.scss';
 
-export default function ComboBox({ onChange, items, label }) {
+export default function ComboBox({ onChange, items, label, selectValue }) {
     let lb = <></>;
     if (label !== undefined) {
         lb = <>{label}:</>;
@@ -10,10 +10,11 @@ export default function ComboBox({ onChange, items, label }) {
         <div className={label === undefined ? "cb-min" : "cb"}>
             {lb}
             <select
-                onChange={onChange}>
+                onChange={onChange}
+                defaultValue={selectValue === undefined ? 0 : selectValue}>
                 {
                     items.map((v, idx) => (
-                        <option className={idx === 0 ? "select" : ""} value={v.id} key={idx}>{v.title}</option>
+                        <option value={v.id} key={idx}>{v.title}</option>
                     ))
                 }
             </select>

@@ -2,10 +2,16 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getDataFromLocalStorage } from "../../../../../utils";
+import { connect } from "react-redux";
+import { get } from "lodash";
+import "./user-menu.styles.scss";
 
-export default function UserMenu(props) {
-  const user = JSON.parse(getDataFromLocalStorage("user"));
+function UserMenu({ user }) {
   const defaultAvatar = "/media/images/users/placeholder.png";
+
+  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <Avatar />
+  ));
 
   const Avatar = () => (
     <img
@@ -16,13 +22,30 @@ export default function UserMenu(props) {
   );
 
   return user ? (
-    <div>
+    <div className="hb-user-menu">
       <Dropdown>
-        <Dropdown.Toggle as={Avatar} />
+        <Dropdown.Toggle>
+          <Avatar />
+        </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          <Dropdown.Item>
+            <Link className="user-menu--menu-item" to="/me">
+              Thông tin tài khoản
+            </Link>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Link className="user-menu--menu-item" to="/me/manage-post">
+              Quản lý bài viết cá nhân
+            </Link>
+          </Dropdown.Item>
+          {user.role === "admin" ? (
+            <Dropdown.Item>
+              <Link className="user-menu--menu-item" to="/admin/dashboard">
+                Quản lý bài viết cá nhân
+              </Link>
+            </Dropdown.Item>
+          ) : null}
+          <Dropdown.Item>Đăng xuất</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </div>
@@ -32,3 +55,9 @@ export default function UserMenu(props) {
     </Link>
   );
 }
+
+const mapStateToProps = state => ({
+  user: get(state, "user"),
+});
+
+export default connect(mapStateToProps, null)(UserMenu);

@@ -1,0 +1,14 @@
+@import "src/globals/globals.styles.scss";
+
+.ip {
+    border-radius: 10px;
+    border: 1px  solid black;
+    border-color: $textColorMain;
+    width: 100%;
+    padding-left: 6px;
+    display: flex !important;
+    align-self: center !important;
+    align-content: center !important;
+    background-color: #ffffff;
+    color: $textColor02;
+}

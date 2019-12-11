@@ -60,6 +60,12 @@ export const reducer = (state = initStates, { type, payload }) => {
         post: null,
       };
     }
+    case actionTypes.SET_USER: {
+      return {
+        ...state,
+        user: payload.user,
+      };
+    }
     default:
       return { ...state };
   }

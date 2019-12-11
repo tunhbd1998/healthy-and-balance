@@ -5,6 +5,9 @@ import "./App.css";
 import { getDataFromLocalStorage, prepareDataForApp } from "../../utils";
 import Home from "../home";
 import DashboardComponent from "../poster/DashboardComponent";
+import SignIn from "../sign-in";
+import SignUp from "../sign-up";
+import ForgotPassword from "../forgot-password";
 
 export default function App() {
   const [ready, setReady] = React.useState(false);
@@ -23,8 +26,9 @@ export default function App() {
   return ready ? (
     <Router>
       <Switch>
-        <Route path="/sign-in" exact component={null} />
-        <Route path="/sign-up" exact component={null} />
+        <Route path="/sign-in" exact component={SignIn} />
+        <Route path="/sign-up" exact component={SignUp} />
+        <Route path="/forgot-password" exact component={ForgotPassword} />
         <Route path="/" component={Home} />
         <Route
           path="/me/management-post"

@@ -107,3 +107,13 @@ export const isPostInUserFollowings = (username, postId) => {
 
   return user.fllowingPosts.findIndex(pId => pId === postId) > -1;
 };
+
+export const signIn = (username, password) => {
+  const users = JSON.parse(getDataFromLocalStorage("users"));
+
+  if (users[username] && users[username].password === password) {
+    return users[username];
+  }
+
+  return null;
+};

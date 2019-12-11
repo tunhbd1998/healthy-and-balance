@@ -19,9 +19,9 @@ export default function Dialog({
       ) : null}
       <Modal.Body className="">{messageContent}</Modal.Body>
       <Modal.Footer>
-        {buttons.map(button => {
+        {buttons.map((button, idx) => {
           return (
-            <Button type={button.type} onClick={button.onClick}>
+            <Button key={idx} type={button.type} onClick={button.onClick}>
               {button.label}
             </Button>
           );

@@ -17,13 +17,18 @@
 
       input {
         width: 250px;
-        border: none;
-        outline: none;
+        height: auto !important;
+        border: none !important;
+        outline: none !important;
         transition-duration: 0.3s;
+        background: transparent !important;
 
         &:focus {
           width: 400px;
           transition-duration: 0.3s;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
         }
       }
 

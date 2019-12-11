@@ -8,3 +8,4 @@ export const FETCH_POSTS_DONE = "FETCH_POSTS_DONE";
 export const SET_SEARCH_CONTENT = "SET_SEARCH_CONTENT";
 export const SHOW_POST_DETAIL = "SHOW_POST_DETAIL";
 export const HIDE_POST_DETAIL = "HIDE_POST_DETAIL";
+export const SET_USER = "SET_USER";

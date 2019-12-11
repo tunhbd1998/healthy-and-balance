@@ -8,7 +8,10 @@ import Image from '../commons/image';
 import SearchInput from '../commons/search';
 import PagingControl from '../commons/paging-control';
 import MainLayout from '../layouts/main-layout';
-import { getDataFromLocalStorage } from '../../utils';
+import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../utils';
+import DialogAddPoster from './dialog-add-poster';
+import Dialog from '../commons/dialog';
+import DialogEditPoster from './dialog-edit-poster';
 
 class DashboardComponent extends React.Component {
     constructor(props) {
@@ -22,6 +25,10 @@ class DashboardComponent extends React.Component {
             maxItems: 10,
             currentPage: 1,
             searchText: "",
+            removeId: "",
+            showDialogWarning: false,
+            showDialogUpdate: false,
+            postUpdate: undefined,
         }
     }
 
@@ -30,6 +37,8 @@ class DashboardComponent extends React.Component {
     }
 
     loadData() {
+        const posts = JSON.parse(getDataFromLocalStorage("posts"));
+        
         let categories = [];
         categories.push({
             id: "all",
@@ -40,8 +49,8 @@ class DashboardComponent extends React.Component {
             categories.push(v);
         })
         this.setState({
-            originPosts: JSON.parse(getDataFromLocalStorage("posts")),
-            posts: JSON.parse(getDataFromLocalStorage("posts")),
+            originPosts: posts,
+            posts: posts,
             categories: categories,
             status: [
                 {
@@ -60,16 +69,61 @@ class DashboardComponent extends React.Component {
                     id: 1,
                     title: "Đã duyệt"
                 },
-            ]
+            ],
         })
     }
 
     onRemove(id) {
-        console.log("Remove ", id);
+        this.setState({
+            removeId: id,
+            showDialogWarning: true,
+        });
+    }
+
+    onRemoveAccpet() {
+        const { maxItems } = this.state;
+        let { currentPage } = this.state;
+        const { originPosts, removeId } = this.state;
+        const posts = [];
+        originPosts.forEach(v => {
+            if (v.id !== removeId) {
+                posts.push(v);
+            }
+        });
+        saveDataToLocalStorage("posts", JSON.stringify(posts));
+        if ((currentPage - 1) * maxItems <= posts.length && currentPage !== 1) {
+            currentPage--;
+        }
+        this.setState({
+            removeId: -1,
+            showDialogWarning: false,
+            originPosts: posts,
+            posts: posts,
+            currentPage: currentPage,
+        });
+    }
+
+    onRemoveCancel() {
+        this.setState({
+            removeId: -1,
+            showDialogWarning: false,
+        });
     }
 
     onEdit(id) {
-        console.log("Edit ", id);
+        const { originPosts } = this.state;
+        let post = undefined;
+        originPosts.forEach(v => {
+            if (v.id === id) {
+                post = v;
+                return;
+            }
+        });
+
+        this.setState({
+            showDialogUpdate: true,
+            postUpdate: post,
+        });
     }
 
     nextPage() {
@@ -97,9 +151,7 @@ class DashboardComponent extends React.Component {
         if (value == 2) {
             posts = originPosts;
         } else {
-            // eslint-disable-next-line array-callback-return
-            originPosts.map(v => {
-                console.log(v);
+            originPosts.forEach(v => {
                 // eslint-disable-next-line eqeqeq
                 if (v.status == value) {
                     posts.push(v);
@@ -122,7 +174,7 @@ class DashboardComponent extends React.Component {
             posts = originPosts;
         } else {
             // eslint-disable-next-line array-callback-return
-            originPosts.map(v => {
+            originPosts.forEach(v => {
                 if (v.category === value) {
                     posts.push(v);
                 }
@@ -153,7 +205,7 @@ class DashboardComponent extends React.Component {
             return;
         }
 
-        originPosts.map(v => {
+        originPosts.forEach(v => {
             if (v.title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
                 posts.push(v);
             }
@@ -165,12 +217,65 @@ class DashboardComponent extends React.Component {
         });
     }
 
+    onButtonAddPoster() {
+        this.setState({
+            showDialogAddPoster: true,
+        })
+    }
+
+    onDialogAddClose() {
+        this.setState({
+            showDialogAddPoster: false,
+        });
+        this.loadData();
+    }
+
+    onDialogUpdateClose() {
+        this.setState({
+            showDialogUpdate: false,
+        });
+        this.loadData();
+    }
+
     render() {
-        const { posts, header, categories, status, maxItems, currentPage, searchText } = this.state;
-        console.log(this.state)
+        const {
+            posts,
+            header,
+            categories,
+            status,
+            maxItems,
+            currentPage,
+            searchText,
+            showDialogAddPoster,
+            showDialogWarning,
+            showDialogUpdate,
+            postUpdate
+        } = this.state;
+
+        const buttonDialogWarining = [
+            {
+                type: "danger",
+                label: "Không",
+                onClick: () => this.onRemoveCancel(),
+            },
+            {
+                type: "primary",
+                label: "Có",
+                onClick: () => this.onRemoveAccpet(),
+            }
+        ];
+        const contentDialogWarning = "Bạn có muốn xóa bài viết?";
+
         return (
             <MainLayout haveLeftSidebar={false} menuItems={[]}>
                 <>
+                    <DialogAddPoster show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
+                    <DialogEditPoster post={postUpdate} show={showDialogUpdate} onCloseDialog={() => this.onDialogUpdateClose()} />
+                    <Dialog
+                        show={showDialogWarning}
+                        buttons={buttonDialogWarining}
+                        messageContent={contentDialogWarning}
+                        onClickCloseButton={() => this.onRemoveCancel()} />
                     <div className="dashboard">
                         <div>
                             <div className="title">
@@ -189,7 +294,7 @@ class DashboardComponent extends React.Component {
                                     <ComboBox items={categories} label={"Chuyên mục"} onChange={(e) => this.filterCategory(e)} />
                                 </div>
                                 <div>
-                                    <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} />
+                                    <Button2 children={<><Image src={ic_add} disable />Thêm bài viết</>} onClick={() => this.onButtonAddPoster()} />
                                 </div>
                             </div>
                             <DataTableComponent
@@ -205,7 +310,7 @@ class DashboardComponent extends React.Component {
                             <PagingControl
                                 onNext={() => this.nextPage()}
                                 onPrev={() => this.prevPage()}
-                                maxPage={Math.floor(posts.length / maxItems) + 1}
+                                maxPage={Math.floor(posts.length / maxItems) === posts.length / maxItems ? Math.floor(posts.length / maxItems) : Math.floor(posts.length / maxItems) + 1}
                                 currentPage={currentPage} />
                         </div>
                     </div>

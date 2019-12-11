@@ -1,0 +1,135 @@
+.border__red { 
+    border-color: #ef3b3b !important;
+}
+.text__red {
+    color : #ef3b3b !important;
+}
+.alert__error{
+    color : #ef3b3b !important;
+    font-size: 12px;
+    font-style: italic;
+    font-weight:600;
+}
+.statusFail img{
+    max-width:100%;
+    width:20px;
+    margin-right:10px;
+}
+.statusFail {
+    justify-content:center;
+    display:flex;
+    align-items: center;
+    font-size:12px;
+    font-style:italic;
+    padding-bottom:15px;
+    color: #ef3b3b;
+    font-weight:600;
+}
+input:focus {
+    box-shadow: 0 0 0 1px rgba(37, 88, 82,0.75) !important;	;
+    border-color: #255852 !important;
+}
+input {
+    border: 1px solid #E0E2E5 !important;
+    height:45px !important;
+}
+
+.form__auth{
+    max-width:550px;
+    position: relative;
+    background:#fff;
+    top:40px;
+    margin:auto;
+    padding:20px 30px;
+    box-shadow:2px 4px 10px 0 rgba(0,0,0,0.3);
+}
+.form__auth .header{
+    display:flex;
+    align-items: center;
+}
+.form__auth .header .header__logo img{
+    width:100%;
+}
+.form__auth .header .header__title{
+    width:100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #255852;
+}
+.button__normal {
+    width: 100%;
+    height:45px;
+    background: #255852 !important;
+    color:white !important;
+    border:unset !important;
+}
+.button__normal:hover{
+    background:#3c726b !important;
+}
+.btn__social:focus,.button__normal:focus{
+    box-shadow: unset !important;
+}
+.btn__social {
+    width:100%;
+    background: transparent !important;
+    border :unset !important;
+}
+.btn__social img{
+    width:35px;
+    max-width:100%;
+}
+.btn__social.google {
+    border: 1px solid #ef3b3b !important;
+    color: #ef3b3b !important;
+}
+.btn__social.google:hover {
+    background: #fce0e0 !important;
+}
+.btn__social.facebook img{
+    width:30px;
+}
+.btn__social.facebook {
+    margin-top:10px;
+    border: 1px solid #395185 !important;
+    color: #395185 !important;
+}
+.btn__social.facebook:hover {
+    background: #d2ddf4 !important;
+}
+.form__content {
+    margin-top:30px;
+}
+.form__option {
+    padding: 10px 0;
+    text-align: center;
+    color:#b3b3b3 !important;
+    font-size:12px;
+    font-weight: bold;
+}
+.form__auth .form__social{
+    width:330px;
+    display:flex;
+    align-items: center;
+    margin:auto;
+}
+.form__auth .form__social img {
+    margin-right:20px;
+}
+.forgot__password {
+    margin-top:20px;
+    color: #b3b3b3;
+    text-align:center;
+    font-size:14px;
+}
+.forgot__password a {
+    color:inherit !important;
+    font-weight: bold;
+    font-style: italic;
+}
+.form__other { 
+    margin-top:5px;
+    text-align:center;
+    font-size:14px;
+    font-style:italic
+}

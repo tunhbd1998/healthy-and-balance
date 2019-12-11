@@ -53,3 +53,8 @@ export const hidePostDetail = () => ({
   type: actionTypes.HIDE_POST_DETAIL,
   payload: {},
 });
+
+export const setUser = user => ({
+  type: actionTypes.SET_USER,
+  payload: { user },
+});
