@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../button";
-import "./dialog.styles.css";
+import "./dialog.styles.scss";
 
 export default function Dialog({
   title,

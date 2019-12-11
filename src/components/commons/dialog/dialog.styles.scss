@@ -1,0 +1,23 @@
+@import "src/globals/globals.styles.scss";
+
+.dialog {
+  display: flex!important;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog .modal-header {
+  display: flex!important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.dialog .modal-title {
+  align-self: center !important;
+  color:  $textColorMain;;
+}
+
+.dialog .model-content {
+  width: 300px;
+  padding: 20px 0px;
+}
