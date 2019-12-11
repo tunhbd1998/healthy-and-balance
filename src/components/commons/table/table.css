@@ -10,3 +10,7 @@ table {
     display: flex;
     justify-content: center;
 }
+
+.cell-hover:hover {
+    cursor: pointer;
+}

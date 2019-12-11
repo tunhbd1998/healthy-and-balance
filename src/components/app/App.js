@@ -8,6 +8,7 @@ import DashboardComponent from "../poster/DashboardComponent";
 import SignIn from "../sign-in";
 import SignUp from "../sign-up";
 import ForgotPassword from "../forgot-password";
+import PosterManageAdminComponent from "../admin/poster-manage/PosterManageAdminComponent";
 
 export default function App() {
   const [ready, setReady] = React.useState(false);
@@ -35,7 +36,7 @@ export default function App() {
           component={DashboardComponent}
         />
         <Route path="/admin/sign-in" exact component={null} />
-        <Route path="/admin/dashboard" exact component={null} />
+        <Route path="/admin/dashboard" exact component={PosterManageAdminComponent} />
         <Route path="/" component={Home} />
       </Switch>
     </Router>
