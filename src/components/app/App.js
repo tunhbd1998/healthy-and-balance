@@ -13,7 +13,6 @@ export default function App() {
 
   React.useEffect(() => {
     if (!getDataFromLocalStorage("commonCategories")) {
-      console.log("jojo");
       prepareDataForApp();
       updateReady(true);
     } else {
@@ -26,8 +25,12 @@ export default function App() {
       <Switch>
         <Route path="/sign-in" exact component={null} />
         <Route path="/sign-up" exact component={null} />
-        <Route path="/" exact component={Home} />
-        <Route path="/management" exact component={DashboardComponent} />
+        <Route path="/" component={Home} />
+        <Route
+          path="/me/management-post"
+          exact
+          component={DashboardComponent}
+        />
         <Route path="/admin/sign-in" exact component={null} />
         <Route path="/admin/dashboard" exact component={null} />
       </Switch>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Popover, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getDataFromLocalStorage } from "../../../../../utils";
 
@@ -27,7 +27,7 @@ export default function UserMenu(props) {
       </Dropdown>
     </div>
   ) : (
-    <Link to="/">
+    <Link to="/sign-in">
       <img className="hb-avatar" src={defaultAvatar} alt="avatar" />
     </Link>
   );

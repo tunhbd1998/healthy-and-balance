@@ -1,0 +1,98 @@
+@import "src/globals/globals.styles.scss";
+
+.hb-post-detail {
+  display: flex !important;
+  justify-content: flex-end;
+
+  .modal-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+
+      .react-reveal {
+        height: 100%;
+      }
+
+      .content {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+
+        .close-button {
+          width: 50px;
+          height: 50px;
+          margin-top: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 4px 0px 0px 4px;
+          background: #fff;
+          cursor: pointer;
+        }
+
+        .detail-container {
+          width: calc(100% - 100px);
+          height: 100%;
+          background: #fff;
+
+          .detail-header {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 70px;
+            border-bottom: 1px solid rgba(37, 88, 82, 0.2);
+
+            .item {
+              display: flex;
+              align-items: center;
+
+              .icon {
+                margin: 0px 10px;
+                color: $textColor02;
+
+                &.active {
+                  color: $bgColorGreen;
+                }
+              }
+
+              .created-date {
+                margin-left: 10px;
+                color: $textColor02;
+              }
+            }
+          }
+
+          .detail-content {
+            width: 100%;
+            height: calc(100% - 50px);
+            overflow: auto;
+            padding: 20px 70px;
+
+            .post-title {
+              width: 100%;
+              color: $textColor03;
+              font-weight: bold;
+              font-size: 35px;
+              margin-bottom: 20px;
+            }
+
+            .post-content {
+            }
+          }
+        }
+      }
+    }
+  }
+}

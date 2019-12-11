@@ -1,16 +1,15 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import { getDataFromLocalStorage } from "../../../utils";
-import LeftSidebar from "../../commons/left-sidebar";
+import LeftSidebar from "./left-sidebar";
 import Header from "./header";
 import "./main-layout.styles.scss";
 
-export default function MainLayout({ haveLeftSidebar, menuItems, children }) {
-  const commonCategories = JSON.parse(
-    getDataFromLocalStorage("commonCategories")
-  );
-  const categories = JSON.parse(getDataFromLocalStorage("categories"));
-
+export default function MainLayout({
+  haveLeftSidebar,
+  menuItems,
+  children,
+  onClickItem,
+}) {
   return (
     <Container fluid className="hb-main-layout">
       <Row className="header">
@@ -18,12 +17,25 @@ export default function MainLayout({ haveLeftSidebar, menuItems, children }) {
       </Row>
       <Row className="body">
         {haveLeftSidebar ? (
-          <Container fluid>
-            <LeftSidebar menuItems={[...commonCategories, ...categories]} />
-            <Container>{children}</Container>
-          </Container>
+          <>
+            <LeftSidebar menuItems={menuItems} onClickItem={onClickItem} />
+            <Container className="contain-left-sidebar--content">
+              {children}
+            </Container>
+          </>
         ) : (
-          <Container fluid style={{overflow: 'auto', height: '100%', width: '100%'}}>{children}</Container>
+          <Container
+            className="not-contain-left-sidebar"
+            fluid
+            style={{
+              overflow: "auto",
+              height: "100%",
+              width: "100%",
+              padding: "0",
+            }}
+          >
+            {children}
+          </Container>
         )}
       </Row>
     </Container>

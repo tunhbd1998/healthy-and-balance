@@ -1,0 +1,15 @@
+@import "src/globals/globals.styles.scss";
+
+.hb-category-label {
+  width: 143px;
+  height: 30px;
+  background: rgba(225, 225, 223, 0.6);
+  border-left: solid 5px $bgColorGreen;
+  padding: 0px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $textColorMain;
+  font-size: 14px;
+  font-weight: bold;
+}

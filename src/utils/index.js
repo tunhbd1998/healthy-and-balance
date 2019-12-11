@@ -1,7 +1,8 @@
 import * as data from "../data";
+import { get } from "lodash";
 
 export const prepareDataForApp = () => {
-  console.log("data", data);
+  saveDataToLocalStorage("preparedData", true);
   saveDataToLocalStorage(
     "commonCategories",
     JSON.stringify(data.commonCategories)
@@ -19,4 +20,90 @@ export const getDataFromLocalStorage = key => {
   const data = localStorage.getItem(key);
 
   return data;
+};
+
+export const getCategoryTitle = id => {
+  const categories = [
+    ...JSON.parse(getDataFromLocalStorage("commonCategories")),
+    ...JSON.parse(getDataFromLocalStorage("categories")),
+  ];
+
+  const category = categories.filter(categ => categ.id === id)[0];
+
+  return get(category, "title");
+};
+
+export const getCategoryById = id => {
+  const categories = [
+    ...JSON.parse(getDataFromLocalStorage("commonCategories")),
+    ...JSON.parse(getDataFromLocalStorage("categories")),
+  ];
+
+  const category = categories.filter(categ => categ.id === id)[0];
+
+  return category;
+};
+
+export const getUserByUsername = username => {
+  const users = JSON.parse(getDataFromLocalStorage("users"));
+
+  return get(users, username);
+};
+
+export const fetchPostsByCategory = (categoryId, page, pageSize) => {
+  const posts = JSON.parse(getDataFromLocalStorage("posts")).filter(
+    post => post.category === categoryId
+  );
+  const totalPage = Math.ceil((posts.length * 1.0) / pageSize);
+
+  if (totalPage < page) {
+    return [];
+  }
+
+  return posts.slice((page - 1) * pageSize, page * pageSize);
+};
+
+export const fetchPostsBySearch = (text, page, pageSize) => {
+  const posts = JSON.parse(getDataFromLocalStorage("posts")).filter(
+    post => post.title.indexOf(text) > -1
+  );
+  const totalPage = Math.ceil((posts.length * 1.0) / pageSize);
+
+  if (totalPage < page) {
+    return [];
+  }
+
+  return posts.slice((page - 1) * pageSize, page * pageSize);
+};
+
+export const updateCurrentCategory = id => {
+  saveDataToLocalStorage("currentCategory", getCategoryById(id));
+};
+
+export const getCurrentCategory = id => {
+  return JSON.parse(getDataFromLocalStorage("currentCategory"));
+};
+
+export const clearSensitiveChange = () => {
+  localStorage.removeItem("");
+};
+
+export const isPostInUserMarks = (username, postId) => {
+  const user = getUserByUsername(username);
+
+  if (!user) {
+    return false;
+  }
+
+  return user.markedPosts.findIndex(pId => pId === postId) > -1;
+};
+
+export const isPostInUserFollowings = (username, postId) => {
+  const user = getUserByUsername(username);
+
+  if (!user) {
+    return false;
+  }
+
+  return user.fllowingPosts.findIndex(pId => pId === postId) > -1;
 };

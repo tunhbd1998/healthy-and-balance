@@ -1,0 +1,35 @@
+.hb-home {
+  padding: 10px 20px;
+
+  .search-box-container {
+    display: flex;
+    justify-content: flex-end;
+
+    .search-box {
+      width: auto;
+      height: 40px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      border-radius: 50px;
+      border: solid 1px rgba(37, 88, 82, 0.4);
+
+      input {
+        width: 250px;
+        border: none;
+        outline: none;
+        transition-duration: 0.3s;
+
+        &:focus {
+          width: 400px;
+          transition-duration: 0.3s;
+        }
+      }
+
+      .icon {
+        color: rgba(37, 88, 82, 0.4);
+      }
+    }
+  }
+}
