@@ -14,12 +14,18 @@ import {
   getUserByUsername,
   isPostInUserMarks,
   isPostInUserFollowings,
+  removeMarkedPost,
+  addMarkedPost,
+  removeFollowingUsers,
+  addFollowingUsers,
 } from "../../../utils";
 import AuthorLabel from "../author-label";
 import { connect } from "react-redux";
 import { get } from "lodash";
+import { bindActionCreators } from "redux";
+import { setUser } from "../../../store/actions";
 
-function PostDetail({ post, onClose, user }) {
+function PostDetail({ post, onClose, user, actions }) {
   const [show, setShow] = React.useState(true);
 
   if (!post) {
@@ -27,6 +33,37 @@ function PostDetail({ post, onClose, user }) {
   }
 
   const author = getUserByUsername(post.author);
+  console.log("useruser", user);
+  const toggleBookmark = () => {
+    console.log("bbbbb");
+    if (isPostInUserMarks(user.username, post.id)) {
+      console.log("rm bk");
+      actions.setUser({
+        ...user,
+        markedPosts: removeMarkedPost(user.username, post.id),
+      });
+    } else {
+      console.log("add bk");
+      actions.setUser({
+        ...user,
+        markedPosts: addMarkedPost(user.username, post.id),
+      });
+    }
+  };
+
+  const toggleFollowing = () => {
+    if (isPostInUserFollowings(user.username, post.author)) {
+      actions.setUser({
+        ...user,
+        followingUsers: removeFollowingUsers(user.username, post.author),
+      });
+    } else {
+      actions.setUser({
+        ...user,
+        followingUsers: addFollowingUsers(user.username, post.author),
+      });
+    }
+  };
 
   return (
     <Modal show={show} className="hb-post-detail">
@@ -48,12 +85,13 @@ function PostDetail({ post, onClose, user }) {
                 {user ? (
                   <FontAwesomeIcon
                     className={`icon ${
-                      isPostInUserMarks(author.username, post.id)
+                      user.markedPosts &&
+                      isPostInUserMarks(user.username, post.id)
                         ? "active"
                         : ""
                     }`}
                     icon={faBookmark}
-                    onClick={() => {}}
+                    onClick={toggleBookmark}
                   />
                 ) : null}
               </div>
@@ -61,12 +99,12 @@ function PostDetail({ post, onClose, user }) {
                 {user ? (
                   <FontAwesomeIcon
                     className={`icon ${
-                      isPostInUserFollowings(author.username, post.id)
+                      isPostInUserFollowings(user.username, post.author)
                         ? "active"
                         : ""
                     }`}
                     icon={faHeart}
-                    onClick={() => {}}
+                    onClick={toggleFollowing}
                   />
                 ) : null}
 
@@ -94,4 +132,8 @@ const mapStateToProps = state => ({
   user: get(state, "user"),
 });
 
-export default connect(mapStateToProps, null)(PostDetail);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ setUser }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

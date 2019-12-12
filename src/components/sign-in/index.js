@@ -128,6 +128,7 @@ class SignIn extends Component {
 
     if (JSON.parse(getDataFromLocalStorage("user"))) {
       actions.setUser(JSON.parse(getDataFromLocalStorage("user")));
+      actions.fetchCategories();
     }
 
     return (

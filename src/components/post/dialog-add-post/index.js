@@ -130,7 +130,7 @@ export default class DialogAddPost extends React.Component {
         },
       ];
     dialogContent = (
-      <>
+      <div className="dap">
         <div className="group-item">
           Tên bài viết
           <Input
@@ -160,7 +160,7 @@ export default class DialogAddPost extends React.Component {
             onChange={value => this.onContentChange(value)}
           />
         </div>
-      </>
+      </div>
     );
     return (
       <Dialog

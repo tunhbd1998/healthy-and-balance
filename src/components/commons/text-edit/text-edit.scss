@@ -1,5 +1,8 @@
-@import 'src/globals/globals.styles.scss';
+@import "src/globals/globals.styles.scss";
+[tag="textarea"] {
+  height: 200px;
+}
 
 .tdt {
-    min-height: 100px !important;
+  min-height: 100px !important;
 }
