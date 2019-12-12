@@ -8,6 +8,7 @@ import DashboardComponent from "../poster/DashboardComponent";
 import SignIn from "../sign-in";
 import SignUp from "../sign-up";
 import ForgotPassword from "../forgot-password";
+import ManagerUser from '../admin/manager-user'
 
 export default function App() {
   const [ready, setReady] = React.useState(false);
@@ -36,6 +37,7 @@ export default function App() {
         />
         <Route path="/admin/sign-in" exact component={null} />
         <Route path="/admin/dashboard" exact component={null} />
+        <Route path="/admin/manager-user" exact component={ManagerUser} />
         <Route path="/" component={Home} />
       </Switch>
     </Router>

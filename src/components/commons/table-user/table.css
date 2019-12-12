@@ -1,0 +1,12 @@
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+table {
+    background-color: #ffffff;
+}
+
+.center-cell {
+    display: flex;
+    justify-content: center;
+}
