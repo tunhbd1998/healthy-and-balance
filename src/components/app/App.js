@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-// import DashboardComponent from "../poster/DashboardComponent";
 import { getDataFromLocalStorage, prepareDataForApp } from "../../utils";
 import Home from "../home";
-import DashboardComponent from "../poster/DashboardComponent";
+import DashboardComponent from "../post/DashboardComponent";
 import SignIn from "../sign-in";
 import SignUp from "../sign-up";
 import ForgotPassword from "../forgot-password";
 import PosterManageAdminComponent from "../admin/poster-manage/PosterManageAdminComponent";
+import ManageUser from "../admin/manager-user";
 
 export default function App() {
   const [ready, setReady] = React.useState(false);
@@ -32,7 +32,7 @@ export default function App() {
         <Route path="/forgot-password" exact component={ForgotPassword} />
         <Route path="/me/manage-post" exact component={DashboardComponent} />
         <Route path="/admin/sign-in" exact component={null} />
-        <Route path="/admin/dashboard/users" exact component={null} />
+        <Route path="/admin/dashboard/users" exact component={ManageUser} />
         <Route path="/admin/dashboard/categories" exact component={null} />
         <Route path="/admin/dashboard" exact component={PosterManageAdminComponent} />
         <Route path="/" component={Home} />

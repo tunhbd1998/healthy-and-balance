@@ -361,6 +361,7 @@ class PosterManageAdminComponent extends React.Component {
         haveLeftSidebar={true}
         menuItems={menuItems}
         onClickItem={() => { }}
+        title="Quản lý bài viết"
       >
         <>
           {postSelected !== undefined ? (
