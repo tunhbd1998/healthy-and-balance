@@ -45,6 +45,7 @@ export const reducer = (state = initStates, { type, payload }) => {
       };
     }
     case actionTypes.FETCH_POSTS_DONE: {
+      console.log('posts', payload.posts);
       return {
         ...state,
         posts: payload.posts,

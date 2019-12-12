@@ -32,9 +32,9 @@ export const fetchPostsByCategory = () => (dispatch, getState) => {
     );
   } else if (currentItem.id === "following") {
     posts = sourcePosts.filter(
-      post => user.followingPosts.findIndex(pId => pId === post.id) > -1
+      post => user.followingUsers.findIndex(usn => usn === post.author) > -1
     );
-  } else if (currentItem.id === "mark") {
+  } else if (currentItem.id === "marked") {
     posts = sourcePosts.filter(
       post => user.markedPosts.findIndex(pId => pId === post.id) > -1
     );

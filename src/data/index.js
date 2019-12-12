@@ -172,7 +172,7 @@ export const posts = [
       "Ăn thứ này mỗi ngày còn tốt hơn 10 quả táo, phòng ung thư ruột mà ít ai hay",
     category: "categ03",
     status: -1,
-    author: "ngtu",
+    author: "nvphuoc",
     image: "/media/images/posts/3.png",
     shortDescription:
       "Chúng ta thường nghe rằng mỗi ngày ăn 1 quả táo, cả đời không lo bệnh tật. Thế nhưng có một loại củ thậm chí còn tốt hơn táo gấp 10 lần nhưng ít ai hay biết.",
@@ -186,7 +186,7 @@ export const posts = [
       "Ăn thứ này mỗi ngày còn tốt hơn 10 quả táo, phòng ung thư ruột mà ít ai hay",
     category: "categ04",
     status: 1,
-    author: "ngtu",
+    author: "nvphuoc",
     image: "/media/images/posts/2.png",
     shortDescription:
       "Chúng ta thường nghe rằng mỗi ngày ăn 1 quả táo, cả đời không lo bệnh tật. Thế nhưng có một loại củ thậm chí còn tốt hơn táo gấp 10 lần nhưng ít ai hay biết.",
@@ -200,7 +200,7 @@ export const posts = [
       "Ăn thứ này mỗi ngày còn tốt hơn 10 quả táo, phòng ung thư ruột mà ít ai hay",
     category: "categ02",
     status: -1,
-    author: "ngtu",
+    author: "nvphuoc",
     image: "/media/images/posts/1.png",
     shortDescription:
       "Chúng ta thường nghe rằng mỗi ngày ăn 1 quả táo, cả đời không lo bệnh tật. Thế nhưng có một loại củ thậm chí còn tốt hơn táo gấp 10 lần nhưng ít ai hay biết.",
@@ -214,7 +214,7 @@ export const posts = [
       "Ăn thứ này mỗi ngày còn tốt hơn 10 quả táo, phòng ung thư ruột mà ít ai hay",
     category: "categ04",
     status: 0,
-    author: "ngtu",
+    author: "nvphuoc",
     image: "/media/images/posts/1.png",
     shortDescription:
       "Chúng ta thường nghe rằng mỗi ngày ăn 1 quả táo, cả đời không lo bệnh tật. Thế nhưng có một loại củ thậm chí còn tốt hơn táo gấp 10 lần nhưng ít ai hay biết.",
@@ -228,7 +228,7 @@ export const posts = [
       "Ăn thứ này mỗi ngày còn tốt hơn 10 quả táo, phòng ung thư ruột mà ít ai hay",
     category: "categ01",
     status: -1,
-    author: "ngtu",
+    author: "phhviet",
     image: "/media/images/posts/1.png",
     shortDescription:
       "Chúng ta thường nghe rằng mỗi ngày ăn 1 quả táo, cả đời không lo bệnh tật. Thế nhưng có một loại củ thậm chí còn tốt hơn táo gấp 10 lần nhưng ít ai hay biết.",
@@ -242,7 +242,7 @@ export const posts = [
       "Ăn thứ này mỗi ngày còn tốt hơn 10 quả táo, phòng ung thư ruột mà ít ai hay",
     category: "categ02",
     status: -1,
-    author: "ngtu",
+    author: "phhviet",
     image: "/media/images/posts/1.png",
     shortDescription:
       "Chúng ta thường nghe rằng mỗi ngày ăn 1 quả táo, cả đời không lo bệnh tật. Thế nhưng có một loại củ thậm chí còn tốt hơn táo gấp 10 lần nhưng ít ai hay biết.",
@@ -256,7 +256,7 @@ export const posts = [
       "Ăn thứ này mỗi ngày còn tốt hơn 10 quả táo, phòng ung thư ruột mà ít ai hay",
     category: "categ03",
     status: -1,
-    author: "ngtu",
+    author: "phhviet",
     image: "/media/images/posts/1.png",
     shortDescription:
       "Chúng ta thường nghe rằng mỗi ngày ăn 1 quả táo, cả đời không lo bệnh tật. Thế nhưng có một loại củ thậm chí còn tốt hơn táo gấp 10 lần nhưng ít ai hay biết.",

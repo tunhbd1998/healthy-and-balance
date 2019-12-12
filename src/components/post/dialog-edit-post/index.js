@@ -123,7 +123,7 @@ export default class DialogEditPost extends React.Component {
                 label: "Cập nhật",
                 onClick: () => this.onEdit(),
             }];
-        dialogContent = <>
+        dialogContent = <div style={{maxWidth: '1000px'}}>
             <div className="group-item">
                 Tên bài viết
                 <Input placeHover="Tên bài viết" value={title} onChange={(e) => this.onNameChange(e)} />
@@ -142,7 +142,7 @@ export default class DialogEditPost extends React.Component {
                 </div>
                 <TextEdit value={content} onChange={(value) => this.onContentChange(value)} />
             </div>
-        </>
+        </div>
         return (
             <Dialog
                 title="Thêm bài viết"
