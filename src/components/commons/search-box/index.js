@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container } from "react-bootstrap";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-export default function SearchBox({ onEnter }) {
+export default function SearchBox({ onEnter, onChange }) {
   const searchInput = React.useRef(null);
 
   return (
@@ -13,6 +13,7 @@ export default function SearchBox({ onEnter }) {
         <input
           ref={searchInput}
           placeholder="Tìm kiếm"
+          onChange={onChange}
           onKeyPress={event => {
             if (event.key === "Enter") {
               // actions.setSearchContent(searchInput.current.value);

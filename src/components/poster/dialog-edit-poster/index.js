@@ -85,11 +85,11 @@ export default class DialogEditPoster extends React.Component {
     }
 
     onEdit() {
-        const { onCloseDialog } = this.props;
+        const { onCloseDialog, showNotification } = this.props;
         const { post } = this.state;
         const posts = JSON.parse(getDataFromLocalStorage("posts"));
         const newPosts = [];
-        posts.map(v => {
+        posts.forEach(v => {
             if (v.id === post.id) {
                 newPosts.push(post);
             } else {
@@ -99,6 +99,7 @@ export default class DialogEditPoster extends React.Component {
         saveDataToLocalStorage("posts", JSON.stringify(newPosts));
         onCloseDialog();
         this.loadData();
+        showNotification("Cập nhật bài viết thành công", "success")
     }
 
 

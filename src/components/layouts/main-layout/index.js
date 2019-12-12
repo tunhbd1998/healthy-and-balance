@@ -50,14 +50,14 @@ function MainLayout({
           </Container>
         )}
         <div className="notification-container">
-          {/* {notifications.map((notify, index) => (
+          {notifications.map((notify, index) => (
             <Notification
               key={index}
               type={notify.type}
               message={notify.message}
               hideAfter={2000}
             />
-          ))} */}
+          ))}
         </div>
       </Row>
     </Container>

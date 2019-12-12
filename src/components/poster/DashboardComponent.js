@@ -5,7 +5,6 @@ import Button2 from '../commons/button-style2';
 import './poster.scss';
 import ic_add from './ic_add.svg';
 import Image from '../commons/image';
-import SearchInput from '../commons/search';
 import PagingControl from '../commons/paging-control';
 import MainLayout from '../layouts/main-layout';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../utils';
@@ -13,6 +12,9 @@ import DialogAddPoster from './dialog-add-poster';
 import Dialog from '../commons/dialog';
 import DialogEditPoster from './dialog-edit-poster';
 import PostDetail from '../commons/post-detail';
+import { connect } from 'react-redux';
+import { alertNotification } from '../../store/actions';
+import SearchBox from '../commons/search-box';
 
 class DashboardComponent extends React.Component {
     constructor(props) {
@@ -104,6 +106,7 @@ class DashboardComponent extends React.Component {
             posts: posts,
             currentPage: currentPage,
         });
+        this.showNotification("Xóa bài viết thành công", "success");
     }
 
     onRemoveCancel() {
@@ -196,8 +199,7 @@ class DashboardComponent extends React.Component {
         });
     }
 
-    onSearch(e) {
-        e.preventDefault();
+    onSearch() {
         const { originPosts, searchText } = this.state;
 
         let posts = [];
@@ -253,6 +255,11 @@ class DashboardComponent extends React.Component {
         })
     }
 
+    showNotification(message, type) {
+        const { dispatch } = this.props;
+        dispatch(alertNotification(type, message));
+    }
+
     render() {
         const {
             posts,
@@ -261,7 +268,6 @@ class DashboardComponent extends React.Component {
             status,
             maxItems,
             currentPage,
-            searchText,
             showDialogAddPoster,
             showDialogWarning,
             showDialogUpdate,
@@ -286,8 +292,8 @@ class DashboardComponent extends React.Component {
         return (
             <MainLayout haveLeftSidebar={false} menuItems={[]}>
                 <>
-                    <DialogAddPoster show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
-                    <DialogEditPoster post={postUpdate} show={showDialogUpdate} onCloseDialog={() => this.onDialogUpdateClose()} />
+                    <DialogAddPoster showNotification={(message, type) => this.showNotification(message, type)} show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
+                    <DialogEditPoster showNotification={(message, type) => this.showNotification(message, type)} post={postUpdate} show={showDialogUpdate} onCloseDialog={() => this.onDialogUpdateClose()} />
                     <Dialog
                         show={showDialogWarning}
                         buttons={buttonDialogWarining}
@@ -303,13 +309,16 @@ class DashboardComponent extends React.Component {
                             <div className="title">
                                 Quản lý bài viết
                             </div>
-                            <div className="search-input">
+                            {/* <div className="search-input">
                                 <SearchInput
                                     placeHolder="Tìm kiếm"
                                     onChange={(e) => this.onTextSearchChange(e)}
                                     onSearch={(e) => this.onSearch(e)}
                                     searchText={searchText} />
-                            </div>
+                            </div> */}
+                            <SearchBox
+                                onChange={e => this.onTextSearchChange(e)}
+                                onEnter={() => this.onSearch()} />
                             <div className="control-tool">
                                 <div className="group-one">
                                     <ComboBox items={status} label={"Trạng thái"} onChange={(e) => this.filterStatus(e)} />
@@ -343,4 +352,4 @@ class DashboardComponent extends React.Component {
     }
 }
 
-export default DashboardComponent;
+export default connect()(DashboardComponent);

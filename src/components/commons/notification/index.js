@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckCircle,
   faTimesCircle,
-  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import "./notification.styles.scss";
 
 export default function Notification({ hideAfter, type, message }) {
   const [visiable, setVisiable] = React.useState(true);
+  console.log('koo')
 
   return (
     <Toast

@@ -1,8 +1,8 @@
 import React from "react";
 import DataTableComponent from "../../commons/table/DataTableComponent";
 import ComboBox from "../../commons/combo-box";
+import { connect } from 'react-redux';
 import "./poster-manage.scss";
-import SearchInput from "../../commons/search";
 import PagingControl from "../../commons/paging-control";
 import MainLayout from "../../layouts/main-layout";
 import {
@@ -12,6 +12,7 @@ import {
 import Dialog from "../../commons/dialog";
 import PostDetail from "../../commons/post-detail";
 import SearchBox from "../../commons/search-box";
+import { alertNotification } from "../../../store/actions";
 
 class PosterManageAdminComponent extends React.Component {
   constructor(props) {
@@ -177,8 +178,7 @@ class PosterManageAdminComponent extends React.Component {
     });
   }
 
-  onSearch(e) {
-    e.preventDefault();
+  onSearch() {
     const { originPosts, searchText } = this.state;
 
     let posts = [];
@@ -242,6 +242,8 @@ class PosterManageAdminComponent extends React.Component {
       showDialogWarningAccpetPost: false,
       idPostUpdate: -1,
     });
+
+    this.showNotification("Chấp nhận bài viết thành công", "success");
   }
 
   onAcceptPostCancel() {
@@ -279,6 +281,8 @@ class PosterManageAdminComponent extends React.Component {
       showDialogWarningDenyPost: false,
       idPostUpdate: -1,
     });
+
+    this.showNotification("Từ chối bài viết thành công", "success");
   }
 
   onDenyPostCancel() {
@@ -286,6 +290,11 @@ class PosterManageAdminComponent extends React.Component {
       showDialogWarningDenyPost: false,
       idPostUpdate: -1,
     });
+  }
+
+  showNotification(message, type) {
+    const { dispatch } = this.props;
+    dispatch(alertNotification(type, message));
   }
 
   render() {
@@ -297,7 +306,6 @@ class PosterManageAdminComponent extends React.Component {
       status,
       maxItems,
       currentPage,
-      searchText,
       showDialogWarningAccpetPost,
       showDialogWarningDenyPost,
       postSelected,
@@ -352,7 +360,7 @@ class PosterManageAdminComponent extends React.Component {
       <MainLayout
         haveLeftSidebar={true}
         menuItems={menuItems}
-        onClickItem={() => {}}
+        onClickItem={() => { }}
       >
         <>
           {postSelected !== undefined ? (
@@ -384,7 +392,9 @@ class PosterManageAdminComponent extends React.Component {
                   searchText={searchText}
                 />
               </div> */}
-              <SearchBox />
+              <SearchBox
+                onChange={e => this.onTextSearchChange(e)}
+                onEnter={() => this.onSearch()} />
               <div className="control-tool">
                 <div className="group-one">
                   <ComboBox
@@ -422,7 +432,7 @@ class PosterManageAdminComponent extends React.Component {
                 onPrev={() => this.prevPage()}
                 maxPage={
                   Math.floor(posts.length / maxItems) ===
-                  posts.length / maxItems
+                    posts.length / maxItems
                     ? Math.floor(posts.length / maxItems)
                     : Math.floor(posts.length / maxItems) + 1
                 }
@@ -436,4 +446,4 @@ class PosterManageAdminComponent extends React.Component {
   }
 }
 
-export default PosterManageAdminComponent;
+export default connect()(PosterManageAdminComponent);
