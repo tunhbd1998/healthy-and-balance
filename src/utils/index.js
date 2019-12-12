@@ -90,7 +90,7 @@ export const clearSensitiveChange = () => {
 
 export const isPostInUserMarks = (username, postId) => {
   const user = getUserByUsername(username);
-
+  console.log("user", user);
   if (!user) {
     return false;
   }
@@ -98,14 +98,14 @@ export const isPostInUserMarks = (username, postId) => {
   return user.markedPosts.findIndex(pId => pId === postId) > -1;
 };
 
-export const isPostInUserFollowings = (username, postId) => {
+export const isPostInUserFollowings = (username, authorUsername) => {
   const user = getUserByUsername(username);
-
+  console.log("ooooo", user);
   if (!user) {
     return false;
   }
 
-  return user.followingPosts.findIndex(pId => pId === postId) > -1;
+  return user.followingUsers.findIndex(usn => usn === authorUsername) > -1;
 };
 
 export const signIn = (username, password) => {
@@ -116,4 +116,64 @@ export const signIn = (username, password) => {
   }
 
   return null;
+};
+
+export const removeMarkedPost = (username, id) => {
+  const users = JSON.parse(getDataFromLocalStorage("users"));
+
+  if (!users[username]) {
+    return [];
+  }
+
+  users[username].markedPosts = users[username].markedPosts.filter(
+    pId => pId !== id
+  );
+  saveDataToLocalStorage("users", JSON.stringify(users));
+  saveDataToLocalStorage("user", JSON.stringify(users[username]));
+
+  return users[username].markedPosts;
+};
+
+export const addMarkedPost = (username, id) => {
+  const users = JSON.parse(getDataFromLocalStorage("users"));
+
+  if (!users[username]) {
+    return [];
+  }
+
+  users[username].markedPosts.push(id);
+  saveDataToLocalStorage("users", JSON.stringify(users));
+  saveDataToLocalStorage("user", JSON.stringify(users[username]));
+
+  return users[username].markedPosts;
+};
+
+export const removeFollowingUsers = (username, authorUsername) => {
+  const users = JSON.parse(getDataFromLocalStorage("users"));
+
+  if (!users[username]) {
+    return [];
+  }
+
+  users[username].followingUsers = users[username].followingUsers.filter(
+    usn => usn !== authorUsername
+  );
+  saveDataToLocalStorage("users", JSON.stringify(users));
+  saveDataToLocalStorage("user", JSON.stringify(users[username]));
+
+  return users[username].followingUsers;
+};
+
+export const addFollowingUsers = (username, authorUsername) => {
+  const users = JSON.parse(getDataFromLocalStorage("users"));
+
+  if (!users[username]) {
+    return [];
+  }
+
+  users[username].followingUsers.push(authorUsername);
+  saveDataToLocalStorage("users", JSON.stringify(users));
+  saveDataToLocalStorage("user", JSON.stringify(users[username]));
+
+  return users[username].followingUsers;
 };

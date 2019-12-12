@@ -23,6 +23,8 @@ function LeftSidebar({
   match,
 }) {
   const [isCollapsed, setCollapse] = React.useState(false);
+  const [loaded, setLoad] = React.useState(false);
+
   const toggleSidebar = () => {
     setCollapse(!isCollapsed);
 
@@ -35,6 +37,11 @@ function LeftSidebar({
       }px)`;
     }, 200);
   };
+
+  if (!loaded) {
+    actions.setCurrentItem(null);
+    setLoad(true);
+  }
 
   if (!searchContent) {
     if (!currentItem && menuItems.length > 0) {
