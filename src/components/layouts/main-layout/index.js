@@ -8,6 +8,7 @@ import Notification from "../../commons/notification";
 import { get } from "lodash";
 import { bindActionCreators } from "redux";
 import { alertNotification } from "../../../store/actions";
+import TitleComponent from '../../commons/title';
 
 function MainLayout({
   haveLeftSidebar,
@@ -17,50 +18,54 @@ function MainLayout({
   onClickItem,
   notifications,
   actions,
+  title,
 }) {
   return (
-    <Container fluid className="hb-main-layout">
-      <Row className="header">
-        <Header />
-      </Row>
-      <Row className="body">
-        {haveLeftSidebar ? (
-          <>
-            <LeftSidebar
-              commonMenuItems={commonMenuItems}
-              menuItems={menuItems}
-              onClickItem={onClickItem}
-            />
-            <Container className="contain-left-sidebar--content">
-              {children}
-            </Container>
-          </>
-        ) : (
-          <Container
-            className="not-contain-left-sidebar"
-            fluid
-            style={{
-              overflow: "auto",
-              height: "100%",
-              width: "100%",
-              padding: "0",
-            }}
-          >
-            {children}
-          </Container>
-        )}
-        <div className="notification-container">
-          {notifications.map((notify, index) => (
-            <Notification
-              key={index}
-              type={notify.type}
-              message={notify.message}
-              hideAfter={2000}
-            />
-          ))}
-        </div>
-      </Row>
-    </Container>
+    <>
+      <TitleComponent title={title}/>
+      <Container fluid className="hb-main-layout">
+        <Row className="header">
+          <Header />
+        </Row>
+        <Row className="body">
+          {haveLeftSidebar ? (
+            <>
+              <LeftSidebar
+                commonMenuItems={commonMenuItems}
+                menuItems={menuItems}
+                onClickItem={onClickItem}
+              />
+              <Container className="contain-left-sidebar--content">
+                {children}
+              </Container>
+            </>
+          ) : (
+              <Container
+                className="not-contain-left-sidebar"
+                fluid
+                style={{
+                  overflow: "auto",
+                  height: "100%",
+                  width: "100%",
+                  padding: "0",
+                }}
+              >
+                {children}
+              </Container>
+            )}
+          <div className="notification-container">
+            {notifications.map((notify, index) => (
+              <Notification
+                key={index}
+                type={notify.type}
+                message={notify.message}
+                hideAfter={2000}
+              />
+            ))}
+          </div>
+        </Row>
+      </Container>
+    </>
   );
 }
 

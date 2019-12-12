@@ -10,7 +10,7 @@ import {
 } from "../../../utils";
 import "./dialog-add-poster.scss";
 
-export default class DialogAddPoster extends React.Component {
+export default class DialogAddPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

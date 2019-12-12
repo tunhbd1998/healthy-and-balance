@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { getDataFromLocalStorage, prepareDataForApp } from "../../utils";
 import Home from "../home";
-import DashboardComponent from "../poster/DashboardComponent";
+import DashboardComponent from "../post/DashboardComponent";
 import SignIn from "../sign-in";
 import SignUp from "../sign-up";
 import ForgotPassword from "../forgot-password";

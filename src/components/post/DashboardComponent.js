@@ -2,15 +2,15 @@ import React from 'react';
 import DataTableComponent from '../commons/table/DataTableComponent';
 import ComboBox from '../commons/combo-box';
 import Button2 from '../commons/button-style2';
-import './poster.scss';
+import './post.scss';
 import ic_add from './ic_add.svg';
 import Image from '../commons/image';
 import PagingControl from '../commons/paging-control';
 import MainLayout from '../layouts/main-layout';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from '../../utils';
-import DialogAddPoster from './dialog-add-poster';
+import DialogAddPost from './dialog-add-post';
 import Dialog from '../commons/dialog';
-import DialogEditPoster from './dialog-edit-poster';
+import DialogEditPost from './dialog-edit-post';
 import PostDetail from '../commons/post-detail';
 import { connect } from 'react-redux';
 import { alertNotification } from '../../store/actions';
@@ -290,10 +290,13 @@ class DashboardComponent extends React.Component {
         const contentDialogWarning = "Bạn có muốn xóa bài viết?";
 
         return (
-            <MainLayout haveLeftSidebar={false} menuItems={[]}>
+            <MainLayout
+                haveLeftSidebar={false}
+                menuItems={[]}
+                title="Quản lý bài viết cá nhân">
                 <>
-                    <DialogAddPoster showNotification={(message, type) => this.showNotification(message, type)} show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
-                    <DialogEditPoster showNotification={(message, type) => this.showNotification(message, type)} post={postUpdate} show={showDialogUpdate} onCloseDialog={() => this.onDialogUpdateClose()} />
+                    <DialogAddPost showNotification={(message, type) => this.showNotification(message, type)} show={showDialogAddPoster} onCloseDialog={() => this.onDialogAddClose()} />
+                    <DialogEditPost showNotification={(message, type) => this.showNotification(message, type)} post={postUpdate} show={showDialogUpdate} onCloseDialog={() => this.onDialogUpdateClose()} />
                     <Dialog
                         show={showDialogWarning}
                         buttons={buttonDialogWarining}

@@ -6,7 +6,7 @@ import ComboBox from "../../commons/combo-box";
 import { getDataFromLocalStorage, saveDataToLocalStorage } from "../../../utils";
 import "./dialog-edit-poster.scss";
 
-export default class DialogEditPoster extends React.Component {
+export default class DialogEditPost extends React.Component {
 
     constructor(props) {
         super(props);

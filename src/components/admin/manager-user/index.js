@@ -227,7 +227,8 @@ class ManageUser extends React.Component {
             <MainLayout
                 haveLeftSidebar={true}
                 menuItems={menuItems}
-                onClickItem={() => { }}>
+                onClickItem={() => { }}
+                title="Quản lý tài khoản người dùng">
                 <>
                     <Dialog
                         show={showDialogWarning}
