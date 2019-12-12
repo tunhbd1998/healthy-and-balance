@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { get } from "lodash";
 import "./user-menu.styles.scss";
 import Avatar from "../../../../commons/avatar";
-import { signOut } from "../../../../../store/actions";
+import { signOut, fetchCategories } from "../../../../../store/actions";
 import { bindActionCreators } from "redux";
 
 function UserMenu({ user, actions }) {
@@ -38,11 +38,12 @@ function UserMenu({ user, actions }) {
             </Link>
           ) : null}
           <Link
-            to="#"
+            to="/"
             className="user-menu--menu-item"
             onClick={() => {
               actions.signOut();
               saveDataToLocalStorage("user", null);
+              actions.fetchCategories();
             }}
           >
             Đăng xuất
@@ -62,7 +63,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ signOut }, dispatch),
+  actions: bindActionCreators({ signOut, fetchCategories }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
