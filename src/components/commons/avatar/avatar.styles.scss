@@ -2,17 +2,17 @@
   border-radius: 50%;
 
   &.small {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.medium {
     width: 30px;
     height: 30px;
   }
 
-  &.medium {
+  &.big {
     width: 40px;
     height: 40px;
-  }
-
-  &.big {
-    width: 50px;
-    height: 50px;
   }
 }

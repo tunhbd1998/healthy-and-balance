@@ -6,21 +6,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import "./left-sidebar.styles.scss";
 import {
-  setCurrentItem,
-  fetchPostsByCategory,
+  setCurrentLeftSidebarItem,
+  fetchPostsByCategory
 } from "../../../../store/actions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCategoryById } from "../../../../utils";
 
 function LeftSidebar({
   commonMenuItems,
   menuItems,
-  currentItem,
+  onClickItem,
+  currentItemId,
   actions,
   searchContent,
-  onClickItem,
-  match,
+  match
 }) {
   const [isCollapsed, setCollapse] = React.useState(false);
   const [loaded, setLoad] = React.useState(false);
@@ -39,22 +38,21 @@ function LeftSidebar({
   };
 
   if (!loaded) {
-    actions.setCurrentItem(null);
+    actions.setCurrentLeftSidebarItem(null);
     setLoad(true);
   }
 
   if (!searchContent) {
-    if (!currentItem && menuItems.length > 0) {
-      actions.setCurrentItem(
-        getCategoryById(match.params.id) ||
-          get(commonMenuItems, 0) ||
-          get(menuItems, 0)
-      );
-      onClickItem();
-    }
+    // if (!currentItemId && menuItems.length > 0) {
+    //   actions.setCurrentLeftSidebarItem(
+    //     getCategoryById(match.params.id) ||
+    //       get(commonMenuItems, 0) ||
+    //       get(menuItems, 0)
+    //   );
+    //   onClickItem();
+    // }
   }
 
-  console.log("left sidebar");
   return (
     <div className={`hb-left-sidebar ${isCollapsed ? "collapse-sidebar" : ""}`}>
       <Button className="collapse-button" onClick={toggleSidebar}>
@@ -68,11 +66,11 @@ function LeftSidebar({
           <li key={item.id} className="menu-item-container">
             <Link
               className={`menu-item ${
-                item.id === get(currentItem, "id") ? "active" : ""
+                item.id === currentItemId ? "active" : ""
               }`}
               onClick={() => {
-                actions.setCurrentItem(item);
-                onClickItem();
+                actions.setCurrentLeftSidebarItem(item);
+                onClickItem && onClickItem();
               }}
               to={item.url}
             >
@@ -85,11 +83,11 @@ function LeftSidebar({
           <li key={item.id} className="menu-item-container">
             <Link
               className={`menu-item ${
-                item.id === get(currentItem, "id") ? "active" : ""
+                item.id === currentItemId ? "active" : ""
               }`}
               onClick={() => {
-                actions.setCurrentItem(item);
-                onClickItem();
+                actions.setCurrentLeftSidebarItem(item);
+                onClickItem && onClickItem();
               }}
               to={item.url}
             >
@@ -103,18 +101,18 @@ function LeftSidebar({
 }
 
 const mapStateToProps = state => ({
-  currentItem: get(state, "currentItem"),
-  searchContent: get(state, "searchContent"),
+  currentItemId: get(state, "currentItemId"),
+  searchContent: get(state, "searchContent")
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      setCurrentItem,
-      fetchPostsByCategory,
+      setCurrentLeftSidebarItem,
+      fetchPostsByCategory
     },
     dispatch
-  ),
+  )
 });
 
 export default connect(

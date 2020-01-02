@@ -26,16 +26,22 @@ function UserMenu({ user, actions }) {
               <span>{user.email}</span>
             </div>
           </div>
-          <Link className="user-menu--menu-item" to="/me">
-            Thông tin tài khoản
-          </Link>
-          <Link className="user-menu--menu-item" to="/me/manage-post">
-            Quản lý bài viết cá nhân
-          </Link>
-          {user.role === "admin" ? (
-            <Link className="user-menu--menu-item" to="/admin/dashboard">
-              Quản lý hệ thống
+          <Dropdown.Item style={{ padding: 0 }}>
+            <Link className="user-menu--menu-item" to="/me/profile">
+              Thông tin tài khoản
             </Link>
+          </Dropdown.Item>
+          <Dropdown.Item style={{ padding: 0 }}>
+            <Link className="user-menu--menu-item" to="/me/my-posts">
+              Quản lý bài viết cá nhân
+            </Link>
+          </Dropdown.Item>
+          {user.role === "admin" ? (
+            <Dropdown.Item style={{ padding: 0 }}>
+              <Link className="user-menu--menu-item" to="/admin/dashboard">
+                Quản lý hệ thống
+              </Link>
+            </Dropdown.Item>
           ) : null}
           <Link
             to="/"
@@ -52,18 +58,18 @@ function UserMenu({ user, actions }) {
       </Dropdown>
     </div>
   ) : (
-    <Link to="/sign-in">
+    <Link to="/auth/sign-in">
       <img className="hb-avatar" src={defaultAvatar} alt="avatar" />
     </Link>
   );
 }
 
 const mapStateToProps = state => ({
-  user: get(state, "user"),
+  user: get(state, "user")
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ signOut, fetchCategories }, dispatch),
+  actions: bindActionCreators({ signOut, fetchCategories }, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

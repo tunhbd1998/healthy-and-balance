@@ -1,11 +1,12 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import "./post-detail.styles.scss";
+import * as moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTimes,
   faBookmark,
-  faHeart,
+  faHeart
 } from "@fortawesome/free-solid-svg-icons";
 import { Fade } from "react-reveal";
 import CategoryLabel from "../category-label";
@@ -17,13 +18,13 @@ import {
   removeMarkedPost,
   addMarkedPost,
   removeFollowingUsers,
-  addFollowingUsers,
+  addFollowingUsers
 } from "../../../utils";
 import AuthorLabel from "../author-label";
 import { connect } from "react-redux";
 import { get } from "lodash";
 import { bindActionCreators } from "redux";
-import { setUser } from "../../../store/actions";
+// import { setUser } from "../../../store/actions";
 
 function PostDetail({ post, onClose, user, actions }) {
   const [show, setShow] = React.useState(true);
@@ -40,29 +41,29 @@ function PostDetail({ post, onClose, user, actions }) {
       console.log("rm bk");
       actions.setUser({
         ...user,
-        markedPosts: removeMarkedPost(user.username, post.id),
+        markedPosts: removeMarkedPost(user.username, post.id)
       });
     } else {
       console.log("add bk");
       actions.setUser({
         ...user,
-        markedPosts: addMarkedPost(user.username, post.id),
+        markedPosts: addMarkedPost(user.username, post.id)
       });
     }
   };
 
   const toggleFollowing = () => {
-    if (isPostInUserFollowings(user.username, post.author)) {
-      actions.setUser({
-        ...user,
-        followingUsers: removeFollowingUsers(user.username, post.author),
-      });
-    } else {
-      actions.setUser({
-        ...user,
-        followingUsers: addFollowingUsers(user.username, post.author),
-      });
-    }
+    // if (isPostInUserFollowings(user.username, post.author)) {
+    //   actions.setUser({
+    //     ...user,
+    //     followingUsers: removeFollowingUsers(user.username, post.author)
+    //   });
+    // } else {
+    //   actions.setUser({
+    //     ...user,
+    //     followingUsers: addFollowingUsers(user.username, post.author)
+    //   });
+    // }
   };
 
   return (
@@ -109,7 +110,9 @@ function PostDetail({ post, onClose, user, actions }) {
                 ) : null}
 
                 <AuthorLabel user={getUserByUsername(post.author)} />
-                <span className="created-date">{post.createdDate}</span>
+                <span className="created-date">
+                  {moment(post.createdDate).format("DD/MM/YYYY HH:mm")}
+                </span>
               </div>
             </div>
             <div className="detail-content">
@@ -129,11 +132,11 @@ function PostDetail({ post, onClose, user, actions }) {
 }
 
 const mapStateToProps = state => ({
-  user: get(state, "user"),
+  user: get(state, "user")
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ setUser }, dispatch),
+  actions: bindActionCreators({}, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

@@ -5,8 +5,8 @@
 
   .search-box {
     width: auto;
-    height: 40px;
-    padding: 10px 20px;
+    height: 30px;
+    padding: 5px 15px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -14,15 +14,17 @@
     border: solid 1px rgba(37, 88, 82, 0.4);
 
     input {
-      width: 250px;
+      width: 150px;
       height: auto !important;
       border: none !important;
       outline: none !important;
       transition-duration: 0.3s;
       background: transparent !important;
+      font-size: 12px;
+      margin-right: 5px;
 
       &:focus {
-        width: 400px;
+        width: 250px;
         transition-duration: 0.3s;
         border: none !important;
         outline: none !important;

@@ -1,97 +1,106 @@
-import * as actionTypes from "./action-types";
-import { getDataFromLocalStorage } from "../utils";
+import { handleActions } from "redux-actions";
+import { get, pick } from "lodash";
+import {
+  setCurrentLeftSidebarItem,
+  resetPosts,
+  fetchPostsSuccess,
+  setSearchContent,
+  showPostDetail,
+  hidePostDetail,
+  signInSuccess,
+  signOutSuccess,
+  alertNotification,
+  fetchCategoriesSuccess,
+  signInFail,
+  signUpSuccess,
+  signUpFail
+} from "./actions";
 
 const initStates = {
   user: null,
+  authInfo: {
+    status: null,
+    message: null
+  },
   posts: [],
   resetedPosts: true,
-  currentItem: null,
+  currentItemId: null,
   searchContent: null,
-  categories: null,
+  categories: [],
   post: null,
-  notifications: [],
+  notifications: []
 };
 
-export const reducer = (state = initStates, { type, payload }) => {
-  switch (type) {
-    case actionTypes.FETCH_CATEGORIES: {
-      let commonCategories =
-        JSON.parse(getDataFromLocalStorage("commonCategories")) || [];
-      if (!state.user) {
-        commonCategories = commonCategories.filter(
-          categ => !categ.requireSignIn
-        );
+export const reducer = handleActions(
+  {
+    [fetchCategoriesSuccess]: (state, { payload }) => ({
+      ...state,
+      categories: [...(get(payload, "categories") || [])]
+    }),
+    [setCurrentLeftSidebarItem]: (state, { payload }) => ({
+      ...state,
+      currentItemId: get(payload, "itemId") || null
+    }),
+    [resetPosts]: (state, { payload }) => ({
+      ...state,
+      posts: [],
+      resetedPosts: true
+    }),
+    [fetchPostsSuccess]: (state, { payload }) => ({
+      ...state,
+      posts: get(payload, "posts") || [],
+      resetedPosts: false
+    }),
+    [setSearchContent]: (state, { payload }) => ({
+      ...state,
+      searchContent: get(payload, "content")
+    }),
+    [showPostDetail]: (state, { payload }) => ({
+      ...state,
+      post: get(payload, "posts") || null
+    }),
+    [hidePostDetail]: (state, action) => ({
+      ...state,
+      post: null
+    }),
+    [signInSuccess]: (state, { payload }) => ({
+      ...state,
+      user: get(payload, "user") || null,
+      authInfo: {
+        status: true,
+        message: null
       }
-
-      return {
-        ...state,
-        categories: [
-          ...commonCategories,
-          ...JSON.parse(getDataFromLocalStorage("categories")),
-        ],
-      };
-    }
-    case actionTypes.SET_CURRENT_ITEM: {
-      return {
-        ...state,
-        currentItem: payload.item,
-      };
-    }
-    case actionTypes.RESET_POSTS: {
-      return {
-        ...state,
-        posts: [],
-        resetedPosts: true,
-      };
-    }
-    case actionTypes.FETCH_POSTS_DONE: {
-      console.log('posts', payload.posts);
-      return {
-        ...state,
-        posts: payload.posts,
-        resetedPosts: false,
-      };
-    }
-    case actionTypes.SET_SEARCH_CONTENT: {
-      return {
-        ...state,
-        searchContent: payload.content,
-      };
-    }
-    case actionTypes.SHOW_POST_DETAIL: {
-      return {
-        ...state,
-        post: payload.post,
-      };
-    }
-    case actionTypes.HIDE_POST_DETAIL: {
-      return {
-        ...state,
-        post: null,
-      };
-    }
-    case actionTypes.SET_USER: {
-      return {
-        ...state,
-        user: payload.user,
-      };
-    }
-    case actionTypes.SIGN_OUT: {
-      return {
-        ...state,
-        user: null,
-      };
-    }
-    case actionTypes.ALERT_NOTIFICATION: {
-      return {
-        ...state,
-        notifications: [
-          // ...state.notifications,
-          { type: payload.type, message: payload.message },
-        ],
-      };
-    }
-    default:
-      return { ...state };
-  }
-};
+    }),
+    [signInFail]: (state, { payload }) => ({
+      ...state,
+      user: null,
+      authInfo: {
+        status: false,
+        message: get(payload, "msg")
+      }
+    }),
+    [signUpSuccess]: (state, { payload }) => ({
+      ...state,
+      authInfo: {
+        status: true,
+        message: null
+      }
+    }),
+    [signUpFail]: (state, { payload }) => ({
+      ...state,
+      authInfo: {
+        status: false,
+        message: get(payload, "msg")
+      }
+    }),
+    [signOutSuccess]: (state, action) => ({
+      ...state,
+      user: null
+    }),
+    [alertNotification]: (state, { payload }) => ({
+      ...state,
+      notifications: [pick(payload, ["type", "message"])]
+    })
+  },
+  initStates
+);

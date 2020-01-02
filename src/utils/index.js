@@ -25,7 +25,7 @@ export const getDataFromLocalStorage = key => {
 export const getCategoryTitle = id => {
   const categories = [
     ...JSON.parse(getDataFromLocalStorage("commonCategories")),
-    ...JSON.parse(getDataFromLocalStorage("categories")),
+    ...JSON.parse(getDataFromLocalStorage("categories"))
   ];
 
   const category = categories.filter(categ => categ.id === id)[0];
@@ -36,7 +36,7 @@ export const getCategoryTitle = id => {
 export const getCategoryById = id => {
   const categories = [
     ...JSON.parse(getDataFromLocalStorage("commonCategories")),
-    ...JSON.parse(getDataFromLocalStorage("categories")),
+    ...JSON.parse(getDataFromLocalStorage("categories"))
   ];
 
   const category = categories.filter(categ => categ.id === id)[0];
@@ -46,6 +46,7 @@ export const getCategoryById = id => {
 
 export const getUserByUsername = username => {
   const users = JSON.parse(getDataFromLocalStorage("users"));
+  console.log("users", users);
 
   return get(users, username);
 };
