@@ -6,6 +6,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function SearchBox({ onEnter, onChange }) {
   const searchInput = React.useRef(null);
+  const [content, setContent] = React.useState("");
 
   return (
     <Container fluid className="search-box-container">
@@ -13,12 +14,14 @@ export default function SearchBox({ onEnter, onChange }) {
         <input
           ref={searchInput}
           placeholder="Tìm kiếm"
-          onChange={onChange}
-          onKeyPress={event => {
-            if (event.key === "Enter") {
-              // actions.setSearchContent(searchInput.current.value);
-              // actions.fetchPostsBySearchContent();
-              onEnter && onEnter();
+          onChange={e => {
+            onChange && onChange(e);
+            setContent(e.target.value);
+          }}
+          value={content}
+          onKeyPress={e => {
+            if (e.key === "Enter") {
+              onEnter && onEnter(content.replace(/\\n/, ""));
             }
           }}
         />

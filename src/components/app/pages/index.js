@@ -20,7 +20,7 @@ export default function Pages() {
           path="/admin/dashboard"
           component={shouldAuthenticated(AdminPage)}
         />
-        <Route pasth="/" component={UserPage} />
+        <Route path="/" component={UserPage} />
       </Switch>
     </Router>
   );

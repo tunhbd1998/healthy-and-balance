@@ -1,5 +1,11 @@
 .table>tbody>tr>td {
     vertical-align: middle;
+    font-size: 12px;
+}
+
+.table>thead>tr>th {
+    vertical-align: middle;
+    font-size: 13px;
 }
 
 table {

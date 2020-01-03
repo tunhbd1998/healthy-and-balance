@@ -63,10 +63,9 @@ export const fetchPostsByCategory = categoryId => (dispatch, getState) => {
   dispatch(fetchPostsSuccess(posts));
 };
 
-export const fetchPostsBySearchContent = () => (dispatch, getState) => {
-  const { searchContent } = getState();
+export const fetchPostsBySearchContent = content => (dispatch, getState) => {
   const posts = JSON.parse(getDataFromLocalStorage("posts")).filter(
-    post => post.title.indexOf(searchContent) > -1
+    post => post.title.toLowerCase().indexOf(content.toLowerCase()) > -1
   );
 
   dispatch(fetchPostsSuccess(posts));
@@ -166,3 +165,5 @@ export const alertNotification = createAction(
     payload: { type, message }
   })
 );
+
+export const updateUser = createAction("UPDATE_USER", user => ({ user }));

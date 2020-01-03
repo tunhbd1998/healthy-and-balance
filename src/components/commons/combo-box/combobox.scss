@@ -4,12 +4,13 @@
   border: 1px solid black;
   border-radius: 10px;
   border-color: $textColorMain;
-  min-width: 220px;
+  // min-width: 220px;
+  width: auto;
   height: 30px !important;
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
   color: $textColorMain;
   font-weight: bold;
   background-color: #ffffff;
@@ -32,15 +33,15 @@
 }
 
 .cb-min {
+  display: inline-flex;
   border: 1px solid black;
   border-radius: 10px;
   border-color: $textColorMain;
-  width: 120px;
+  width: auto;
   height: 30px !important;
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
   color: $textColorMain;
   font-weight: bold;
   background-color: #ffffff;
@@ -60,4 +61,5 @@
 .select {
   background: none;
   color: $textColorMain;
+  margin-left: 5px;
 }

@@ -4,7 +4,7 @@ import Loadable from "react-loadable";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import { withPageTitle } from "../../../../hoc/with-page-title.hoc";
 import { shouldAuthenticated } from "../../../../hoc/should-authenticated.hoc";
 import MainLayout from "../../../layouts/main-layout";
@@ -12,7 +12,8 @@ import SearchBox from "../../../commons/search-box";
 import PostDetail from "../../../commons/post-detail";
 import {
   fetchCategories,
-  fetchPostsByCategory
+  fetchPostsByCategory,
+  hidePostDetail
 } from "../../../../store/actions";
 
 const TodayPosts = Loadable({
@@ -80,42 +81,57 @@ function UserPage({ categories, actions, post }) {
             }}
           >
             <Container fluid className="hb-home">
-              <SearchBox />
-              {/* <Switch> */}
-              <Route
-                path="/"
-                exact
-                component={withPageTitle(TodayPosts, "Những bài viết hôm nay")}
+              <SearchBox
+                onEnter={value => {
+                  if (!isEmpty(value)) {
+                    window.location.href = `/search?content=${value}`;
+                  }
+                }}
               />
-              <Route
-                path="/new"
-                exact
-                component={withPageTitle(TodayPosts, "Những bài viết hôm nay")}
-              />
-              <Route
-                path="/following"
-                exact
-                component={shouldAuthenticated(
-                  withPageTitle(
-                    FollowingPosts,
-                    "Những bài viết của các tác giả bạn đang theo dõi"
-                  )
-                )}
-              />
-              <Route
-                path="/marked"
-                exact
-                component={shouldAuthenticated(
-                  withPageTitle(MarkedPosts, "Những bài viết bạn đã đánh dấu")
-                )}
-              />
-              <Route path="/category/:categoryId" component={PostsByCategory} />
-              <Router
-                path="/search"
-                exact
-                component={withPageTitle(SearchPage, "Kết quả tìm kiếm")}
-              />
-              {/* </Switch> */}
+              <Switch>
+                <Route
+                  path="/"
+                  exact
+                  component={withPageTitle(
+                    TodayPosts,
+                    "Những bài viết hôm nay"
+                  )}
+                />
+                <Route
+                  path="/new"
+                  exact
+                  component={withPageTitle(
+                    TodayPosts,
+                    "Những bài viết hôm nay"
+                  )}
+                />
+                <Route
+                  path="/following"
+                  exact
+                  component={shouldAuthenticated(
+                    withPageTitle(
+                      FollowingPosts,
+                      "Những bài viết của các tác giả bạn đang theo dõi"
+                    )
+                  )}
+                />
+                <Route
+                  path="/marked"
+                  exact
+                  component={shouldAuthenticated(
+                    withPageTitle(MarkedPosts, "Những bài viết bạn đã đánh dấu")
+                  )}
+                />
+                <Route
+                  path="/category/:categoryId"
+                  component={PostsByCategory}
+                />
+                <Route
+                  path="/search"
+                  component={withPageTitle(SearchPage, "Kết quả tìm kiếm")}
+                />
+                <Route path="/*">Not found</Route>
+              </Switch>
               {post ? (
                 <PostDetail
                   post={post}
@@ -137,7 +153,7 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators(
-      { fetchCategories, fetchPostsByCategory },
+      { hidePostDetail, fetchCategories, fetchPostsByCategory },
       dispatch
     )
   })

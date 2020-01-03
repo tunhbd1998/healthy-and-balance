@@ -24,7 +24,7 @@ import AuthorLabel from "../author-label";
 import { connect } from "react-redux";
 import { get } from "lodash";
 import { bindActionCreators } from "redux";
-// import { setUser } from "../../../store/actions";
+import { updateUser } from "../../../store/actions";
 
 function PostDetail({ post, onClose, user, actions }) {
   const [show, setShow] = React.useState(true);
@@ -34,18 +34,15 @@ function PostDetail({ post, onClose, user, actions }) {
   }
 
   const author = getUserByUsername(post.author);
-  console.log("useruser", user);
+
   const toggleBookmark = () => {
-    console.log("bbbbb");
     if (isPostInUserMarks(user.username, post.id)) {
-      console.log("rm bk");
-      actions.setUser({
+      actions.updateUser({
         ...user,
         markedPosts: removeMarkedPost(user.username, post.id)
       });
     } else {
-      console.log("add bk");
-      actions.setUser({
+      actions.updateUser({
         ...user,
         markedPosts: addMarkedPost(user.username, post.id)
       });
@@ -53,17 +50,17 @@ function PostDetail({ post, onClose, user, actions }) {
   };
 
   const toggleFollowing = () => {
-    // if (isPostInUserFollowings(user.username, post.author)) {
-    //   actions.setUser({
-    //     ...user,
-    //     followingUsers: removeFollowingUsers(user.username, post.author)
-    //   });
-    // } else {
-    //   actions.setUser({
-    //     ...user,
-    //     followingUsers: addFollowingUsers(user.username, post.author)
-    //   });
-    // }
+    if (isPostInUserFollowings(user.username, post.author)) {
+      actions.updateUser({
+        ...user,
+        followingUsers: removeFollowingUsers(user.username, post.author)
+      });
+    } else {
+      actions.updateUser({
+        ...user,
+        followingUsers: addFollowingUsers(user.username, post.author)
+      });
+    }
   };
 
   return (
@@ -136,7 +133,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({}, dispatch)
+  actions: bindActionCreators({ updateUser }, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

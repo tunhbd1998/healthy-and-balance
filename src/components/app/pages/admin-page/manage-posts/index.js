@@ -385,14 +385,6 @@ class PosterManageAdminComponent extends React.Component {
           <div className="dashboard">
             <div>
               <div className="title">Quản lý bài viết</div>
-              {/* <div className="search-input">
-                <SearchInput
-                  placeHolder="Tìm kiếm"
-                  onChange={e => this.onTextSearchChange(e)}
-                  onSearch={e => this.onSearch(e)}
-                  searchText={searchText}
-                />
-              </div> */}
               <SearchBox
                 onChange={e => this.onTextSearchChange(e)}
                 onEnter={() => this.onSearch()}

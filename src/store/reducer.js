@@ -13,7 +13,8 @@ import {
   fetchCategoriesSuccess,
   signInFail,
   signUpSuccess,
-  signUpFail
+  signUpFail,
+  updateUser
 } from "./actions";
 
 const initStates = {
@@ -57,7 +58,7 @@ export const reducer = handleActions(
     }),
     [showPostDetail]: (state, { payload }) => ({
       ...state,
-      post: get(payload, "posts") || null
+      post: get(payload, "post") || null
     }),
     [hidePostDetail]: (state, action) => ({
       ...state,
@@ -100,6 +101,10 @@ export const reducer = handleActions(
     [alertNotification]: (state, { payload }) => ({
       ...state,
       notifications: [pick(payload, ["type", "message"])]
+    }),
+    [updateUser]: (state, { payload }) => ({
+      ...state,
+      user: get(payload, "user")
     })
   },
   initStates

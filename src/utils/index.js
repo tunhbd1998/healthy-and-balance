@@ -1,5 +1,6 @@
 import * as data from "../data";
 import { get } from "lodash";
+import { updateCookie } from "./cookies";
 
 export const prepareDataForApp = () => {
   saveDataToLocalStorage("preparedData", true);
@@ -131,6 +132,7 @@ export const removeMarkedPost = (username, id) => {
   );
   saveDataToLocalStorage("users", JSON.stringify(users));
   saveDataToLocalStorage("user", JSON.stringify(users[username]));
+  updateCookie("user", JSON.stringify(users[username]));
 
   return users[username].markedPosts;
 };
@@ -145,6 +147,7 @@ export const addMarkedPost = (username, id) => {
   users[username].markedPosts.push(id);
   saveDataToLocalStorage("users", JSON.stringify(users));
   saveDataToLocalStorage("user", JSON.stringify(users[username]));
+  updateCookie("user", JSON.stringify(users[username]));
 
   return users[username].markedPosts;
 };
@@ -161,6 +164,7 @@ export const removeFollowingUsers = (username, authorUsername) => {
   );
   saveDataToLocalStorage("users", JSON.stringify(users));
   saveDataToLocalStorage("user", JSON.stringify(users[username]));
+  updateCookie("user", JSON.stringify(users[username]));
 
   return users[username].followingUsers;
 };
@@ -175,6 +179,7 @@ export const addFollowingUsers = (username, authorUsername) => {
   users[username].followingUsers.push(authorUsername);
   saveDataToLocalStorage("users", JSON.stringify(users));
   saveDataToLocalStorage("user", JSON.stringify(users[username]));
+  updateCookie("user", JSON.stringify(users[username]));
 
   return users[username].followingUsers;
 };
