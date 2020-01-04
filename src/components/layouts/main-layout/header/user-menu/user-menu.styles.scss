@@ -1,5 +1,7 @@
 @import "src/globals/globals.styles.scss";
-
+ .dropdown-item:active{
+  background-color:unset !important;
+}
 .hb-avatar {
   width: 35px;
   height: 35px;
@@ -52,7 +54,7 @@
       display: flex;
       align-items: center;
       margin: 10px 0px;
-
+      
       .info {
         margin-left:5px;
         display: flex;

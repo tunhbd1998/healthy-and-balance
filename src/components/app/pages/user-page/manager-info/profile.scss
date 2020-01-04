@@ -1,0 +1,21 @@
+input:focus,button:focus{
+    outline:0;
+}
+.tabPabel{
+    color:#255852;
+    .editButton{
+        margin-bottom:20px;
+        display: flex;
+        align-items:center;
+        justify-content: flex-end;
+        
+        transition:all 1s;
+        &:hover{
+            cursor: pointer;
+            //border-bottom:1px solid #4aa112;
+        }
+        .icon-edit{
+            margin-right:5px;
+        }
+    }
+}
