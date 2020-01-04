@@ -5,7 +5,7 @@ $sidebarWidthCollapse: 30px;
 .hb-left-sidebar {
   width: $sidebarWidth;
   height: 100%;
-  background: rgba(179, 179, 179, 0.2);
+  background: #f5f6f7;
   position: relative;
   padding: 60px 0px 0px 0px;
   box-sizing: border-box;
@@ -56,7 +56,8 @@ $sidebarWidthCollapse: 30px;
   .collapse-button {
     width: 34px;
     height: 37px;
-    background: #727070 !important;
+    background: #8DC26F !important;
+
     position: absolute;
     right: -17px;
     top: 10px;
@@ -65,9 +66,14 @@ $sidebarWidthCollapse: 30px;
     align-items: center;
     border: none;
     outline: none;
-
+    &:focus,&:hover,&:active{
+      outline:0;
+      box-shadow: unset;
+    }
     &:hover {
       border: none;
+      background: #4aa112 !important;
+
     }
   }
 
@@ -91,14 +97,17 @@ $sidebarWidthCollapse: 30px;
       align-items: center;
       padding: 0px 0px 0px 20px;
       overflow: hidden;
-
+      font-weight:bold;
       &:hover {
-        background: rgba(179, 179, 179, 0.4);
+        background: transparent;
+        color: #4aa112 !important;
+        border-right:5px solid #4aa112;
       }
 
       &.active {
-        background: $bgColorGray;
-        color: $textColor04 !important;
+        background: transparent;
+        color: #4aa112 !important;
+        border-right:5px solid #4aa112;
       }
     }
   }
@@ -115,8 +124,8 @@ $sidebarWidthCollapse: 30px;
 }
 
 .line {
-  width: 98%;
+  width: 90%;
   height: 0.5px;
-  background: #dcd4d4;
+  background: #4aa112;
   margin: 3px auto;
 }

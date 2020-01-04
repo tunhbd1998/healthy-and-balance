@@ -8,6 +8,11 @@ import "./user-menu.styles.scss";
 import Avatar from "../../../../commons/avatar";
 import { signOut, fetchCategories } from "../../../../../store/actions";
 import { bindActionCreators } from "redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSortDown,
+  
+} from "@fortawesome/free-solid-svg-icons";
 
 function UserMenu({ user, actions }) {
   const defaultAvatar = "/media/images/users/placeholder.png";
@@ -17,10 +22,11 @@ function UserMenu({ user, actions }) {
       <Dropdown>
         <Dropdown.Toggle>
           <Avatar url={user.avatar || defaultAvatar} size="big" />
+          <FontAwesomeIcon icon={faSortDown} className='icon-down'/>
         </Dropdown.Toggle>
         <Dropdown.Menu className="user-menu">
           <div className="user-info">
-            <Avatar url={user.avatar || defaultAvatar} size="big" />
+            <Avatar url={user.avatar || defaultAvatar} size="big"/>
             <div className="info">
               <span>{user.displayName}</span>
               <span>{user.email}</span>

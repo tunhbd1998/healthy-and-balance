@@ -7,6 +7,9 @@
 }
 
 .hb-user-menu {
+  .icon-down{
+    margin-left:5px;
+  }
   .dropdown-toggle {
     background: none !important;
     border: none !important;
@@ -26,12 +29,12 @@
     width: 350px;
     right: 20px !important;
     top: 10px !important;
-    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 3px 3px 10px 2px rgba(0, 0, 0, 0.25);
     border: none !important;
 
     &::before {
       display: block;
-      right: 25px;
+      right: 40px;
       content: "";
       height: 0;
       top: -10px;
@@ -44,15 +47,25 @@
 
     .user-info {
       width: 100%;
+      padding: 0 20px;
       height: 40px;
       display: flex;
       align-items: center;
       margin: 10px 0px;
 
       .info {
+        margin-left:5px;
         display: flex;
         flex-direction: column;
         align-content: flex-start;
+        font-size:14px;
+        color:#625f5f;
+        span:first-child{
+          font-weight:bold;
+        }
+        span:last-child {
+          font-style: italic;
+        }
       }
     }
 
@@ -63,12 +76,13 @@
       height: 40px;
       padding: 20px;
       text-decoration: none;
-      color: $textColor03;
+      color: #255852 ;
       font-size: 15px;
       font-weight: bold;
 
       &:hover {
-        background: $bgColorGray;
+        background: transparent;
+        border-right:5px solid #4aa112;
       }
     }
   }

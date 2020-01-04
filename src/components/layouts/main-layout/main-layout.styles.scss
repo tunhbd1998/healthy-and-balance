@@ -15,7 +15,7 @@ $headerHeight: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
+    background:white;
     .contain-left-sidebar--content {
       width: calc(100% - #{$sidebarWidth});
       max-width: none;
@@ -32,17 +32,18 @@ $headerHeight: 50px;
 
       /* Track */
       &::-webkit-scrollbar-track {
-        background: rgba(179, 179, 179, 0.2);
+        background: #f5f6f7;
       }
 
       /* Handle */
       &::-webkit-scrollbar-thumb {
-        background: rgba(179, 179, 179, 0.8);
+        background: #a8e063;
+        border-radius: 5px;
       }
 
       /* Handle on hover */
       &::-webkit-scrollbar-thumb:hover {
-        background: rgba(179, 179, 179, 1);
+        background: #4aa112;
       }
     }
 

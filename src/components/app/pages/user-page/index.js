@@ -40,7 +40,10 @@ const SearchPage = Loadable({
   loader: () => import("./search-page"),
   loading: () => "Loading"
 });
-
+const ManageInfo = Loadable({
+  loader: () => import("./manager-info"),
+  loading: () => 'Loading'
+})
 const ManagePosts = Loadable({
   loader: () => import("./manage-posts"),
   loading: () => "Loading"
@@ -67,6 +70,12 @@ function UserPage({ categories, actions, post }) {
               path="/me/my-posts"
               component={shouldAuthenticated(
                 withPageTitle(ManagePosts, "Bài viết của tôi")
+              )}
+            />
+            <Route 
+              path="/me/profile"
+              component={shouldAuthenticated(
+                withPageTitle(ManageInfo, "Quản lí tài khoản")
               )}
             />
           </MainLayout>
