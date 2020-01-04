@@ -7,8 +7,44 @@
   height: 35px;
   border-radius: 50%;
 }
-
+.itemNoti{
+  color:#255852;
+  padding:0 5px;
+  &:hover{
+    background:#f5f6f7;
+  }
+}
+.unread{
+  background:#f5f6f7;
+}
+.badge{
+  //padding:unset;
+}
 .hb-user-menu {
+  display:flex;
+  align-items: center;
+  cursor: pointer;
+  .notification {
+    color:white;
+    margin-right:25px;
+    position:relative;
+    font-size:20px;
+    padding:8px 12px;
+    
+    
+    .customNoti{
+      position:absolute;
+      font-size:12px;
+      // padding:5p x;
+      width:20px;
+      height:20px;
+      text-align: center;
+      background:red;
+      top:2px;
+      right:1px;
+      border-radius: 50%;
+    }
+  }
   .icon-down{
     margin-left:5px;
   }
