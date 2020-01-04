@@ -111,6 +111,17 @@
 
             .post-content {
             }
+
+            .comment-content {
+              padding-top:20px;
+              .user-comment{
+                font-size:14px;
+                margin-bottom:5px;
+              }
+              .account{
+                color:#4AA112;
+              }
+            }
           }
         }
       }

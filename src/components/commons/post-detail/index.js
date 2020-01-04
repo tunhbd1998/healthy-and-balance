@@ -25,6 +25,8 @@ import { connect } from "react-redux";
 import { get } from "lodash";
 import { bindActionCreators } from "redux";
 import { updateUser } from "../../../store/actions";
+import FormComment from '../comment-form/index'
+import ListComment from '../list-comment/index'
 
 function PostDetail({ post, onClose, user, actions }) {
   const [show, setShow] = React.useState(true);
@@ -119,6 +121,18 @@ function PostDetail({ post, onClose, user, actions }) {
                 dangerouslySetInnerHTML={{ __html: post.content }}
               >
                 {/* {post.content} */}
+              </div>
+              <hr className='line-through'/>  
+              <div className='comment-content'>
+                {user ? 
+                <div className='comment-form'>
+                    <div className='user-comment'>Bình luận với <i className='account'>{user.username}</i></div>
+                    <FormComment/>
+                </div>
+                : ''} 
+                <div className='list-comment-in-post'>
+                    <ListComment/>
+                </div>
               </div>
             </div>
           </div>

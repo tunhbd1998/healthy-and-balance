@@ -18,7 +18,8 @@ import {
 } from "./actions";
 
 const initStates = {
-  user: null,
+  
+  openComment: null,
   authInfo: {
     status: null,
     message: null

@@ -28,6 +28,7 @@ export const fetchCategories = () => (dispatch, getState) => {
   );
 };
 
+
 export const setCurrentLeftSidebarItem = createAction(
   "SET_CURRENT_LEFT_SIDEBAR_ITEM",
   itemId => ({ itemId })

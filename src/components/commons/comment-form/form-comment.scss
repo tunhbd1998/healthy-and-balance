@@ -1,0 +1,66 @@
+.form-comment-container {
+    &:focus{
+        border:1px solid black;
+        outline:unset;
+    }
+    .form-group{
+        margin-bottom:0;
+    }
+    .form-control{
+        &:focus{
+            border-color:unset;
+            box-shadow: unset;
+        }
+    }
+    
+    .area-comment{ 
+        border-radius: unset;
+        border:1px solid #F6F7F8;
+        &:focus{
+            border:1px solid #F6F7F8;
+        }
+    }
+    .custom-form.area-comment:focus{
+            border:1px solid black !important;
+        
+    }
+    
+    .control-comment {
+        background:#F6F7F8;
+        padding:10px 0;
+        justify-content:flex-end;
+        display:flex;
+        align-items: center;
+        .cancel {
+            color: #4AA112;
+            font-size:16px;
+            margin-right:20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight:600;
+        }
+        .button-comment {
+            border:unset;
+            background:#4AA112;
+            text-transform: uppercase;
+            padding:5px 25px;
+            border-radius: 5px;
+            margin-right:20px;
+            color:white;
+            font-weight: 600;
+            &:disabled,&[disbaled]{
+                background:#d5d5d5;
+                &:hover{
+                    background:#4AA112;
+                }
+            }
+            &:focus{
+                border:unset;
+                outline:0;
+            }
+            &:hover{
+                background:#58aa22;
+            }
+        }
+    }
+}
