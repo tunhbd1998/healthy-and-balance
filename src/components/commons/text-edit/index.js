@@ -1,17 +1,23 @@
-import React from "react";
-import "froala-editor/js/froala_editor.pkgd.min.js";
-import "froala-editor/css/froala_style.min.css";
-import "froala-editor/css/froala_editor.pkgd.min.css";
-import FroalaEditor from "react-froala-wysiwyg";
+import React, { useState, useRef } from 'react';
+import JoditEditor from "jodit-react";
 import "./text-edit.scss";
 
 export default function TextEdit({ onChange, value }) {
+  const editor = useRef(null)
+
+  const config = {
+    readonly: false, // all options from https://xdsoft.net/jodit/doc/
+    height: 250,
+  }
+
   return (
-    <FroalaEditor
-      config={{ height: 180 }}
-      tag="textarea"
-      model={value}
-      onModelChange={onChange}
+    <JoditEditor
+      ref={editor}
+      value={value}
+      config={config}
+      tabIndex={1} // tabIndex of textarea
+      onBlur={newContent => onChange(newContent)} // preferred to use only this option to update the content for performance reasons
+      onChange={newContent => { }}
     />
   );
 }

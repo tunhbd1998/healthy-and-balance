@@ -13,6 +13,7 @@
     "css-loader": "^3.3.0",
     "helmet": "^3.21.2",
     "indicative": "^7.4.1",
+    "jodit-react": "^1.0.33",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "node-sass": "^4.13.0",

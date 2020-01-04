@@ -121,7 +121,7 @@ export default class DialogAddPost extends React.Component {
         {
           type: "secondary",
           label: "Hủy bỏ",
-          onClick: onCloseDialog
+          onClick: () => onCloseDialog()
         },
         {
           type: "primary",
