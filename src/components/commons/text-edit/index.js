@@ -6,7 +6,8 @@ export default function TextEdit({ onChange, value }) {
   const editor = useRef(null)
 
   const config = {
-    readonly: false // all options from https://xdsoft.net/jodit/doc/
+    readonly: false, // all options from https://xdsoft.net/jodit/doc/
+    height: 250,
   }
 
   return (
