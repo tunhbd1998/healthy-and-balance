@@ -11,6 +11,7 @@ export const prepareDataForApp = () => {
   saveDataToLocalStorage("categories", JSON.stringify(data.categories));
   saveDataToLocalStorage("users", JSON.stringify(data.users));
   saveDataToLocalStorage("posts", JSON.stringify(data.posts));
+  saveDataToLocalStorage("comments", JSON.stringify(data.comments));
 };
 
 export const saveDataToLocalStorage = (key, val) => {
@@ -182,4 +183,102 @@ export const addFollowingUsers = (username, authorUsername) => {
   updateCookie("user", JSON.stringify(users[username]));
 
   return users[username].followingUsers;
+};
+
+export const getPostById = id => {
+  const posts = JSON.parse(getDataFromLocalStorage("posts"));
+  const postIndex = posts[posts.findIndex(p => p.id === id)];
+
+  if (postIndex < 0) {
+    return null;
+  }
+
+  return posts[postIndex];
+};
+
+export const getPostComments = postId => {
+  const comments = JSON.parse(getDataFromLocalStorage("comments")) || [];
+
+  const filteredComments = comments
+    .filter(cmt => cmt.postId === postId)
+    .sort(
+      (cmtOne, cmtTwo) =>
+        new Date(cmtTwo.createdDate) - new Date(cmtOne.createdDate)
+    )
+    .map(cmt => ({ ...cmt, author: getUserByUsername(cmt.author) }));
+
+  const ret = filteredComments
+    .filter(cmt => !cmt.parentId)
+    .map(cmt => ({
+      ...cmt,
+      children: filteredComments.filter(sCmt => sCmt.parentId === cmt.id)
+    }));
+
+  return ret;
+};
+
+export const addNewPostComment = (postId, content, parentId, author) => {
+  const comment = {
+    id: new Date().getTime(),
+    content,
+    author: author.username,
+    parentId,
+    postId,
+    likes: 0,
+    createdDate: new Date()
+  };
+
+  saveDataToLocalStorage(
+    "comments",
+    JSON.stringify([
+      ...(JSON.parse(getDataFromLocalStorage("comments")) || []),
+      comment
+    ])
+  );
+
+  return {
+    ...comment,
+    author
+  };
+};
+
+export const likedComment = (username, commentId) => {
+  const user = getUserByUsername(username);
+
+  return user.likeComments.findIndex(id => id === commentId) > -1;
+};
+
+export const likeComment = (username, commentId) => {
+  const users = JSON.parse(getDataFromLocalStorage("users")) || {};
+  const comments = JSON.parse(getDataFromLocalStorage("comments")) || {};
+
+  if (!users[username]) {
+    return;
+  }
+
+  users[username].likeComments = [
+    ...(users[username].likeComments || []),
+    commentId
+  ];
+  comments[comments.findIndex(cmt => cmt.id === commentId)].likes++;
+
+  saveDataToLocalStorage("users", JSON.stringify(users));
+  saveDataToLocalStorage("comments", JSON.stringify(comments));
+};
+
+export const unLikeComment = (username, commentId) => {
+  const users = JSON.parse(getDataFromLocalStorage("users")) || {};
+  const comments = JSON.parse(getDataFromLocalStorage("comments")) || {};
+
+  if (!users[username]) {
+    return;
+  }
+
+  users[username].likeComments = users[username].likeComments.filter(
+    id => id !== commentId
+  );
+  comments[comments.findIndex(cmt => cmt.id === commentId)].likes--;
+
+  saveDataToLocalStorage("users", JSON.stringify(users));
+  saveDataToLocalStorage("comments", JSON.stringify(comments));
 };

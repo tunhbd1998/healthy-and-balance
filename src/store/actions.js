@@ -4,7 +4,10 @@ import * as actionTypes from "./action-types";
 import {
   getDataFromLocalStorage,
   getUserByUsername,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  getPostById,
+  getPostComments,
+  addNewPostComment
 } from "../utils";
 import { updateCookie, deleteCookie } from "../utils/cookies";
 
@@ -27,7 +30,6 @@ export const fetchCategories = () => (dispatch, getState) => {
     ])
   );
 };
-
 
 export const setCurrentLeftSidebarItem = createAction(
   "SET_CURRENT_LEFT_SIDEBAR_ITEM",
@@ -164,6 +166,44 @@ export const alertNotification = createAction(
   (type, message) => ({
     type: actionTypes.ALERT_NOTIFICATION,
     payload: { type, message }
+  })
+);
+
+export const fetchPostCommentsSuccess = createAction(
+  "FETCH_POST_COMMENTS_SUCCESS",
+  comments => ({ comments })
+);
+
+export const fetchPostComments = postId => dispatch => {
+  dispatch(fetchPostCommentsSuccess(getPostComments(postId)));
+};
+
+export const addPostCommentSuccess = createAction(
+  "ADD_POST_COMMENT_SUCCESS",
+  comment => ({ comment })
+);
+
+export const addPostComment = (postId, content, author, parentId) => (
+  dispatch,
+  getState
+) => {
+  const newComment = addNewPostComment(postId, content, parentId, author);
+
+  dispatch(addPostCommentSuccess(newComment));
+};
+
+export const filterPostComments = createAction("FILTER_POST_COMMENTS", asc => ({
+  asc
+}));
+
+export const likePostComment = createAction("LIKE_POST_COMMENT", commentId => ({
+  commentId
+}));
+
+export const unLikePostComment = createAction(
+  "UN_LIKE_POST_COMMENT",
+  commentId => ({
+    commentId
   })
 );
 

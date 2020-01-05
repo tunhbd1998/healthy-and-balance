@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown,Popover,OverlayTrigger,ListGroup } from "react-bootstrap";
+import { Dropdown, Popover, OverlayTrigger, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { saveDataToLocalStorage } from "../../../../../utils";
 import { connect } from "react-redux";
@@ -9,70 +9,111 @@ import Avatar from "../../../../commons/avatar";
 import { signOut, fetchCategories } from "../../../../../store/actions";
 import { bindActionCreators } from "redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSortDown,
-  faBell
-} from "@fortawesome/free-solid-svg-icons";
+import { faSortDown, faBell } from "@fortawesome/free-solid-svg-icons";
 const defaultAvatar = "/media/images/users/placeholder.png";
 const popover = (
   <Popover id="popover-basic">
-    <Popover.Title as="h5" style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+    <Popover.Title
+      as="h5"
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+      }}
+    >
       <div>Thông báo</div>
-      <div style={{fontSize:'12px',color:'#4aa112',cursor:'pointer'}}>Đánh dấu đã đọc</div>
+      <div style={{ fontSize: "12px", color: "#4aa112", cursor: "pointer" }}>
+        Đánh dấu đã đọc
+      </div>
     </Popover.Title>
-    <Popover.Content style={{padding:'0px'}}>
-      <div className='itemNoti' style={{display:'flex',alignItems:'center',cursor:'pointer',marginBottom:'10px'}}>
-        <div className='avatarItem' style={{marginRight:'5px'}}>
+    <Popover.Content style={{ padding: "0px" }}>
+      <div
+        className="itemNoti"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+          marginBottom: "10px"
+        }}
+      >
+        <div className="avatarItem" style={{ marginRight: "5px" }}>
           <Avatar url={defaultAvatar} size="big" />
         </div>
-        <div className='contentItem'>
-          <div className='usernameComment'>
+        <div className="contentItem">
+          <div className="usernameComment">
             <b>phhviet</b> <i>đã bình luận bài viết của bạn</i>
           </div>
-          <div className='timeAgo' style={{fontSize:'12px',color:'#255852',textAlign:'right',marginRight:'5px'}}>
+          <div
+            className="timeAgo"
+            style={{
+              fontSize: "12px",
+              color: "#255852",
+              textAlign: "right",
+              marginRight: "5px"
+            }}
+          >
             <i>1 giờ trước</i>
           </div>
         </div>
       </div>
-      <div className='itemNoti unread' style={{display:'flex',alignItems:'center',cursor:'pointer',marginBottom:'10px'}}>
-        <div className='avatarItem' style={{marginRight:'5px'}}>
+      <div
+        className="itemNoti unread"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+          marginBottom: "10px"
+        }}
+      >
+        <div className="avatarItem" style={{ marginRight: "5px" }}>
           <Avatar url={defaultAvatar} size="big" />
         </div>
-        <div className='contentItem'>
-          <div className='usernameComment'>
+        <div className="contentItem">
+          <div className="usernameComment">
             <b>phhviet</b> <i>đã bình luận bài viết của bạn</i>
           </div>
-          <div className='timeAgo' style={{fontSize:'12px',color:'#255852',textAlign:'right',marginRight:'5px'}}>
+          <div
+            className="timeAgo"
+            style={{
+              fontSize: "12px",
+              color: "#255852",
+              textAlign: "right",
+              marginRight: "5px"
+            }}
+          >
             <i>1 giờ trước</i>
           </div>
         </div>
       </div>
-    
     </Popover.Content>
   </Popover>
 );
 
 function UserMenu({ user, actions }) {
-  
-
   return user ? (
     <>
       <div className="hb-user-menu">
-
-        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
-          <div className='notification'>
-            <div className='customNoti' pill>1</div>
-            <FontAwesomeIcon icon={faBell} className='icon-down'/>
+        <OverlayTrigger
+          trigger="click"
+          rootClose
+          placement="bottom"
+          overlay={popover}
+        >
+          <div className="notification">
+            <div className="customNoti" pill>
+              1
+            </div>
+            <FontAwesomeIcon icon={faBell} className="icon-down" />
           </div>
         </OverlayTrigger>
         <Dropdown>
           <Dropdown.Toggle>
             <Avatar url={user.avatar || defaultAvatar} size="big" />
-            <FontAwesomeIcon icon={faSortDown} className='icon-down'/>
+            <FontAwesomeIcon icon={faSortDown} className="icon-down" />
           </Dropdown.Toggle>
           <Dropdown.Menu className="user-menu">
             <div className="user-info">
-              <Avatar url={user.avatar || defaultAvatar} size="big"/>
+              <Avatar url={user.avatar || defaultAvatar} size="big" />
               <div className="info">
                 <span>{user.displayName}</span>
                 <span>{user.email}</span>
@@ -90,7 +131,10 @@ function UserMenu({ user, actions }) {
             </Dropdown.Item>
             {user.role === "admin" ? (
               <Dropdown.Item style={{ padding: 0 }}>
-                <Link className="user-menu--menu-item" to="/admin/dashboard">
+                <Link
+                  className="user-menu--menu-item"
+                  to="/admin/dashboard/posts"
+                >
                   Quản lý hệ thống
                 </Link>
               </Dropdown.Item>

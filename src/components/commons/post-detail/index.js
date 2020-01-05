@@ -24,12 +24,24 @@ import AuthorLabel from "../author-label";
 import { connect } from "react-redux";
 import { get } from "lodash";
 import { bindActionCreators } from "redux";
-import { updateUser } from "../../../store/actions";
-import FormComment from '../comment-form/index'
-import ListComment from '../list-comment/index'
+import {
+  updateUser,
+  fetchPostComments,
+  addPostComment
+} from "../../../store/actions";
+import FormComment from "../comment-form/index";
+import ListComment from "../list-comment/index";
 
-function PostDetail({ post, onClose, user, actions }) {
+function PostDetail({ post, onClose, user, actions, commentFilter }) {
   const [show, setShow] = React.useState(true);
+  const [fetchedComments, setFetchedComments] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!fetchedComments) {
+      setFetchedComments(true);
+      actions.fetchPostComments(post.id);
+    }
+  });
 
   if (!post) {
     return null;
@@ -119,20 +131,42 @@ function PostDetail({ post, onClose, user, actions }) {
               <div
                 className="post-content"
                 dangerouslySetInnerHTML={{ __html: post.content }}
-              >
-                {/* {post.content} */}
-              </div>
-              <hr className='line-through'/>  
-              <div className='comment-content'>
-                {user ? 
-                <div className='comment-form'>
-                    <div className='user-comment'>Bình luận với <i className='account'>{user.username}</i></div>
-                    <FormComment/>
+              />
+              <hr className="line-through" />
+              <div className="comment-content">
+                {user && commentFilter === "desc" ? (
+                  <div className="comment-form">
+                    <div className="user-comment">
+                      Bình luận với{" "}
+                      <i className="account">{user.displayName}</i>
+                    </div>
+                    <FormComment
+                      onSubmit={content => {
+                        actions.addPostComment(post.id, content, user, null);
+                      }}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="list-comment-in-post">
+                  <ListComment comments={get(post, "comments", []) || []} />
                 </div>
-                : ''} 
-                <div className='list-comment-in-post'>
-                    <ListComment/>
-                </div>
+                {user && commentFilter === "asc" ? (
+                  <div className="comment-form">
+                    <div className="user-comment">
+                      Bình luận với{" "}
+                      <i className="account">{user.displayName}</i>
+                    </div>
+                    <FormComment
+                      onSubmit={content => {
+                        actions.addPostComment(post.id, content, user, null);
+                      }}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -143,11 +177,15 @@ function PostDetail({ post, onClose, user, actions }) {
 }
 
 const mapStateToProps = state => ({
-  user: get(state, "user")
+  user: get(state, "user"),
+  commentFilter: get(state, "commentFilter")
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ updateUser }, dispatch)
+  actions: bindActionCreators(
+    { updateUser, fetchPostComments, addPostComment },
+    dispatch
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

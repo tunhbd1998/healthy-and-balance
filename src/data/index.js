@@ -8,6 +8,7 @@ export const users = {
     isActive: true,
     followingUsers: [],
     markedPosts: [],
+    likeComments: [],
     role: "admin",
     avatar: "/media/images/users/placeholder.png"
   },
@@ -20,6 +21,7 @@ export const users = {
     isActive: true,
     followingUsers: [],
     markedPosts: [],
+    likeComments: [],
     role: "user",
     avatar: "/media/images/users/placeholder.png"
   },
@@ -32,6 +34,7 @@ export const users = {
     isActive: true,
     followingUsers: [],
     markedPosts: [],
+    likeComments: [],
     role: "user",
     avatar: "/media/images/users/placeholder.png"
   },
@@ -44,6 +47,7 @@ export const users = {
     isActive: true,
     followingUsers: [],
     markedPosts: [],
+    likeComments: [],
     role: "user",
     avatar: "/media/images/users/placeholder.png"
   }
@@ -84,6 +88,17 @@ export const categories = [
     id: "categ04",
     title: "Chăm sóc bản thân theo mùa",
     url: "/category/categ04"
+  }
+];
+
+export const comments = [
+  {
+    id: 1,
+    content: "demo",
+    author: "demo",
+    parentId: null,
+    postId: null,
+    likes: 0
   }
 ];
 

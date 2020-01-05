@@ -343,7 +343,7 @@ class PosterManageAdminComponent extends React.Component {
       {
         id: 1,
         title: "Quản lý bài viết",
-        url: "/admin/dashboard"
+        url: "/admin/dashboard/posts"
       },
       {
         id: 2,
