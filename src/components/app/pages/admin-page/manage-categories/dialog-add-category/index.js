@@ -3,7 +3,8 @@ import Dialog from "../../../../../commons/dialog";
 import Input from "../../../../../commons/input";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  notify
 } from "../../../../../../utils";
 import "./dialog-add-category.scss";
 
@@ -14,7 +15,7 @@ export default class DialogAddCategory extends React.Component {
       categories: [],
       category: {
         id: "",
-        title: "",
+        title: ""
       }
     };
   }
@@ -27,7 +28,7 @@ export default class DialogAddCategory extends React.Component {
     this.setState({
       category: {
         id: "",
-        title: "",
+        title: ""
       }
     });
   }
@@ -36,7 +37,7 @@ export default class DialogAddCategory extends React.Component {
     this.setState({
       category: {
         id: "",
-        title: "",
+        title: ""
       }
     });
   }
@@ -67,6 +68,8 @@ export default class DialogAddCategory extends React.Component {
     const categories = JSON.parse(getDataFromLocalStorage("categories"));
     categories.push(category);
     saveDataToLocalStorage("categories", JSON.stringify(categories));
+
+    notify("success", "Thêm chuyên mục thành công");
     onCloseDialog();
     this.resetData();
     this.loadData();
@@ -89,11 +92,11 @@ export default class DialogAddCategory extends React.Component {
         }
       ];
     dialogContent = (
-      <div className="dap"  style={{ maxWidth: "1000px", minWidth: "400px" }}>
+      <div className="dap" style={{ maxWidth: "1000px", minWidth: "400px" }}>
         <div className="group-item">
           Mã chuyên mục
           <Input
-            placeHover="Tên bài viết"
+            placeHover="Mã chuyên mục"
             onChange={e => this.onIdChange(e)}
           />
         </div>

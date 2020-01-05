@@ -8,7 +8,8 @@ import Dialog from "../../../../commons/dialog";
 import MainLayout from "../../../../layouts/main-layout";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  notify
 } from "../../../../../utils";
 import { setCurrentLeftSidebarItem } from "../../../../../store/actions";
 import "../manage-posts/poster-manage.scss";
@@ -23,11 +24,7 @@ class ManageCategory extends React.Component {
     super(props);
     this.state = {
       originCategories: [],
-      header: [
-        "ID",
-        "Tên chuyên mục",
-        "Thao tác"
-      ],
+      header: ["ID", "Tên chuyên mục", "Thao tác"],
       categories: [],
       maxItems: 10,
       currentPage: 1,
@@ -53,7 +50,7 @@ class ManageCategory extends React.Component {
 
     this.setState({
       originCategories: categories,
-      categories: categories,
+      categories: categories
     });
   }
 
@@ -74,10 +71,18 @@ class ManageCategory extends React.Component {
         categories.push(v);
       }
     });
+
     saveDataToLocalStorage("categories", JSON.stringify(categories));
-    if ((currentPage - 1) * maxItems <= categories.length && currentPage !== 1) {
+
+    if (
+      (currentPage - 1) * maxItems <= categories.length &&
+      currentPage !== 1
+    ) {
       currentPage--;
     }
+
+    notify("success", "Xóa chuyên mục thành công");
+
     this.setState({
       removeId: -1,
       showDialogWarning: false,
@@ -105,7 +110,7 @@ class ManageCategory extends React.Component {
     console.log(originCategories);
     this.setState({
       categoryUpdate,
-      showDialogEditCategory: true,
+      showDialogEditCategory: true
     });
   }
 
@@ -215,7 +220,7 @@ class ManageCategory extends React.Component {
       {
         id: 2,
         title: "Quản lý người dùng",
-        url: "/admin/dashboard/categories"
+        url: "/admin/dashboard/users"
       },
       {
         id: 3,
@@ -229,7 +234,7 @@ class ManageCategory extends React.Component {
       <MainLayout
         haveLeftSidebar={true}
         menuItems={menuItems}
-        onClickItem={() => { }}
+        onClickItem={() => {}}
         title="Quản lý chuyên mục"
       >
         <>
@@ -271,7 +276,7 @@ class ManageCategory extends React.Component {
                       <>
                         <Image src={ic_add} disable />
                         Thêm chuyên mục
-                    </>
+                      </>
                     }
                     onClick={() => this.onButtonAddCategory()}
                   />
@@ -292,7 +297,7 @@ class ManageCategory extends React.Component {
                 onPrev={() => this.prevPage()}
                 maxPage={
                   Math.floor(categorieArrParse.length / maxItems) ===
-                    categorieArrParse.length / maxItems
+                  categorieArrParse.length / maxItems
                     ? Math.floor(categorieArrParse.length / maxItems)
                     : Math.floor(categorieArrParse.length / maxItems) + 1
                 }

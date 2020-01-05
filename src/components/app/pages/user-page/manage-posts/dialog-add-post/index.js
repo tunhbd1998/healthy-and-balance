@@ -6,7 +6,8 @@ import Input from "../../../../../commons/input";
 import ComboBox from "../../../../../commons/combo-box";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  notify
 } from "../../../../../../utils";
 import "./dialog-add-poster.scss";
 import { connect } from "react-redux";
@@ -116,6 +117,7 @@ class DialogAddPost extends React.Component {
     saveDataToLocalStorage("posts", JSON.stringify(posts));
 
     onCloseDialog();
+    notify("success", "Thêm bài viết thành công");
     this.resetData();
     this.loadData();
   }

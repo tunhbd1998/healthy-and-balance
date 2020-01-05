@@ -4,7 +4,8 @@ import Dialog from "../../../../../commons/dialog";
 import Input from "../../../../../commons/input";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  notify
 } from "../../../../../../utils";
 import "./dialog-edit-category.scss";
 import { alertNotification } from "../../../../../../store/actions";
@@ -55,6 +56,8 @@ export default class DialogEditCategory extends React.Component {
       }
     });
     saveDataToLocalStorage("categories", JSON.stringify(newcategories));
+
+    notify("success", "Cập nhật chuyên mục thành công");
     onCloseDialog();
     showNotification("Cập nhật chuyên mục thành công", "success");
   }
@@ -83,10 +86,7 @@ export default class DialogEditCategory extends React.Component {
       <div style={{ maxWidth: "1000px", minWidth: "400px" }}>
         <div className="group-item">
           <div>Mã chuyên mục</div>
-          <Input
-            value={id}
-            disable
-          />
+          <Input value={id} disable />
         </div>
         <div className="group-item">
           Tên chuyên mục

@@ -7,7 +7,8 @@ import PagingControl from "../../../../commons/paging-control";
 import MainLayout from "../../../../layouts/main-layout";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  notify
 } from "../../../../../utils";
 import Dialog from "../../../../commons/dialog";
 import PostDetail from "../../../../commons/post-detail";
@@ -248,7 +249,9 @@ class PosterManageAdminComponent extends React.Component {
       idPostUpdate: -1
     });
 
-    this.showNotification("Chấp nhận bài viết thành công", "success");
+    notify("success", "Đã duyệt bài viết");
+
+    // this.showNotification("Chấp nhận bài viết thành công", "success");
   }
 
   onAcceptPostCancel() {
@@ -287,7 +290,8 @@ class PosterManageAdminComponent extends React.Component {
       idPostUpdate: -1
     });
 
-    this.showNotification("Từ chối bài viết thành công", "success");
+    notify("success", "Từ chối bài viết thành công");
+    // this.showNotification("", "success");
   }
 
   onDenyPostCancel() {

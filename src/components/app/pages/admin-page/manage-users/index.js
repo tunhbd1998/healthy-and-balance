@@ -9,7 +9,8 @@ import MainLayout from "../../../../layouts/main-layout";
 import {
   getDataFromLocalStorage,
   saveDataToLocalStorage,
-  getUsers
+  getUsers,
+  notify
 } from "../../../../../utils";
 import { setCurrentLeftSidebarItem } from "../../../../../store/actions";
 import "../manage-posts/poster-manage.scss";
@@ -96,6 +97,7 @@ class ManageUser extends React.Component {
     if ((currentPage - 1) * maxItems <= users.length && currentPage !== 1) {
       currentPage--;
     }
+    notify("success", "Đã xóa tài khoản người dùng");
     this.setState({
       removeId: -1,
       showDialogWarning: false,

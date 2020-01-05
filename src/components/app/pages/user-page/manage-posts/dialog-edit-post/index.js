@@ -6,7 +6,8 @@ import Input from "../../../../../commons/input";
 import ComboBox from "../../../../../commons/combo-box";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  notify
 } from "../../../../../../utils";
 import "./dialog-edit-poster.scss";
 
@@ -105,8 +106,10 @@ export default class DialogEditPost extends React.Component {
       }
     });
     saveDataToLocalStorage("posts", JSON.stringify(newPosts));
+
     onCloseDialog();
     this.loadData();
+    notify("success", "Cập nhật bài viết thành công");
     // showNotification("Cập nhật bài viết thành công", "success");
   }
 

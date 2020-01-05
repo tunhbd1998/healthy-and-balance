@@ -1,5 +1,6 @@
 import * as data from "../data";
 import { get, keysIn } from "lodash";
+import { toast } from "react-toastify";
 import { updateCookie } from "./cookies";
 
 export const prepareDataForApp = () => {
@@ -287,4 +288,29 @@ export const getUsers = () => {
   const users = JSON.parse(getDataFromLocalStorage("users")) || {};
 
   return keysIn(users).map(username => users[username]);
+};
+
+export const notify = (type, text) => {
+  toast.configure({
+    toastClassName: "aaa",
+    autoClose: 500,
+    position: "bottom-right",
+    className: "bbb",
+    bodyClassName: "ccc"
+  });
+  const options = {
+    position: "bottom-right",
+    autoClose: 2000
+  };
+
+  switch (type) {
+    case "success":
+      toast.success(text, options);
+      break;
+    case "error":
+      toast.error(text, options);
+      break;
+    default:
+      toast.info(text, options);
+  }
 };

@@ -11,7 +11,8 @@ import PagingControl from "../../../../commons/paging-control";
 import MainLayout from "../../../../layouts/main-layout";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  notify
 } from "../../../../../utils";
 import DialogAddPost from "./dialog-add-post";
 import Dialog from "../../../../commons/dialog";
@@ -115,6 +116,9 @@ class DashboardComponent extends React.Component {
     if ((currentPage - 1) * maxItems <= posts.length && currentPage !== 1) {
       currentPage--;
     }
+
+    notify("success", "Đã xóa bài viết thành công");
+
     this.setState({
       removeId: -1,
       showDialogWarning: false,
