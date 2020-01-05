@@ -273,10 +273,10 @@ class DashboardComponent extends React.Component {
     this.props.actions.showPostDetail(post);
   }
 
-  // showNotification(message, type) {
-  //   const { dispatch } = this.props;
-  //   dispatch(alertNotification(type, message));
-  // }
+  showNotification(message, type) {
+    // const { dispatch } = this.props;
+    // dispatch(alertNotification(type, message));
+  }
 
   render() {
     const {

@@ -169,7 +169,7 @@ export default class DialogEditPost extends React.Component {
     );
     return (
       <Dialog
-        title="Thêm bài viết"
+        title="Chỉnh sửa bài viết"
         show={show}
         messageContent={dialogContent}
         buttons={buttonsDialog}
