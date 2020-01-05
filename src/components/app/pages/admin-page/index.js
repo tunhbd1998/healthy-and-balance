@@ -15,17 +15,17 @@ const ManagePosts = Loadable({
 
 export default function AdminPage() {
   return (
-    <Router>
-      <Switch>
-        <Route
-          path="/admin/dashboard/users"
-          component={withPageTitle(ManageUsers, "Quản lý người dùng")}
-        />
-        <Route
-          path="/admin/dashboard/posts"
-          component={withPageTitle(ManagePosts, "Quản lý bài viết")}
-        />
-      </Switch>
-    </Router>
+    // <Router>
+    <Switch>
+      <Route
+        path="/admin/dashboard/users"
+        component={withPageTitle(ManageUsers, "Quản lý người dùng")}
+      />
+      <Route
+        path="/admin/dashboard/posts"
+        component={withPageTitle(ManagePosts, "Quản lý bài viết")}
+      />
+    </Switch>
+    // </Router>
   );
 }

@@ -299,7 +299,7 @@ class PosterManageAdminComponent extends React.Component {
 
   showNotification(message, type) {
     const { dispatch } = this.props;
-    dispatch(alertNotification(type, message));
+    // dispatch(alertNotification(type, message));
   }
 
   render() {

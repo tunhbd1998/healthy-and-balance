@@ -8,7 +8,8 @@ import Dialog from "../../../../commons/dialog";
 import MainLayout from "../../../../layouts/main-layout";
 import {
   getDataFromLocalStorage,
-  saveDataToLocalStorage
+  saveDataToLocalStorage,
+  getUsers
 } from "../../../../../utils";
 import { setCurrentLeftSidebarItem } from "../../../../../store/actions";
 import "../manage-posts/poster-manage.scss";
@@ -47,12 +48,12 @@ class ManageUser extends React.Component {
   }
 
   loadData() {
-    const users = JSON.parse(getDataFromLocalStorage("users"));
-    console.log(users);
+    const users = getUsers();
+    console.log("users", users);
 
     this.setState({
-      originUsers: users,
-      users: users,
+      originUsers: [...users],
+      users: [...users],
       status: [
         {
           id: 2,
@@ -113,18 +114,17 @@ class ManageUser extends React.Component {
 
   onToggleActive(username) {
     const { originUsers } = this.state;
-    const userArrParse = Object.keys(originUsers).map(i => originUsers[i]);
+    const users = [...originUsers];
 
-    userArrParse.forEach(v => {
-      if (v.username === username) {
-        v.isActive = !v.isActive;
-        return;
+    users.forEach(u => {
+      if (u.username === username) {
+        u.isActive = !u.isActive;
       }
     });
 
     this.setState({
-      users: Object.assign({}, userArrParse),
-      originUsers: Object.assign({}, userArrParse)
+      users,
+      originUsers: [...users]
     });
   }
 
@@ -152,20 +152,20 @@ class ManageUser extends React.Component {
 
   onSearch(text) {
     // e.preventDefault();
-    const { originPosts, searchText } = this.state;
+    const { originUsers, searchText } = this.state;
 
     let users = [];
     if (searchText === "") {
       this.setState({
         searchText: "",
-        users: originPosts
+        users: [...originUsers]
       });
       return;
     }
 
-    originPosts.forEach(v => {
-      if (v.title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
-        users.push(v);
+    originUsers.forEach(u => {
+      if (u.username.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
+        users.push(u);
       }
     });
 

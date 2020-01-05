@@ -45,7 +45,9 @@ export const fetchPostsSuccess = createAction("FETCH_POSTS_SUCCESS", posts => ({
 export const fetchPostsByCategory = categoryId => (dispatch, getState) => {
   // const { currentItemId } = getState();
   const sourcePosts = JSON.parse(getDataFromLocalStorage("posts"));
-  const posts = sourcePosts.filter(post => post.category === categoryId);
+  const posts = sourcePosts.filter(
+    post => post.category === categoryId && post.status === 1
+  );
 
   // if (currentItemId === "new") {
   //   posts = sourcePosts.sort(
@@ -68,16 +70,21 @@ export const fetchPostsByCategory = categoryId => (dispatch, getState) => {
 
 export const fetchPostsBySearchContent = content => (dispatch, getState) => {
   const posts = JSON.parse(getDataFromLocalStorage("posts")).filter(
-    post => post.title.toLowerCase().indexOf(content.toLowerCase()) > -1
+    post =>
+      post.status === 1 &&
+      post.title.toLowerCase().indexOf(content.toLowerCase()) > -1
   );
 
   dispatch(fetchPostsSuccess(posts));
 };
 
 export const fetchTodayPosts = () => dispatch => {
-  const sourcePosts = JSON.parse(getDataFromLocalStorage("posts"));
+  const sourcePosts = (
+    JSON.parse(getDataFromLocalStorage("posts")) || []
+  ).filter(post => post.status === 1);
   const posts = sourcePosts.sort(
-    (dateOne, dateTwo) => new Date(dateTwo) - new Date(dateOne)
+    (postOne, postTwo) =>
+      new Date(postTwo.createdDate) - new Date(postOne.createdDate)
   );
 
   dispatch(fetchPostsSuccess(posts));
@@ -88,6 +95,7 @@ export const fetchFollowingPosts = () => (dispatch, getState) => {
   const sourcePosts = JSON.parse(getDataFromLocalStorage("posts"));
   const posts = sourcePosts.filter(
     post =>
+      post.status === 1 &&
       (get(user, "followingUsers") || []).findIndex(
         usn => usn === post.author
       ) > -1
@@ -101,6 +109,7 @@ export const fetchMarkedPosts = () => (dispatch, getState) => {
   const sourcePosts = JSON.parse(getDataFromLocalStorage("posts"));
   const posts = sourcePosts.filter(
     post =>
+      post.status === 1 &&
       (get(user, "markedPosts") || []).findIndex(pId => pId === post.id) > -1
   );
 

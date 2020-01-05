@@ -1,0 +1,16 @@
+.image-upload-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  .image-container {
+    &.preview {
+      &.small {
+        width: 100px;
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@ import { shouldAuthenticated } from "../../../../hoc/should-authenticated.hoc";
 import MainLayout from "../../../layouts/main-layout";
 import SearchBox from "../../../commons/search-box";
 import PostDetail from "../../../commons/post-detail";
-// import ManagePosts from "./manage-posts";
+import ManagePosts from "./manage-posts";
 import {
   fetchCategories,
   fetchPostsByCategory,
@@ -45,10 +45,10 @@ const ManageInfo = Loadable({
   loader: () => import("./manager-info"),
   loading: () => "Loading"
 });
-const ManagePosts = Loadable({
-  loader: () => import("./manage-posts"),
-  loading: () => "Loading"
-});
+// const ManagePosts = Loadable({
+//   loader: () => import("./manage-posts"),
+//   loading: () => "Loading"
+// });
 
 function UserPage({ categories, actions, post }) {
   const [fetchedCategories, setFetchedCategories] = React.useState(false);
@@ -59,8 +59,6 @@ function UserPage({ categories, actions, post }) {
       actions.fetchCategories();
     }
   });
-
-  console.log("user page");
 
   return (
     <>

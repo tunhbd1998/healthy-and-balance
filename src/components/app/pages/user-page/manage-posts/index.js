@@ -122,7 +122,7 @@ class DashboardComponent extends React.Component {
       posts: posts,
       currentPage: currentPage
     });
-    this.showNotification("Xóa bài viết thành công", "success");
+    // this.showNotification("Xóa bài viết thành công", "success");
   }
 
   onRemoveCancel() {
@@ -316,16 +316,16 @@ class DashboardComponent extends React.Component {
       // >
       <>
         <DialogAddPost
-          showNotification={(message, type) =>
-            this.showNotification(message, type)
-          }
+          // showNotification={(message, type) =>
+          //   this.showNotification(message, type)
+          // }
           show={showDialogAddPoster}
           onCloseDialog={() => this.onDialogAddClose()}
         />
         <DialogEditPost
-          showNotification={(message, type) =>
-            this.showNotification(message, type)
-          }
+          // showNotification={(message, type) =>
+          //   this.showNotification(message, type)
+          // }
           post={postUpdate}
           show={showDialogUpdate}
           onCloseDialog={() => this.onDialogUpdateClose()}

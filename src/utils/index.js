@@ -1,5 +1,5 @@
 import * as data from "../data";
-import { get } from "lodash";
+import { get, keysIn } from "lodash";
 import { updateCookie } from "./cookies";
 
 export const prepareDataForApp = () => {
@@ -281,4 +281,10 @@ export const unLikeComment = (username, commentId) => {
 
   saveDataToLocalStorage("users", JSON.stringify(users));
   saveDataToLocalStorage("comments", JSON.stringify(comments));
+};
+
+export const getUsers = () => {
+  const users = JSON.parse(getDataFromLocalStorage("users")) || {};
+
+  return keysIn(users).map(username => users[username]);
 };

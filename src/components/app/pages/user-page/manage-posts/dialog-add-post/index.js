@@ -1,5 +1,5 @@
 import React from "react";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import TextEdit from "../../../../../commons/text-edit";
 import Dialog from "../../../../../commons/dialog";
 import Input from "../../../../../commons/input";
@@ -9,8 +9,9 @@ import {
   saveDataToLocalStorage
 } from "../../../../../../utils";
 import "./dialog-add-poster.scss";
+import { connect } from "react-redux";
 
-export default class DialogAddPost extends React.Component {
+class DialogAddPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,13 +101,20 @@ export default class DialogAddPost extends React.Component {
   }
 
   onAdd() {
-    const { onCloseDialog } = this.props;
+    const { onCloseDialog, user } = this.props;
     const { post } = this.state;
     const posts = JSON.parse(getDataFromLocalStorage("posts"));
+
+    if (isEmpty(post.title)) {
+      return;
+    }
+
     post.id = (get(posts, [(get(posts, "length") || 1) - 1, "id"]) || 0) + 1;
     post.author = get(JSON.parse(getDataFromLocalStorage("user")), "username");
+    post.author = user.username;
     posts.push(post);
     saveDataToLocalStorage("posts", JSON.stringify(posts));
+
     onCloseDialog();
     this.resetData();
     this.loadData();
@@ -173,3 +181,5 @@ export default class DialogAddPost extends React.Component {
     );
   }
 }
+
+export default connect(state => ({ user: get(state, "user") }))(DialogAddPost);

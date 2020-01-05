@@ -1,4 +1,5 @@
 import React from "react";
+import { isEmpty } from "lodash";
 import TextEdit from "../../../../../commons/text-edit";
 import Dialog from "../../../../../commons/dialog";
 import Input from "../../../../../commons/input";
@@ -91,6 +92,11 @@ export default class DialogEditPost extends React.Component {
     const { post } = this.state;
     const posts = JSON.parse(getDataFromLocalStorage("posts"));
     const newPosts = [];
+
+    if (isEmpty(post.title)) {
+      return;
+    }
+
     posts.forEach(v => {
       if (v.id === post.id) {
         newPosts.push(post);
@@ -101,7 +107,7 @@ export default class DialogEditPost extends React.Component {
     saveDataToLocalStorage("posts", JSON.stringify(newPosts));
     onCloseDialog();
     this.loadData();
-    showNotification("Cập nhật bài viết thành công", "success");
+    // showNotification("Cập nhật bài viết thành công", "success");
   }
 
   render() {
