@@ -9,18 +9,25 @@
 .button-pg {
     width: 60px !important;
     height: 40px;
+    border:unset;
+
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    background-color: $bgColorWhite !important;
+    background-color: #255852 !important;
+    &:focus{
+        outline:0 !important;
+        box-shadow: unset;
+    }
 }
 
 .button-pg i {
-    color: $textColor01;
+    color: white;
+
 }
 
 .button-pg:hover {
-    background-color: $bgColorGreen !important;
+    background-color: #307269 !important;
 }
 
 .button-pg:hover i {
