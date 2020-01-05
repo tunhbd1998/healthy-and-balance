@@ -10,20 +10,24 @@
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  
   color: $textColorMain;
   font-weight: bold;
   background-color: #ffffff;
   margin: 0px 10px;
-
+  font-size:12px; 
   &:first-child {
     margin-left: 0;
   }
+}
+.label-cb {
+  padding-left:10px;
 }
 
 .cb select {
   height: auto !important;
   border: none !important;
+  margin-right:5px;
 }
 
 .cb select:focus {

@@ -8,7 +8,7 @@ export default function ComboBox({ onChange, items, label, selectValue }) {
   }
   return (
     <div className={label === undefined ? "cb-min" : "cb"}>
-      {lb}
+      <span className='label-cb'>{lb}</span>
       <select
         className="select"
         onChange={onChange}
