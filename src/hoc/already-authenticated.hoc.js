@@ -20,7 +20,7 @@ export const alreadyAuthenticated = WrappedComponent => {
 
   const ConnectedWrapperComponent = connect(
     state => ({
-      user: get("state", ["user"])
+      user: get(state, ["user"])
     }),
     dispatch => ({
       actions: bindActionCreators({ signInSuccess }, dispatch)

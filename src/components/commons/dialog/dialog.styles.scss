@@ -1,23 +1,49 @@
 @import "src/globals/globals.styles.scss";
 
 .dialog {
-  display: flex!important;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
+  // display: flex !important;
+  // justify-content: center;
+  // align-items: center;
+  overflow: hidden !important;
 
   .modal-dialog {
-    max-width: none!important;
-    margin: 0!important;
+    width: 100%;
+    height: 100%;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    background: transparent !important;
+    margin: 0 !important;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-content {
+      max-height: 90%;
+      max-width: 90%;
+      background: #fff;
+
+      .modal-header {
+        height: 50px;
+      }
+
+      .modal-body {
+        max-height: calc(100% - 50px);
+        overflow-y: auto;
+      }
+    }
   }
 }
 
 .dialog .modal-header {
-  display: flex!important;
+  display: flex !important;
   justify-content: center !important;
   align-items: center !important;
 
   .modal-title {
-    color:  $textColorMain;
+    color: $textColorMain;
     width: 100%;
     text-align: center;
   }

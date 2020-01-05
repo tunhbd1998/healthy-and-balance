@@ -37,7 +37,8 @@ function PostDetail({ post, onClose, user, actions, commentFilter }) {
   const [fetchedComments, setFetchedComments] = React.useState(false);
 
   React.useEffect(() => {
-    if (!fetchedComments) {
+    if (post && !fetchedComments) {
+      console.log("kkk", post);
       setFetchedComments(true);
       actions.fetchPostComments(post.id);
     }
@@ -135,7 +136,7 @@ function PostDetail({ post, onClose, user, actions, commentFilter }) {
               <hr className="line-through" />
               <Fade duration={300}>
                 <div className="comment-content">
-                  {user && commentFilter === "desc" ? (
+                  {post.status === 1 && user && commentFilter === "desc" ? (
                     <div className="comment-form">
                       <div className="user-comment">
                         Bình luận với{" "}
@@ -153,7 +154,7 @@ function PostDetail({ post, onClose, user, actions, commentFilter }) {
                   <div className="list-comment-in-post">
                     <ListComment comments={get(post, "comments", []) || []} />
                   </div>
-                  {user && commentFilter === "asc" ? (
+                  {post.status === 1 && user && commentFilter === "asc" ? (
                     <div className="comment-form">
                       <div className="user-comment">
                         Bình luận với{" "}

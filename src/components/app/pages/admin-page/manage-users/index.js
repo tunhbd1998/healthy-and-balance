@@ -1,4 +1,6 @@
 import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import DataTableComponent from "../../../../commons/table-user/DataTableComponent";
 import SearchInput from "../../../../commons/search";
 import PagingControl from "../../../../commons/paging-control";
@@ -8,6 +10,9 @@ import {
   getDataFromLocalStorage,
   saveDataToLocalStorage
 } from "../../../../../utils";
+import { setCurrentLeftSidebarItem } from "../../../../../store/actions";
+import "../manage-posts/poster-manage.scss";
+import SearchBox from "../../../../commons/search-box";
 
 class ManageUser extends React.Component {
   constructor(props) {
@@ -32,10 +37,13 @@ class ManageUser extends React.Component {
       showDialogUpdate: false,
       userUpdate: undefined
     };
+    this.onTextSearchChange = this.onTextSearchChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
+    this.props.actions.setCurrentLeftSidebarItem(2);
   }
 
   loadData() {
@@ -142,8 +150,8 @@ class ManageUser extends React.Component {
     });
   }
 
-  onSearch(e) {
-    e.preventDefault();
+  onSearch(text) {
+    // e.preventDefault();
     const { originPosts, searchText } = this.state;
 
     let users = [];
@@ -248,11 +256,15 @@ class ManageUser extends React.Component {
             <div>
               <div className="title">Quản lý tài khoản</div>
               <div className="search-input">
-                <SearchInput
+                {/* <SearchInput
                   placeHolder="Tìm kiếm"
                   onChange={e => this.onTextSearchChange(e)}
                   onSearch={e => this.onSearch(e)}
                   searchText={searchText}
+                /> */}
+                <SearchBox
+                  onChange={this.onTextSearchChange}
+                  onEnter={this.onSearch}
                 />
               </div>
 
@@ -285,4 +297,6 @@ class ManageUser extends React.Component {
   }
 }
 
-export default ManageUser;
+export default connect(null, dispatch => ({
+  actions: bindActionCreators({ setCurrentLeftSidebarItem }, dispatch)
+}))(ManageUser);

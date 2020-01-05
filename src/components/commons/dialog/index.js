@@ -8,7 +8,7 @@ export default function Dialog({
   messageContent,
   buttons,
   show,
-  onClickCloseButton,
+  onClickCloseButton
 }) {
   return (
     <Modal className="dialog" show={show} onHide={onClickCloseButton}>
@@ -17,16 +17,30 @@ export default function Dialog({
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
       ) : null}
-      <Modal.Body className="">{messageContent}</Modal.Body>
-      <Modal.Footer>
-        {buttons.map((button, idx) => {
-          return (
-            <Button key={idx} type={button.type} onClick={button.onClick}>
-              {button.label}
-            </Button>
-          );
-        })}
-      </Modal.Footer>
+      <Modal.Body className="hb-scrollbar">
+        {messageContent}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: "10px 0px"
+          }}
+        >
+          {buttons.map((button, idx) => {
+            return (
+              <Button
+                key={idx}
+                type={button.type}
+                onClick={button.onClick}
+                style={{ margin: "0px 5px" }}
+              >
+                {button.label}
+              </Button>
+            );
+          })}
+        </div>
+      </Modal.Body>
+      {/* <Modal.Footer></Modal.Footer> */}
     </Modal>
   );
 }

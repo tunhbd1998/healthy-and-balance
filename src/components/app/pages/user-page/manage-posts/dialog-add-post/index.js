@@ -141,13 +141,12 @@ export default class DialogAddPost extends React.Component {
         <div className="group-item">
           Chuyên mục
           <ComboBox
-            
             items={categories}
             onChange={e => this.onCategoryChange(e)}
           />
         </div>
         <div className="group-item">
-          Miêu tả ngắn về bài viết
+          Mô tả ngắn về bài viết
           <Input
             placeHover="Mô tả bài viết"
             type="textarea"

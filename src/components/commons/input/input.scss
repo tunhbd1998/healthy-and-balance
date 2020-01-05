@@ -1,18 +1,19 @@
 @import "src/globals/globals.styles.scss";
 
 .ip {
-    border-radius: 10px;
-    border: 1px  solid black;
-    border-color: $textColorMain;
-    width: 100%;
-    padding-left: 6px;
-    display: flex !important;
-    align-self: center !important;
-    align-content: center !important;
-    background-color: #ffffff;
-    color: $textColor02;
+  border-radius: 4px;
+  border: 1px solid black;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  width: 100%;
+  padding: 0px 6px;
+  display: flex !important;
+  align-self: center !important;
+  align-content: center !important;
+  background-color: #ffffff;
+  color: $textColorMain;
 }
 .ip:focus {
-    outline: none !important;
-    box-shadow: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #4aa113 !important;
 }

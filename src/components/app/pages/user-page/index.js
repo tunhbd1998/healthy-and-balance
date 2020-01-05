@@ -10,6 +10,7 @@ import { shouldAuthenticated } from "../../../../hoc/should-authenticated.hoc";
 import MainLayout from "../../../layouts/main-layout";
 import SearchBox from "../../../commons/search-box";
 import PostDetail from "../../../commons/post-detail";
+// import ManagePosts from "./manage-posts";
 import {
   fetchCategories,
   fetchPostsByCategory,
@@ -42,8 +43,8 @@ const SearchPage = Loadable({
 });
 const ManageInfo = Loadable({
   loader: () => import("./manager-info"),
-  loading: () => 'Loading'
-})
+  loading: () => "Loading"
+});
 const ManagePosts = Loadable({
   loader: () => import("./manage-posts"),
   loading: () => "Loading"
@@ -72,12 +73,18 @@ function UserPage({ categories, actions, post }) {
                 withPageTitle(ManagePosts, "Bài viết của tôi")
               )}
             />
-            <Route 
+            <Route
               path="/me/profile"
               component={shouldAuthenticated(
                 withPageTitle(ManageInfo, "Quản lí tài khoản")
               )}
             />
+            {post ? (
+              <PostDetail
+                post={post}
+                onClose={() => actions.hidePostDetail()}
+              />
+            ) : null}
           </MainLayout>
         </Route>
         <Route path="/">

@@ -1,4 +1,7 @@
 import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { get } from "lodash";
 import DataTableComponent from "../../../../commons/table/DataTableComponent";
 import ComboBox from "../../../../commons/combo-box";
 import Button2 from "../../../../commons/button-style2";
@@ -14,8 +17,11 @@ import DialogAddPost from "./dialog-add-post";
 import Dialog from "../../../../commons/dialog";
 import DialogEditPost from "./dialog-edit-post";
 import PostDetail from "../../../../commons/post-detail";
-import { connect } from "react-redux";
-import { alertNotification } from "../../../../../store/actions";
+import {
+  alertNotification,
+  showPostDetail,
+  hidePostDetail
+} from "../../../../../store/actions";
 import SearchBox from "../../../../commons/search-box";
 import "./manage-posts.styles.scss";
 
@@ -61,6 +67,7 @@ class DashboardComponent extends React.Component {
     JSON.parse(getDataFromLocalStorage("categories")).map(v => {
       categories.push(v);
     });
+
     this.setState({
       originPosts: posts,
       posts: posts,
@@ -259,15 +266,17 @@ class DashboardComponent extends React.Component {
   }
 
   onItemTableClick(post) {
-    this.setState({
-      postSelected: post
-    });
+    // this.setState({
+    //   postSelected: post
+    // });
+    console.log("post", post);
+    this.props.actions.showPostDetail(post);
   }
 
-  showNotification(message, type) {
-    const { dispatch } = this.props;
-    dispatch(alertNotification(type, message));
-  }
+  // showNotification(message, type) {
+  //   const { dispatch } = this.props;
+  //   dispatch(alertNotification(type, message));
+  // }
 
   render() {
     const {
@@ -283,6 +292,7 @@ class DashboardComponent extends React.Component {
       postUpdate,
       postSelected
     } = this.state;
+    const { post } = this.props;
 
     const buttonDialogWarining = [
       {
@@ -326,12 +336,12 @@ class DashboardComponent extends React.Component {
           messageContent={contentDialogWarning}
           onClickCloseButton={() => this.onRemoveCancel()}
         />
-        {postSelected !== undefined ? (
+        {/* {post ? (
           <PostDetail
-            post={postSelected}
-            onClose={() => this.onDetailPostClose()}
+            post={post}
+            onClose={() => this.props.actions.hidePostDetail()}
           />
-        ) : null}
+        ) : null} */}
         <div className="dashboard">
           <div>
             <div className="title">Quản lý bài viết</div>
@@ -401,4 +411,9 @@ class DashboardComponent extends React.Component {
   }
 }
 
-export default connect()(DashboardComponent);
+export default connect(
+  state => ({ post: get(state, "post") }),
+  dispatch => ({
+    actions: bindActionCreators({ showPostDetail, hidePostDetail }, dispatch)
+  })
+)(DashboardComponent);

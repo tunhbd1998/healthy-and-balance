@@ -68,12 +68,12 @@ const ItemComment = ({ user, comment, post, actions, commentFilter }) => {
       <div className="react-comment">
         <div
           className={`general-item love ${reactLove ? "active" : ""}`}
-          onClick={() => user && toggleLove()}
+          onClick={() => post.status === 1 && user && toggleLove()}
         >
           <FontAwesomeIcon icon={faHeart} className={`icon-comment`} />
           <div className="description total-love">{comment.likes}</div>
         </div>
-        {user ? (
+        {post.status === 1 && user ? (
           <div
             className={`general-item reply ${openComment ? "active" : ""}`}
             onClick={toggleComment}
@@ -85,7 +85,7 @@ const ItemComment = ({ user, comment, post, actions, commentFilter }) => {
       </div>
 
       <div className="wrap-reply">
-        {openComment && commentFilter === "desc" ? (
+        {post.status === 1 && openComment && commentFilter === "desc" ? (
           <FormComment
             hasReply={true}
             // onClick={onCloseComment}
@@ -110,7 +110,7 @@ const ItemComment = ({ user, comment, post, actions, commentFilter }) => {
         <div className="content-comment">
           asdaskdjasdkj asdaskdjasdkj asdaskdjasdkj
         </div> */}
-        {openComment && commentFilter === "asc" ? (
+        {post.status === 1 && openComment && commentFilter === "asc" ? (
           <FormComment
             hasReply={true}
             // onClick={onCloseComment}

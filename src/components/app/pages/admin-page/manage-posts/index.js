@@ -12,7 +12,11 @@ import {
 import Dialog from "../../../../commons/dialog";
 import PostDetail from "../../../../commons/post-detail";
 import SearchBox from "../../../../commons/search-box";
-import { alertNotification } from "../../../../../store/actions";
+import {
+  alertNotification,
+  setCurrentLeftSidebarItem
+} from "../../../../../store/actions";
+import { bindActionCreators } from "redux";
 
 class PosterManageAdminComponent extends React.Component {
   constructor(props) {
@@ -43,6 +47,7 @@ class PosterManageAdminComponent extends React.Component {
 
   componentDidMount() {
     this.loadData();
+    this.props.actions.setCurrentLeftSidebarItem(1);
   }
 
   loadData() {
@@ -440,4 +445,6 @@ class PosterManageAdminComponent extends React.Component {
   }
 }
 
-export default connect()(PosterManageAdminComponent);
+export default connect(null, dispatch => ({
+  actions: bindActionCreators({ setCurrentLeftSidebarItem }, dispatch)
+}))(PosterManageAdminComponent);
