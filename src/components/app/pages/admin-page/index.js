@@ -13,6 +13,11 @@ const ManagePosts = Loadable({
   loading: () => "Loading"
 });
 
+const ManageCategory = Loadable({
+  loader: () => import("./manage-categories"),
+  loading: () => "Loading"
+});
+
 export default function AdminPage() {
   return (
     <Router>
@@ -24,6 +29,10 @@ export default function AdminPage() {
         <Route
           path="/admin/dashboard/posts"
           component={withPageTitle(ManagePosts, "Quản lý bài viết")}
+        />
+        <Route
+          path="/admin/dashboard/categories"
+          component={withPageTitle(ManageCategory, "Quản lý chuyên mục")}
         />
       </Switch>
     </Router>
