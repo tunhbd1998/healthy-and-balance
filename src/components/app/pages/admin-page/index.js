@@ -20,21 +20,21 @@ const ManageCategory = Loadable({
 
 export default function AdminPage() {
   return (
-    <Router>
-      <Switch>
-        <Route
-          path="/admin/dashboard/users"
-          component={withPageTitle(ManageUsers, "Quản lý người dùng")}
-        />
-        <Route
-          path="/admin/dashboard/posts"
-          component={withPageTitle(ManagePosts, "Quản lý bài viết")}
-        />
-        <Route
-          path="/admin/dashboard/categories"
-          component={withPageTitle(ManageCategory, "Quản lý chuyên mục")}
-        />
-      </Switch>
-    </Router>
+    // <Router>
+    <Switch>
+      <Route
+        path="/admin/dashboard/users"
+        component={withPageTitle(ManageUsers, "Quản lý người dùng")}
+      />
+      <Route
+        path="/admin/dashboard/posts"
+        component={withPageTitle(ManagePosts, "Quản lý bài viết")}
+      />
+      <Route
+        path="/admin/dashboard/categories"
+        component={withPageTitle(ManageCategory, "Quản lý chuyên mục")}
+      />
+    </Switch>
+    // </Router>
   );
 }
