@@ -8,7 +8,7 @@ import Notification from "../../commons/notification";
 import { get } from "lodash";
 import { bindActionCreators } from "redux";
 import { alertNotification } from "../../../store/actions";
-import TitleComponent from '../../commons/title';
+import TitleComponent from "../../commons/title";
 
 function MainLayout({
   haveLeftSidebar,
@@ -18,11 +18,11 @@ function MainLayout({
   onClickItem,
   notifications,
   actions,
-  title,
+  title
 }) {
   return (
     <>
-      <TitleComponent title={title}/>
+      <TitleComponent title={title} />
       <Container fluid className="hb-main-layout">
         <Row className="header">
           <Header />
@@ -35,24 +35,24 @@ function MainLayout({
                 menuItems={menuItems}
                 onClickItem={onClickItem}
               />
-              <Container className="contain-left-sidebar--content">
+              <Container className="contain-left-sidebar--content hb-scrollbar">
                 {children}
               </Container>
             </>
           ) : (
-              <Container
-                className="not-contain-left-sidebar"
-                fluid
-                style={{
-                  overflow: "auto",
-                  height: "100%",
-                  width: "100%",
-                  padding: "0",
-                }}
-              >
-                {children}
-              </Container>
-            )}
+            <Container
+              className="not-contain-left-sidebar hb-scrollbar"
+              fluid
+              style={{
+                overflow: "auto",
+                height: "100%",
+                width: "100%",
+                padding: "0"
+              }}
+            >
+              {children}
+            </Container>
+          )}
           <div className="notification-container">
             {notifications.map((notify, index) => (
               <Notification
@@ -70,11 +70,11 @@ function MainLayout({
 }
 
 const mapStateToProps = state => ({
-  notifications: get(state, "notifications"),
+  notifications: get(state, "notifications")
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ alertNotification }, dispatch),
+  actions: bindActionCreators({ alertNotification }, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

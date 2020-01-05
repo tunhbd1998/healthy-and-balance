@@ -31,7 +31,7 @@ const CommentViewer = ({ author, createdDate, content }) => {
 
 const ItemComment = ({ user, comment, post, actions, commentFilter }) => {
   const [reactLove, setReactLove] = React.useState(
-    (user.likeComments || []).findIndex(id => id === comment.id) > -1
+    (get(user, ["likeComments"]) || []).findIndex(id => id === comment.id) > -1
   );
   const [openComment, setOpenComment] = React.useState(false);
   const toggleLove = () => {
@@ -65,15 +65,15 @@ const ItemComment = ({ user, comment, post, actions, commentFilter }) => {
         content={comment.content}
       />
 
-      {user ? (
-        <div className="react-comment">
-          <div
-            className={`general-item love ${reactLove ? "active" : ""}`}
-            onClick={toggleLove}
-          >
-            <FontAwesomeIcon icon={faHeart} className={`icon-comment`} />
-            <div className="description total-love">{comment.likes}</div>
-          </div>
+      <div className="react-comment">
+        <div
+          className={`general-item love ${reactLove ? "active" : ""}`}
+          onClick={() => user && toggleLove()}
+        >
+          <FontAwesomeIcon icon={faHeart} className={`icon-comment`} />
+          <div className="description total-love">{comment.likes}</div>
+        </div>
+        {user ? (
           <div
             className={`general-item reply ${openComment ? "active" : ""}`}
             onClick={toggleComment}
@@ -81,8 +81,8 @@ const ItemComment = ({ user, comment, post, actions, commentFilter }) => {
             <FontAwesomeIcon icon={faComment} className="icon-comment" />
             <div className="description reply">Trả lời</div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
 
       <div className="wrap-reply">
         {openComment && commentFilter === "desc" ? (

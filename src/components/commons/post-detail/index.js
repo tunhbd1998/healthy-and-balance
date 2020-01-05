@@ -126,48 +126,50 @@ function PostDetail({ post, onClose, user, actions, commentFilter }) {
                 </span>
               </div>
             </div>
-            <div className="detail-content">
+            <div className="detail-content hb-scrollbar">
               <div className="post-title">{post.title}</div>
               <div
                 className="post-content"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
               <hr className="line-through" />
-              <div className="comment-content">
-                {user && commentFilter === "desc" ? (
-                  <div className="comment-form">
-                    <div className="user-comment">
-                      Bình luận với{" "}
-                      <i className="account">{user.displayName}</i>
+              <Fade duration={300}>
+                <div className="comment-content">
+                  {user && commentFilter === "desc" ? (
+                    <div className="comment-form">
+                      <div className="user-comment">
+                        Bình luận với{" "}
+                        <i className="account">{user.displayName}</i>
+                      </div>
+                      <FormComment
+                        onSubmit={content => {
+                          actions.addPostComment(post.id, content, user, null);
+                        }}
+                      />
                     </div>
-                    <FormComment
-                      onSubmit={content => {
-                        actions.addPostComment(post.id, content, user, null);
-                      }}
-                    />
+                  ) : (
+                    ""
+                  )}
+                  <div className="list-comment-in-post">
+                    <ListComment comments={get(post, "comments", []) || []} />
                   </div>
-                ) : (
-                  ""
-                )}
-                <div className="list-comment-in-post">
-                  <ListComment comments={get(post, "comments", []) || []} />
+                  {user && commentFilter === "asc" ? (
+                    <div className="comment-form">
+                      <div className="user-comment">
+                        Bình luận với{" "}
+                        <i className="account">{user.displayName}</i>
+                      </div>
+                      <FormComment
+                        onSubmit={content => {
+                          actions.addPostComment(post.id, content, user, null);
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
-                {user && commentFilter === "asc" ? (
-                  <div className="comment-form">
-                    <div className="user-comment">
-                      Bình luận với{" "}
-                      <i className="account">{user.displayName}</i>
-                    </div>
-                    <FormComment
-                      onSubmit={content => {
-                        actions.addPostComment(post.id, content, user, null);
-                      }}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
+              </Fade>
             </div>
           </div>
         </Modal.Body>

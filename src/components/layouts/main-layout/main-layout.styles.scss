@@ -15,7 +15,7 @@ $headerHeight: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background:white;
+    background: white;
     .contain-left-sidebar--content {
       width: calc(100% - #{$sidebarWidth});
       max-width: none;
@@ -26,25 +26,25 @@ $headerHeight: 50px;
 
     .contain-left-sidebar--content,
     .not-contain-left-sidebar {
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
+      // &::-webkit-scrollbar {
+      //   width: 5px;
+      // }
 
-      /* Track */
-      &::-webkit-scrollbar-track {
-        background: #f5f6f7;
-      }
+      // /* Track */
+      // &::-webkit-scrollbar-track {
+      //   background: #f5f6f7;
+      // }
 
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background: #a8e063;
-        border-radius: 5px;
-      }
+      // /* Handle */
+      // &::-webkit-scrollbar-thumb {
+      //   background: #a8e063;
+      //   border-radius: 5px;
+      // }
 
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background: #4aa112;
-      }
+      // /* Handle on hover */
+      // &::-webkit-scrollbar-thumb:hover {
+      //   background: #4aa112;
+      // }
     }
 
     .notification-container {

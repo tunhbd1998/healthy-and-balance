@@ -82,24 +82,24 @@
             overflow: auto;
             padding: 20px 70px;
 
-            &::-webkit-scrollbar {
-              width: 5px;
-            }
+            // &::-webkit-scrollbar {
+            //   width: 5px;
+            // }
 
-            /* Track */
-            &::-webkit-scrollbar-track {
-              background: rgba(179, 179, 179, 0.2);
-            }
+            // /* Track */
+            // &::-webkit-scrollbar-track {
+            //   background: rgba(179, 179, 179, 0.2);
+            // }
 
-            /* Handle */
-            &::-webkit-scrollbar-thumb {
-              background: rgba(179, 179, 179, 0.8);
-            }
+            // /* Handle */
+            // &::-webkit-scrollbar-thumb {
+            //   background: rgba(179, 179, 179, 0.8);
+            // }
 
-            /* Handle on hover */
-            &::-webkit-scrollbar-thumb:hover {
-              background: rgba(179, 179, 179, 1);
-            }
+            // /* Handle on hover */
+            // &::-webkit-scrollbar-thumb:hover {
+            //   background: rgba(179, 179, 179, 1);
+            // }
 
             .post-title {
               width: 100%;
@@ -113,13 +113,13 @@
             }
 
             .comment-content {
-              padding-top:20px;
-              .user-comment{
-                font-size:14px;
-                margin-bottom:5px;
+              padding-top: 20px;
+              .user-comment {
+                font-size: 14px;
+                margin-bottom: 5px;
               }
-              .account{
-                color:#4AA112;
+              .account {
+                color: #4aa112;
               }
             }
           }

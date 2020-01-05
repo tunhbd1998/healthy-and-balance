@@ -8,6 +8,7 @@ import { validateAll } from "indicative/validator";
 import BlankLayout from "../../../../layouts/blank-layout";
 import { signUp } from "../../../../../store/actions";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 
 function SignUp({ authInfo, actions }) {
   const [username, setUsername] = React.useState("");
@@ -67,7 +68,9 @@ function SignUp({ authInfo, actions }) {
       <Form className="form__auth" onSubmit={handleSubmit}>
         <div className="header">
           <div className="header__logo">
-            <img src="/media/images/logo/logo.png" alt="img" />
+            <Link to="/">
+              <img src="/media/images/logo/logo.png" alt="img" />
+            </Link>
           </div>
           <div className="header__title">
             <span>Đăng ký</span>

@@ -13,8 +13,30 @@ $colorMain: #255852;
 
 $sidebarWidth: 250px;
 $textColor05: rgb(228, 218, 218);
-.line-through{
-    max-width:40%;
-    margin:unset;
-    margin-top:20px;
+.line-through {
+  max-width: 40%;
+  margin: unset;
+  margin-top: 20px;
+}
+
+.hb-scrollbar {
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f5f6f7;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #a8e063;
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #4aa112;
+  }
 }
