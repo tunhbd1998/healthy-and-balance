@@ -89,6 +89,7 @@ const ItemComment = ({ user, comment, post, actions, commentFilter }) => {
           <FormComment
             hasReply={true}
             // onClick={onCloseComment}
+            onCloseForm={onCloseComment}
             onSubmit={content => {
               actions.addPostComment(post.id, content, user, comment.id);
             }}

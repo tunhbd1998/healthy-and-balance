@@ -3,7 +3,7 @@ import "./form-comment.scss";
 import { Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { get, isEmpty } from "lodash";
-const FormComment = ({ hasReply, onSubmit }) => {
+const FormComment = ({ hasReply, onSubmit, onCloseForm }) => {
   const [disabled, setDisabled] = React.useState(true);
   const [open, setOpen] = React.useState(true);
   const [content, setContent] = React.useState("");
@@ -41,7 +41,7 @@ const FormComment = ({ hasReply, onSubmit }) => {
           />
           <div className="control-comment">
             {hasReply ? (
-              <div className="cancel" onClick={onClick}>
+              <div className="cancel" onClick={onCloseForm}>
                 Huỷ
               </div>
             ) : (
