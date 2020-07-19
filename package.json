@@ -16,7 +16,7 @@
     "helmet": "^3.21.2",
     "indicative": "^7.4.1",
     "jodit-react": "^1.0.33",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "node-sass": "^4.13.0",
     "nookies": "^2.0.8",
